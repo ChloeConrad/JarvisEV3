@@ -5,11 +5,19 @@ import lejos.robotics.SampleProvider;
 public class Main {
 
 	public static void main(String[] args) {
-		Robot r = new Robot();
+		//r = new Robot();
 		//r.stopMessage("Dist : " + r.getDist());
-		simpleGetPallet(r);
+		//simpleGetPallet();
+		UltraSonicSensor US = new UltraSonicSensor(SensorPort.S1);
+		OurMotor m = new OurMotor();
+		m.surrondings(US);
+		/*m.ClockRotate(360);
 		
-
+		for(int i=0; i<20; i++) {
+			System.out.println("Dist : "+US.getDist());
+			Button.waitForAnyPress();
+		}*/
+		Button.waitForAnyPress();
 	}
 	
 	public static void simpleGetPallet(Robot r) {
