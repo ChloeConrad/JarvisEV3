@@ -1,5 +1,7 @@
 package vision;
 
 public class GitGood {
-// ceci est un test
+	public int test() {
+		return 0;
+	}
 }
