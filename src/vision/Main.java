@@ -1,6 +1,9 @@
 package vision;
 
+import lejos.hardware.Button;
+import lejos.hardware.port.SensorPort;
 import lejos.robotics.SampleProvider;
+import sensors.*;
 
 public class Main {
 

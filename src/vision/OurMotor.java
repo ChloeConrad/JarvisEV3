@@ -35,7 +35,7 @@ public class OurMotor {
     
     //avance
 	public static void forward(int s) {
-		this.forward(s, false);
+		forward(s, false);
 	}
 
 	public static void forward(int s, boolean b) {
@@ -45,10 +45,10 @@ public class OurMotor {
 	
 	//recule
 	public static void backward(int s) {
-		this.backward(s, false);
+		backward(s, false);
 	}
 
-	public static void backward(int s) {
+	public static void backward(int s, boolean b) {
 		leftMotor.rotate(-s, true);
 		rightMotor.rotate(-s, b);
 	}
@@ -100,10 +100,10 @@ public class OurMotor {
 	}
 
 	public void closeClaw() {
-    	claw.rotate(-1800);
+    	clawMotor.rotate(-1800);
     }
     public void openClaw() {
-    	claw.rotate(1800,true); //lorsqu'on ouvre la pince, pas besoin de rester immobile
+    	clawMotor.rotate(1800,true); //lorsqu'on ouvre la pince, pas besoin de rester immobile
     }
 	
 	public void surrondings(UltraSonicSensor US) {
