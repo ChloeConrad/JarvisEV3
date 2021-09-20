@@ -1,10 +1,10 @@
+package vision;
 
 import lejos.hardware.Button;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.robotics.RegulatedMotor;
 import sensors.UltraSonicSensor;
-
 
 public class OurMotor {
 	static int speed = 100;
@@ -35,14 +35,22 @@ public class OurMotor {
     
     //avance
 	public static void forward(int s) {
+		this.forward(s, false);
+	}
+
+	public static void forward(int s, boolean b) {
 		leftMotor.rotate(s, true);
-		rightMotor.rotate(s);
+		rightMotor.rotate(s, b);
 	}
 	
 	//recule
 	public static void backward(int s) {
+		this.backward(s, false);
+	}
+
+	public static void backward(int s) {
 		leftMotor.rotate(-s, true);
-		rightMotor.rotate(-s);
+		rightMotor.rotate(-s, b);
 	}
 	
 	//*** Pour speed=1000, s=785 fait un tour complet (environ)
@@ -72,11 +80,6 @@ public class OurMotor {
 		}
 	}
 	
-	public void that360() {
-		leftMotor.rotate(778,true);
-		rightMotor.rotate(-778,true);
-	}
-	
 	public void monoWheel360(String s,boolean b) {
 		int radius = 1556;
 		switch(s) {
@@ -90,16 +93,18 @@ public class OurMotor {
 			break;
 		}
 	}
-	
-	//ouvre les pinces
-	public static void openClaw(int c) {
-		clawMotor.rotate(c);
+
+	public void that360() {
+		leftMotor.rotate(778,true);
+		rightMotor.rotate(-778,true);
 	}
-	
-	//ferme les pinces
-	public static void closeClaw(int c) {
-		clawMotor.rotate(-c);
-	}
+
+	public void closeClaw() {
+    	claw.rotate(-1800);
+    }
+    public void openClaw() {
+    	claw.rotate(1800,true); //lorsqu'on ouvre la pince, pas besoin de rester immobile
+    }
 	
 	public void surrondings(UltraSonicSensor US) {
 		int[] values = new int[180];
