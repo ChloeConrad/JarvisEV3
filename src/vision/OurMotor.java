@@ -128,11 +128,13 @@ public class OurMotor {
 		}
 		System.out.println("i : "+i+ "; min = "+min+"; value(min) = "+(((float)values[min])/1000));
 		float deg = (float) (360.0 / (float)i);
-		float degMoved = min*deg;
-		int degToMove = (int) (360 - degMoved);
+		float degMoved = min*deg; //deg moved until saw that near thing
+		int degToMove = (int) (360 - degMoved); //deg to move to reach it
 		int valueToMove = 778*degToMove/360;
-		if(valueToMove > 180) {
+		if(degToMove > 180) {
+			valueToMove = 778*(360-degToMove)/360;
 			this.ClockRotate(valueToMove);
+			
 		} else {
 			this.counterClockRotate(valueToMove);
 		}
