@@ -17,6 +17,8 @@ public class UltraSonicSensor {
     
     public float getDist() {
        		USsamp.fetchSample(sample, 0);
+       		/*if(sample[0] == Float.POSITIVE_INFINITY)
+       			return 99999999;*/
        		return sample[0];
 	}
 

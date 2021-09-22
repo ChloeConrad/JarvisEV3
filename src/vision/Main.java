@@ -11,15 +11,20 @@ public class Main {
 		//r = new Robot();
 		//r.stopMessage("Dist : " + r.getDist());
 		//simpleGetPallet();
-		UltraSonicSensor US = new UltraSonicSensor(SensorPort.S1);
 		OurMotor m = new OurMotor();
-		m.surrondings(US);
+		//System.out.println("dist infinite = "+US.getDist()+"\n max float value = "+Float.MAX_VALUE);
+		//m.surrondings();
+		m.surrondings();
+		//System.out.println("I did "+m.howManyDist(US)+" measures of distance");
 		/*m.ClockRotate(360);
 		
 		for(int i=0; i<20; i++) {
 			System.out.println("Dist : "+US.getDist());
 			Button.waitForAnyPress();
 		}*/
+		
+		//To test the max number of values :
+		
 		Button.waitForAnyPress();
 	}
 	
