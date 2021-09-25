@@ -28,8 +28,16 @@ public class Test {
 	
 
 	public static void main(String[] args) {
-		float[] t = new float[]{4,2,1,3,4,3,1,2,3,4,2,1,2,3,4,2,1,3};
-		location(t);
+		//float[] t = new float[]{4,2,1,3,4,3,1,2,3,4,2,1,2,3,4,2,1,3};
+		//location(t);
+		
+		//Test of the curve in a non-lejos environnement
+		int speedFirstWheel = 100;
+		double multiplicatorSecondWheel = 0.2;
+		int rotation = 1000;
+		System.out.println("rightMotor.setSpeed("+(int) (speedFirstWheel*multiplicatorSecondWheel)+");");
+		//double durationCorrector = 1/multiplicatorSecondWheel;
+		System.out.println("leftMotor.rotate("+(int) (rotation)+", true);"+"\nrightMotor.rotate("+(int)(rotation*multiplicatorSecondWheel)+", boolCont);");
 	}
 
 }

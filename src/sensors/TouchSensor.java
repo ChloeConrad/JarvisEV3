@@ -9,7 +9,6 @@ import lejos.robotics.SampleProvider;
  *
  */
 public class TouchSensor {
-	//Sensor Class
 	private EV3TouchSensor Ts;
     public SampleProvider Tsamp;
     float [] sample;

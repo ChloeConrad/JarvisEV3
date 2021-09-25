@@ -83,13 +83,25 @@ public class OurMotor {
 		leftMotor.rotate(-rotation, true);
 		rightMotor.rotate(-rotation, boolCont);
 	}
-	
 	/**
-	 * Effectue une rotation sur lui même dans le sens inverse des aiguilles d'une montre
-	 * @param rotation Le nombre de degrés de rotation à effectuer par chaque roues
+	 * Se tourne en degres
+	 * @param degres le nombre de degres à tourner
 	 */
-	public void counterClockRotate(int rotation) {
-		this.counterClockRotate(rotation, false);
+	public void seTourner(double degres) {
+		seTourner(degres, false);
+	}
+	/**
+	 * Se tourne en degres
+	 * @param degres le nombre de degres à tourner
+	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
+	 */
+	public void seTourner(double degres, boolean boolCont) {
+		int rotation = degreeToRotation(degres);
+		if(degres>0) {
+			ClockRotate(rotation,boolCont);
+		} else {
+			counterClockRotate(rotation, boolCont);
+		}
 	}
 	/**
 	 * Effectue une rotation sur lui même dans le sens inverse des aiguilles d'une montre
@@ -99,13 +111,6 @@ public class OurMotor {
 	public void counterClockRotate(int rotation, boolean boolCont) {
 		leftMotor.rotate(-rotation, true);
 		rightMotor.rotate(rotation,boolCont);
-	}
-	/**
-	 * Effectue une rotation sur lui même dans le sens des aiguilles d'une montre
-	 * @param rotation Le nombre de degrés de rotation de roues à effectuer
-	 */
-	public void ClockRotate(int rotation) {
-		this.ClockRotate(rotation,false);
 	}
 	/**
 	 * Effectue une rotation sur lui même dans le sens des aiguilles d'une montre
@@ -176,7 +181,7 @@ public class OurMotor {
 	 */
     public void openClaw() {
     	if(!this.isClawOpen) {
-    		clawMotor.rotate(1800,true); //lorsqu'on ouvre la pince, pas besoin de rester immobile
+    		clawMotor.rotate(1800,true); 		//lorsqu'on ouvre la pince, pas besoin de rester immobile
     		isClawOpen = true;
     	}
     }
@@ -240,13 +245,13 @@ public class OurMotor {
 		float deg = (float) (360.0 / (float)i); 	//le nombre de degrés qui bougent entre chaques mesurent.
 		float degMoved = meanMin*deg; 				//le nombre de degré dont on a bougé avant de voir le plus proche
 		int degToMove = (int) (360 - degMoved); 	//le nombre de degrés à bouger pour atteindre ce point
-		int valueToMove = value360*degToMove/360;	//la valeur à donner au Clockrotate pour atteindre cette valeur.
+		int valueToMove = (int) degreeToRotation(degToMove);	//la valeur à donner au Clockrotate pour atteindre cette valeur.
 		if(degToMove > 180) {						//si on a plus de 180, c'est plus rapide de tourner dans le sens des aiguilles d'une montre
 			valueToMove = value360*(360-degToMove)/360; //il faut recalculer la valeur a bouger
-			this.ClockRotate(valueToMove);
+			this.ClockRotate(valueToMove,false);
 			
 		} else {									//sinon c'est plus rapide de tourner dans le sens inverse des aiguilles d'une montre
-			this.counterClockRotate(valueToMove);
+			this.counterClockRotate(valueToMove,false);
 		}
 		//System.out.println("Min was : "+min+"\nMin became : "+meanMin);	//debug
 	}
@@ -263,5 +268,49 @@ public class OurMotor {
 			iterator++;
 		}
 		return iterator;
+	}
+	/**
+	 * Convertit des degres en nombre de rotations. 
+	 * @param degres Le nombre de degres dont on veux bouger
+	 * @return la valeur a donner à rotate pour bouger de ces degres. 
+	 */
+	public int degreeToRotation(double degres) {
+		return (int) (value360*degres/360);
+	}
+	/**
+	 * Essai de methode pour avancer de manière incurvée.
+	 * @param speedOfFirstWheel La vitesse de la roue gauche.
+	 * @param multiplicatorOfSecondWheel Le multiplicateur de vitesse pour la roue droite
+	 * @param rotation Le nombre de degré de rotation de roue à effectuer.
+	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
+	 */
+	public void curveTry1(int speedOfFirstWheel, double multiplicatorOfSecondWheel, int rotation, boolean boolCont) {
+		leftMotor.setSpeed(speedOfFirstWheel);
+		rightMotor.setSpeed((int) (speedOfFirstWheel*multiplicatorOfSecondWheel));
+		//Si la vitesse est differente, ils risquent de s'arreter de tourner a des moments differents.
+		//Il faut donc multiplier les rotations de la roue modifié par le multiplicateur
+		leftMotor.rotate(rotation, true); //le multiplicateur est a droite, donc on l'applique a gauche
+		rightMotor.rotate((int) (rotation*multiplicatorOfSecondWheel), boolCont);
+	}
+	/**
+	 * @return Renvoie le moteur gauche.
+	 */
+	public RegulatedMotor getLeftMotor() {
+		return leftMotor;
+	}
+	/**
+	 * @return Renvoie le moteur droit.
+	 */
+	public RegulatedMotor getRightMotor() {
+		return rightMotor;
+	}
+	/**
+	 * @return Renvoie le moteur de la pince.
+	 */
+	public RegulatedMotor getClawMotor() {
+		return clawMotor;
+	}
+	public int getValue360() {
+		return value360;
 	}
 }

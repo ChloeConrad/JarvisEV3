@@ -15,6 +15,7 @@ public class Main {
 		//System.out.println("dist infinite = "+US.getDist()+"\n max float value = "+Float.MAX_VALUE);
 		//m.surrondings();
 		m.surrondings();
+		m.stopMessage("That's a stop !");
 		//System.out.println("I did "+m.howManyDist(US)+" measures of distance");
 		/*m.ClockRotate(360);
 		
@@ -23,13 +24,10 @@ public class Main {
 			Button.waitForAnyPress();
 		}*/
 		
-		//To test the max number of values :
-		
 		Button.waitForAnyPress();
 	}
 	
 	public static void simpleGetPallet(Robot r) {
-		// Attention ! Le sens des pallets compte, la partie arrondie doit etre en haut!
 		r.openClaw();
 		r.moveToObstacle(0, true);
 		while(r.pilot.isMoving()) {

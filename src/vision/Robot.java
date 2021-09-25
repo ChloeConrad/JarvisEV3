@@ -24,7 +24,6 @@ import sensors.UltraSonicSensor;
 public class Robot {
     private float speed;
     private int currentClaw;
-    //private int maxClaw;
     private int offset;
     private Wheel leftW;
     private Wheel rightW;
@@ -73,7 +72,7 @@ public class Robot {
     /* ** Debug Methods ** */
     //output message and waits for user input
     public void stopMessage(String str) {
-        LCD.refresh();
+        LCD.refresh(); //LCD pas utilisé actuellement, sur le TODO
         System.out.println(str);
         Button.waitForAnyPress();
     }
@@ -131,7 +130,7 @@ public class Robot {
         this.pilot.travel((int)((distToWall-margin)*speed),b);
     }
 
-    //make the bot do a complete turn, useless appart from the flex
+    //make the bot do a complete turn
     public void doA360() {
         this.pilot.rotate(360);
     }
