@@ -16,7 +16,11 @@ import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
 import sensors.UltraSonicSensor;
 
-
+/**
+ * Ancienne version de OurMotor, suivant movePilot, mais étant plus limité dans certains mouvements.
+ * @author mat
+ * @version 0.1
+ */
 public class Robot {
     private float speed;
     private int currentClaw;

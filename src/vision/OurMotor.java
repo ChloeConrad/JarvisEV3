@@ -7,124 +7,190 @@ import lejos.hardware.port.SensorPort;
 import lejos.robotics.RegulatedMotor;
 import sensors.UltraSonicSensor;
 
+/** Créé une interface sur le modèle de MovePilot permettant de réaliser divers mouvements et methodes plus complexes d'orientation du robot.
+ * @author mat
+ * @version 0.1
+ */
 public class OurMotor {
-	static int speed = 100;
-	static int maxClaw = 800;
-	static int value360 = 780;
-	static RegulatedMotor leftMotor = new EV3LargeRegulatedMotor(MotorPort.A);
-    static RegulatedMotor rightMotor = new EV3LargeRegulatedMotor(MotorPort.B);
-    static RegulatedMotor clawMotor = new EV3LargeRegulatedMotor(MotorPort.D);
-    UltraSonicSensor US = new UltraSonicSensor(SensorPort.S1);
+	private static int speed = 100;
+	private static int value360 = 780;
+	private boolean isClawOpen = false;
+	
+	private static RegulatedMotor leftMotor;
+    private static RegulatedMotor rightMotor;
+    private static RegulatedMotor clawMotor;
+    private static UltraSonicSensor US;
     
+    /**
+     * Initialise OurMotor, les moteurs et senseurs utilisés. 
+     */
     public OurMotor() {
     	initMotor();
     }
 	
     //initialise le moteur
-    public static void initMotor(RegulatedMotor m) {
-    	m.setSpeed(speed);
-    }
-    public static void initMotor() {
+    private static void initMotor() {
+    	leftMotor = new EV3LargeRegulatedMotor(MotorPort.A);
+        rightMotor = new EV3LargeRegulatedMotor(MotorPort.B);
+        clawMotor = new EV3LargeRegulatedMotor(MotorPort.D);
     	initMotor(leftMotor);
     	initMotor(rightMotor);
     	initMotor(clawMotor);
+    	US = new UltraSonicSensor(SensorPort.S1);
+    }
+    private static void initMotor(RegulatedMotor m) {
+    	m.setSpeed(speed);
     }
     
-    //output message and waits for user input
+    /**
+     * Ecrit un message sur l'écran du robot puis interromps l'execution dans l'attente d'une pression de bouton
+     * @param str String contenant le message à écrire
+     */
     public static void stopMessage(String str) {
     	System.out.println(str);
     	Button.waitForAnyPress();
     }
     
-    //avance
-	public static void forward(int s) {
-		forward(s, false);
+    /**
+     * Effectue un mouvement vers l'avant.
+     * @param rotation Le nombre de degrés de rotation de roues à effectuer
+     */
+	public static void forward(int rotation) {
+		forward(rotation, false);
 	}
-
-	public static void forward(int s, boolean b) {
-		leftMotor.rotate(s, true);
-		rightMotor.rotate(s, b);
-	}
-	
-	//recule
-	public static void backward(int s) {
-		backward(s, false);
-	}
-
-	public static void backward(int s, boolean b) {
-		leftMotor.rotate(-s, true);
-		rightMotor.rotate(-s, b);
+	/**
+	 * Effectue un mouvement vers l'avant.
+	 * @param rotation Le nombre de degrés de rotation de roues à effectuer
+	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
+	 */
+	public static void forward(int rotation, boolean boolCont) {
+		leftMotor.rotate(rotation, true);
+		rightMotor.rotate(rotation, boolCont);
 	}
 	
-	//*** Pour speed=1000, s=785 fait un tour complet (environ)
-	//rotation avec les deux roues dans le sens inverse des aiguilles d'une montre
-	public void counterClockRotate(int s) {
-		this.counterClockRotate(s, false);
+	/**
+	 * Effectue un mouvement vers l'arrière
+	 * @param rotation Le nombre de degrés de rotation de roues à effectuer
+	 */
+	public static void backward(int rotation) {
+		backward(rotation, false);
 	}
-	public void counterClockRotate(int s, boolean b) {
-		leftMotor.rotate(-s, true);
-		rightMotor.rotate(s,b);
-	}
-	
-	//rotation avec les deux roues dans le sens des aiguilles d'une montre
-	public void ClockRotate(int s) {
-		this.ClockRotate(s,false);
-	}
-	
-	public void ClockRotate(int s, boolean b) {
-		leftMotor.rotate(s, true);
-		rightMotor.rotate(-s, b);
+	/**
+	 * Effectue un mouvement vers l'arrière
+	 * @param rotation Le nombre de degrés de rotation de roues à effectuer
+	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
+	 */
+	public static void backward(int rotation, boolean boolCont) {
+		leftMotor.rotate(-rotation, true);
+		rightMotor.rotate(-rotation, boolCont);
 	}
 	
-	public void monoWheel180(String s,boolean b) {
+	/**
+	 * Effectue une rotation sur lui même dans le sens inverse des aiguilles d'une montre
+	 * @param rotation Le nombre de degrés de rotation à effectuer par chaque roues
+	 */
+	public void counterClockRotate(int rotation) {
+		this.counterClockRotate(rotation, false);
+	}
+	/**
+	 * Effectue une rotation sur lui même dans le sens inverse des aiguilles d'une montre
+	 * @param rotation Le nombre de degrés de rotation de roues à effectuer
+	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
+	 */
+	public void counterClockRotate(int rotation, boolean boolCont) {
+		leftMotor.rotate(-rotation, true);
+		rightMotor.rotate(rotation,boolCont);
+	}
+	/**
+	 * Effectue une rotation sur lui même dans le sens des aiguilles d'une montre
+	 * @param rotation Le nombre de degrés de rotation de roues à effectuer
+	 */
+	public void ClockRotate(int rotation) {
+		this.ClockRotate(rotation,false);
+	}
+	/**
+	 * Effectue une rotation sur lui même dans le sens des aiguilles d'une montre
+	 * @param rotation Le nombre de degrés de rotation de roues à effectuer
+	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
+	 */
+	public void ClockRotate(int rotation, boolean boolCont) {
+		leftMotor.rotate(rotation, true);
+		rightMotor.rotate(-rotation, boolCont);
+	}
+	/**
+	 * Effectue une rotation sur lui même de 180° en ne bougeant qu'une seule roue
+	 * @param direction String contenant "left" ou "right" selon la roue a utiliser
+	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
+	 * @deprecated Utilisez plutôt ClockRotate ou that360.
+	 */
+	public void monoWheel180(String wheel,boolean boolCont) {
 		int radius = value360;
-		switch(s) {
+		switch(wheel) {
 		case "left" :
-			leftMotor.rotate(radius,b);
+			leftMotor.rotate(radius,boolCont);
 			break;
 		case "right" :
-			rightMotor.rotate(radius,b);
+			rightMotor.rotate(radius,boolCont);
 			break;
 		default :
 			break;
 		}
 	}
-	
-	public void monoWheel360(String s,boolean b) {
-		int radius = 1556;
-		switch(s) {
+	/**
+	 * Effectue une rotation sur lui même de 360° en ne bougeant qu'une seule roue
+	 * @param direction String contenant "left" ou "right" selon la roue a utiliser
+	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
+	 * @deprecated Utilisez plutôt ClockRotate ou that360.
+	 */
+	public void monoWheel360(String direction,boolean boolCont) {
+		int radius = value360*2;
+		switch(direction) {
 		case "left" :
-			leftMotor.rotate(radius,b);
+			leftMotor.rotate(radius,boolCont);
 			break;
 		case "right" :
-			rightMotor.rotate(radius,b);
+			rightMotor.rotate(radius,boolCont);
 			break;
 		default :
 			break;
 		}
 	}
-
-	public void that360() {
+	/**
+	 * Effectue une rotation d'exactement 360°
+	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
+	 */
+	public void that360(boolean boolCont) {
 		leftMotor.rotate(value360,true);
-		rightMotor.rotate(-value360,true);
+		rightMotor.rotate(-value360,boolCont);
 	}
-
+	/**
+	 * Ferme la pince
+	 */
 	public void closeClaw() {
-    	clawMotor.rotate(-1800);
+		if(this.isClawOpen) {
+			clawMotor.rotate(-1800);
+			isClawOpen = false;
+		}
     }
+	/**
+	 * Ouvre la pince
+	 */
     public void openClaw() {
-    	clawMotor.rotate(1800,true); //lorsqu'on ouvre la pince, pas besoin de rester immobile
+    	if(!this.isClawOpen) {
+    		clawMotor.rotate(1800,true); //lorsqu'on ouvre la pince, pas besoin de rester immobile
+    		isClawOpen = true;
+    	}
     }
 	
-    /* Probleme a resoudre : l'imprecision fait que la valeure minimal est a plusieurs endroits.
-     * Solution proposé : une fois que j'ai un min, je balaie la zone sur x degres pour estimer
-     * le debut et la fin du minimum et faire une moyenne de l'endroit ou aller.  */
+    /**
+     * Fait un tour sur lui même, trouve l'objet le plus proche et tourne dans sa direction
+     */
 	public void surrondings() {
 		float[] values = new float[10000];
 		for(int k = 0; k<10000;k++)
 			values [k] = 9999999;
 		int i = 0;
-		this.that360();
+		this.that360(true);
 		System.out.println("Doing the 360");
 		while(leftMotor.isMoving()) {
 			values[i] = US.getDist();
@@ -169,61 +235,15 @@ public class OurMotor {
 			this.counterClockRotate(valueToMove);
 		}
 		System.out.println("Min was : "+min+"\nMin became : "+meanMin);
-		//this.balaie(values[min]);
 	}
 	
-	//This function is completely useless, considering the fact that i can do it entirely with code.
-	public void balaie(float min) {
-		//En théorie je suis déja à l'entrée gauche du point le plus court.
-		//J'ai besoin de l'entree droite.
-		//les valeurs sont de la forme 0,345
-		//tant que je vois des valeurs arrondis au centieme qui sont similaire, je tourne. 
-		//je bouge donc de 45°
-		int mint = (int)(min*100);
-		int valueToMove = value360*(90)/360;
-		float[] values = new float[3000];
-		for(int k = 0; k<3000;k++)
-			values[k] = 9999999;
-		int i = 0;
-		//this.ClockRotate(valueToMove, true);
-		int temp = (int)(US.getDist()*100);
-		while(Math.abs(temp-mint) <= 4) {
-			temp = (int)(US.getDist()*100);
-			this.counterClockRotate(value360/360);
-		}
-		this.ClockRotate(value360*(2)/360);
-		/*
-		while(leftMotor.isMoving()) {
-			//values[i] = US.getDist();
-			int temp = (int)(US.getDist()*100);
-			i++;
-			if (Math.abs(temp-mint) > 3) {
-				System.out.println("Mint = "+mint+" current = "+temp);
-				leftMotor.stop();
-				rightMotor.stop();
-				break;
-			}
-			try {
-				Thread.sleep(5);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		/*
-		for(int j=0; j<i;j++) {
-			if(values[j]*100 != mint) {
-				leftMotor.stop();
-				rightMotor.stop();
-				break;
-			}
-		}*/
-		System.out.println("*beep* *boop*");
-	}
-	
+	/**
+	 * Fait un tour sur lui même et mesure continuellement les distances face à lui
+	 * @return Renvoie un integer contenant le nombre de distance qu'a pris le robot pendant un tour.
+	 */
 	public int howManyDist() {
 		int iterator = 0;
-		this.that360();
+		this.that360(true);
 		while(leftMotor.isMoving()) {
 			US.getDist();
 			iterator++;
