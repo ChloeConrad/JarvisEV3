@@ -28,7 +28,6 @@ public class OurMotor {
     	initMotor();
     }
 	
-    //initialise le moteur
     private static void initMotor() {
     	leftMotor = new EV3LargeRegulatedMotor(MotorPort.A);
         rightMotor = new EV3LargeRegulatedMotor(MotorPort.B);
@@ -46,7 +45,7 @@ public class OurMotor {
      * Ecrit un message sur l'écran du robot puis interromps l'execution dans l'attente d'une pression de bouton
      * @param str String contenant le message à écrire
      */
-    public static void stopMessage(String str) {
+    public void stopMessage(String str) {
     	System.out.println(str);
     	Button.waitForAnyPress();
     }
@@ -186,55 +185,70 @@ public class OurMotor {
      * Fait un tour sur lui même, trouve l'objet le plus proche et tourne dans sa direction
      */
 	public void surrondings() {
-		float[] values = new float[10000];
+		float[] values = new float[10000]; 		//stock les mesures faites par le senseur
 		for(int k = 0; k<10000;k++)
-			values [k] = 9999999;
+			values [k] = 9999999; 				//initialise les valeurs à une très grande valeur. 
+												//Dans les faits les cases à cette valeur ne devraient jamais être atteinte
 		int i = 0;
-		this.that360(true);
-		System.out.println("Doing the 360");
-		while(leftMotor.isMoving()) {
-			values[i] = US.getDist();
-			i++;
-			try {
-				Thread.sleep(5);
+		this.that360(true);						//fait un tour sur lui même et passe a la suite sans attendre
+		//System.out.println("Doing the 360");	//Pour le debug
+		while(leftMotor.isMoving()) {			//tant que le robot est en train de bouger
+			values[i] = US.getDist();			//je stock la valeur de la distance
+			i++;					
+			try {								//try-catch necessaire pour faire le Thread.sleep
+				Thread.sleep(5);				//Le son se deplace à 36 m/s, la distance max est 2,5m, 
+												//dans la théorie on pourrait attendre 1/7 ms, dans les faits si on met juste
+												//Thread.sleep(1) ça commence à faire n'importe quoi, il y a des imprecisions. à 5ms c'est bien.
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Searching for min..");
+		//System.out.println("Searching for min.."); //pour le debug
 		int min = 0;
-		for(int j = 0; j < i; j++) {
-			if(values[j] < values[min]) {
+		for(int j = 0; j < i; j++) {			//pour j allant de 0 à la valeur max de i, donc la dernière entrée
+												//du tableau utilisé,
+			if(values[j] < values[min]) {		//on cherche la valeur minimal du tableau.
 				min = j;
 			}
 		}
-		System.out.println("Calculating the angle..");
-		System.out.println("i : "+i+ "; min = "+min+"; value(min) = "+(values[min]));
-		
-		/* Search the scope of the values */
+		//System.out.println("i : "+i+ "; min = "+min+"; value(min) = "+(values[min])); //pour le debug
+		/* Pour les lignes qui suivent, 
+		 * on va chercher deux minimums plus large que le minimu, parce que le fait que le robot
+		 * voit avec un angle fait qu'on se retrouve avec un grand nombre de cases dans lesquelles
+		 * il voit la distance minimale. Le robot tournant dans le sens des aiguilles d'une montre,
+		 * la première valeur du tableau qui vaux le minimum sera à gauche du palet, et pas en plein
+		 * dessus. Donc on cherche a determiner de quelle case à quelle case on voit le point le plus proche.
+		 * donc on va aller voir a gauche, en arrondissant au centième, et en cherchant un écart superieur à
+		 * 0.05, et pas 0.01, parce que le senseur n'est pas parfait, donc on a des points ou il voit le
+		 * au dessus du mimum alors qu'il est en plein dessus. Par essai et erreur, 0.05 fonctionne le mieux. 
+		 * Moins, et c'est trop sensibles aux imprecisions, plus et on a un angle de 90°.
+		 * donc il cherche à gauche et a droite du palet, voit le dernier point ou il voit le palet
+		 * puis fait une moyenne des numeros de case pour viser le centre.
+		 */
 		int valueCounterClock = min;
 		int valueClock = min;
 		while(Math.abs(values[valueCounterClock]-values[min]) < 0.05) {
 			valueCounterClock--;
 		}
-		while(Math.abs(values[valueClock]-values[min]) < 0.04) {
+		while(Math.abs(values[valueClock]-values[min]) < 0.05) {
 			valueClock++;
 		}
-		int meanMin = (valueCounterClock+valueClock)/2;
+		int meanMin = (valueCounterClock+valueClock)/2; //ça c'est le centre.
+		/* ------ Fin du calcul de la moyenne ------ */
 		
-		float deg = (float) (360.0 / (float)i);
-		float degMoved = meanMin*deg; //deg moved until saw that near thing
-		int degToMove = (int) (360 - degMoved); //deg to move to reach it
-		int valueToMove = value360*degToMove/360;
-		if(degToMove > 180) {
-			valueToMove = value360*(360-degToMove)/360;
+		float deg = (float) (360.0 / (float)i); 	//le nombre de degrés qui bougent entre chaques mesurent.
+		float degMoved = meanMin*deg; 				//le nombre de degré dont on a bougé avant de voir le plus proche
+		int degToMove = (int) (360 - degMoved); 	//le nombre de degrés à bouger pour atteindre ce point
+		int valueToMove = value360*degToMove/360;	//la valeur à donner au Clockrotate pour atteindre cette valeur.
+		if(degToMove > 180) {						//si on a plus de 180, c'est plus rapide de tourner dans le sens des aiguilles d'une montre
+			valueToMove = value360*(360-degToMove)/360; //il faut recalculer la valeur a bouger
 			this.ClockRotate(valueToMove);
 			
-		} else {
+		} else {									//sinon c'est plus rapide de tourner dans le sens inverse des aiguilles d'une montre
 			this.counterClockRotate(valueToMove);
 		}
-		System.out.println("Min was : "+min+"\nMin became : "+meanMin);
+		//System.out.println("Min was : "+min+"\nMin became : "+meanMin);	//debug
 	}
 	
 	/**
