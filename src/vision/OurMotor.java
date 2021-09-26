@@ -135,7 +135,9 @@ public class OurMotor {
 			valueToMove = 778*(360-degToMove)/360;
 			this.ClockRotate(valueToMove);
 			
-		} else {
+		} 
+		
+		else {
 			this.counterClockRotate(valueToMove);
 		}
 		
