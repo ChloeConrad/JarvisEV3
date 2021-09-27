@@ -16,7 +16,7 @@ public class Main {
 		//m.surrondings();
 		//m.surrondings();
 		Jarvis j = new Jarvis();
-		j.identifyNearest();
+		//j.identifyNearest();
 		j.getPilote().curveTry1(500, 0.75, 2000, false);
 		//m.stopMessage("That's a stop !");
 		//System.out.println("I did "+m.howManyDist(US)+" measures of distance");
