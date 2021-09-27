@@ -13,7 +13,7 @@ import sensors.UltraSonicSensor;
  */
 public class OurMotor {
 	private static int speed = 500;
-	private static int acceleration = 10;
+	private static int acceleration = 100;
 	private static int value360 = 780;
 	public static int distFor1000 = 0;
 	private boolean isClawOpen = false;
