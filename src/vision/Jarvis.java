@@ -1,7 +1,9 @@
 package vision;
 
+import lejos.hardware.Button;
 import lejos.hardware.port.SensorPort;
 import lejos.robotics.navigation.MovePilot;
+import sensors.TouchSensor;
 import sensors.UltraSonicSensor;
 /**
  * Classe du robot servant à définir son comportement
@@ -18,6 +20,7 @@ public class Jarvis{
 	private final static int PALET=4;
 	private final static int NOPALET=5;
 	private OurMotor pilote;
+	private TouchSensor s;
 	private double[] palets;
 	private int notrePosition;
 	private int enemyPosition;
@@ -29,6 +32,7 @@ public class Jarvis{
 		for (int i = 0; i<9; i++) {
 			palets[i]=1;
 		}
+		s= new TouchSensor(SensorPort.S3);
 		etat=DEPART;
 	}
 	public double[] getPalets() {
@@ -53,7 +57,113 @@ public class Jarvis{
 	 * Algo simple pour mettre le premier but, il utilise les attributs notrePosition et enemyPosition pour déterminer quel palet récupérer
 	 */
 	public void premierBut() {
-		
+		switch (notrePosition) {
+		case 0:
+			switch(enemyPosition) {
+			case 0:
+				pilote.openClaw();
+				OurMotor.forward(0.60);
+				if(s.getTouch()==1) pilote.closeClaw();
+				//pilote.curveTry1(100, 1000, 1000, false);
+				pilote.seTourner(45,false);
+				OurMotor.forward(0.40);
+				pilote.seTourner(-45,false);
+				OurMotor.forward(1.20);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			case 1:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			case 2:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			}
+			break;
+		case 1:
+			switch(enemyPosition) {
+			case 0:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			case 1:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			case 2:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			}
+			break;
+		case 2:
+			switch(enemyPosition) {
+			case 0:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			case 1:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			case 2:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			}
+			break;
+		}
 	}
 	/**
 	 * Permet de mettre la valeur du palet 
@@ -130,6 +240,7 @@ public class Jarvis{
 		 */
 		int valueCounterClock = min;
 		int valueClock = min;
+		System.out.println("I'm stuck ! c : "+valueClock+" - cc : "+valueCounterClock);
 		while(Math.abs(values[valueCounterClock]-values[min]) < 0.05) {
 			valueCounterClock--;
 		}
@@ -143,16 +254,16 @@ public class Jarvis{
 		float degMoved = meanMin*deg; 				//le nombre de degré dont on a bougé avant de voir le plus proche
 		int degToMove = (int) (360 - degMoved); 	//le nombre de degrés à bouger pour atteindre ce point
 		//int valueToMove = (int) pilote.degreeToRotation(degToMove);	//la valeur à donner au Clockrotate pour atteindre cette valeur.
+		//System.out.println("right before the if. DegToMove = "+degToMove);
 		if(degToMove > 180) {						//si on a plus de 180, c'est plus rapide de tourner dans le sens des aiguilles d'une montre
 			//valueToMove = pilote.getValue360()*(360-degToMove)/360; //il faut recalculer la valeur a bouger
 			//pilote.ClockRotate(valueToMove,false);
 			pilote.seTourner(360-degToMove);
-			
 		} else {									//sinon c'est plus rapide de tourner dans le sens inverse des aiguilles d'une montre
 			//pilote.counterClockRotate(valueToMove,false);
 			pilote.seTourner(-degToMove);
 		}
-		//System.out.println("Min was : "+min+"\nMin became : "+meanMin);	//debug
+		System.out.println("Min was : "+min+"\nMin became : "+meanMin);	//debug
 		return values[meanMin];
 	}
 	/**
@@ -178,12 +289,34 @@ public class Jarvis{
 		 * faire le chemin vers les buts, verifier regulierement la distance devant nous
 		 * quand on est dans les buts, lacher.
 		 */
+		//Hello ! 
 	}
 	/**
 	 * Methode permettant de mettre Jarvis en recherche
 	 */
 	public void setEtatRecherche() {
-		
+		etat=RECHERCHE;
+	}
+	
+	public OurMotor getPilote() {
+		return this.pilote;
+	}
+	public  void setPositions() {
+		System.out.println("Quel est ma position? 0 Gauche 1 Bas 2 Droite");
+		Button.waitForAnyPress();
+		int p= Button.readButtons();
+		if (p==Button.ID_LEFT) notrePosition=0;
+		else if (p==Button.ID_DOWN) notrePosition=1;
+		else if (p==Button.ID_RIGHT) notrePosition=2;
+		System.out.println("Quel est la position adverse? 0 Gauche 1 Bas 2 Droite");
+		Button.waitForAnyPress();
+		int q= Button.readButtons();
+		if (q==Button.ID_LEFT) enemyPosition=0;
+		else if (q==Button.ID_DOWN) enemyPosition=1;
+		else if (q==Button.ID_RIGHT) enemyPosition=2;
+		System.out.println("Je suis en position"+notrePosition+"Iron Man est en position"+enemyPosition);
+		Button.waitForAnyPress();
+		etat=DEPART;
 	}
 	
 
