@@ -17,7 +17,7 @@ public class Main {
 		//m.surrondings();
 		Jarvis j = new Jarvis();
 		//j.identifyNearest();
-		j.getPilote().curveTry1(500, 0.75, 2000, false);
+		//j.getPilote().curveTry1(500, 0.75, 2000, false);
 		//m.stopMessage("That's a stop !");
 		//System.out.println("I did "+m.howManyDist(US)+" measures of distance");
 		/*m.ClockRotate(360);
@@ -26,8 +26,11 @@ public class Main {
 			System.out.println("Dist : "+US.getDist());
 			Button.waitForAnyPress();
 		}*/
+		j.setPositions();
+		
 		
 		Button.waitForAnyPress();
+		
 	}
 	
 	public static void simpleGetPallet(Robot r) {

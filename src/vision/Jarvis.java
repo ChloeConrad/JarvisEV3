@@ -303,11 +303,12 @@ public class Jarvis{
 		else if (p==Button.ID_DOWN) notrePosition=1;
 		else if (p==Button.ID_RIGHT) notrePosition=2;
 		System.out.println("Quel est la position adverse? 0 Gauche 1 Bas 2 Droite");
+		Button.waitForAnyPress();
 		int q= Button.readButtons();
 		if (q==Button.ID_LEFT) enemyPosition=0;
 		else if (q==Button.ID_DOWN) enemyPosition=1;
 		else if (q==Button.ID_RIGHT) enemyPosition=2;
-		System.out.println(notrePosition+" HAHA"+enemyPosition);
+		System.out.println("Je suis en position"+notrePosition+"Iron Man est en position"+enemyPosition);
 		Button.waitForAnyPress();
 		etat=DEPART;
 	}
