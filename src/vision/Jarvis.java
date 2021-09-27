@@ -54,7 +54,110 @@ public class Jarvis{
 	 * Algo simple pour mettre le premier but, il utilise les attributs notrePosition et enemyPosition pour déterminer quel palet récupérer
 	 */
 	public void premierBut() {
-		
+		switch (notrePosition) {
+		case 0:
+			switch(enemyPosition) {
+			case 0:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			case 1:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			case 2:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			}
+			break;
+		case 1:
+			switch(enemyPosition) {
+			case 0:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			case 1:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			case 2:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			}
+			break;
+		case 2:
+			switch(enemyPosition) {
+			case 0:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			case 1:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			case 2:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			}
+			break;
+		}
 	}
 	/**
 	 * Permet de mettre la valeur du palet 
