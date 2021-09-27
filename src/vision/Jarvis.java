@@ -1,5 +1,6 @@
 package vision;
 
+import lejos.hardware.Button;
 import lejos.hardware.port.SensorPort;
 import lejos.robotics.navigation.MovePilot;
 import sensors.UltraSonicSensor;
@@ -189,6 +190,22 @@ public class Jarvis{
 	
 	public OurMotor getPilote() {
 		return this.pilote;
+	}
+	public  void setPositions() {
+		System.out.println("Quel est ma position? 0 Gauche 1 Bas 2 Droite");
+		Button.waitForAnyPress();
+		int p= Button.readButtons();
+		if (p==Button.ID_LEFT) notrePosition=0;
+		else if (p==Button.ID_DOWN) notrePosition=1;
+		else if (p==Button.ID_RIGHT) notrePosition=2;
+		System.out.println("Quel est la position adverse? 0 Gauche 1 Bas 2 Droite");
+		int q= Button.readButtons();
+		if (q==Button.ID_LEFT) enemyPosition=0;
+		else if (q==Button.ID_DOWN) enemyPosition=1;
+		else if (q==Button.ID_RIGHT) enemyPosition=2;
+		System.out.println(notrePosition+" HAHA"+enemyPosition);
+		Button.waitForAnyPress();
+		etat=DEPART;
 	}
 	
 
