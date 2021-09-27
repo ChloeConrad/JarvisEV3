@@ -54,7 +54,110 @@ public class Jarvis{
 	 * Algo simple pour mettre le premier but, il utilise les attributs notrePosition et enemyPosition pour déterminer quel palet récupérer
 	 */
 	public void premierBut() {
-		
+		switch (notrePosition) {
+		case 0:
+			switch(enemyPosition) {
+			case 0:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			case 1:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			case 2:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			}
+			break;
+		case 1:
+			switch(enemyPosition) {
+			case 0:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			case 1:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			case 2:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			}
+			break;
+		case 2:
+			switch(enemyPosition) {
+			case 0:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			case 1:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			case 2:
+				pilote.openClaw();
+				pilote.forward(60);
+				pilote.closeClaw();
+				pilote.curveTry1(100, 1000, 1000, false);
+				pilote.forward(120);
+				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
+				pilote.openClaw();
+				etat=BUT;
+				break;
+			}
+			break;
+		}
 	}
 	/**
 	 * Permet de mettre la valeur du palet 
@@ -200,11 +303,12 @@ public class Jarvis{
 		else if (p==Button.ID_DOWN) notrePosition=1;
 		else if (p==Button.ID_RIGHT) notrePosition=2;
 		System.out.println("Quel est la position adverse? 0 Gauche 1 Bas 2 Droite");
+		Button.waitForAnyPress();
 		int q= Button.readButtons();
 		if (q==Button.ID_LEFT) enemyPosition=0;
 		else if (q==Button.ID_DOWN) enemyPosition=1;
 		else if (q==Button.ID_RIGHT) enemyPosition=2;
-		System.out.println(notrePosition+" HAHA"+enemyPosition);
+		System.out.println("Je suis en position"+notrePosition+"Iron Man est en position"+enemyPosition);
 		Button.waitForAnyPress();
 		etat=DEPART;
 	}
