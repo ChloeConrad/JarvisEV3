@@ -3,6 +3,7 @@ package vision;
 import lejos.hardware.Button;
 import lejos.hardware.port.SensorPort;
 import lejos.robotics.navigation.MovePilot;
+import sensors.TouchSensor;
 import sensors.UltraSonicSensor;
 /**
  * Classe du robot servant à définir son comportement
@@ -19,6 +20,7 @@ public class Jarvis{
 	private final static int PALET=4;
 	private final static int NOPALET=5;
 	private OurMotor pilote;
+	private TouchSensor s;
 	private double[] palets;
 	private int notrePosition;
 	private int enemyPosition;
@@ -30,6 +32,7 @@ public class Jarvis{
 		for (int i = 0; i<9; i++) {
 			palets[i]=1;
 		}
+		s= new TouchSensor(SensorPort.S3);
 		etat=DEPART;
 	}
 	public double[] getPalets() {
@@ -59,10 +62,13 @@ public class Jarvis{
 			switch(enemyPosition) {
 			case 0:
 				pilote.openClaw();
-				pilote.forward(60);
-				pilote.closeClaw();
-				pilote.curveTry1(100, 1000, 1000, false);
-				pilote.forward(120);
+				OurMotor.forward(0.60);
+				if(s.getTouch()==1) pilote.closeClaw();
+				//pilote.curveTry1(100, 1000, 1000, false);
+				pilote.seTourner(45,false);
+				OurMotor.forward(0.40);
+				pilote.seTourner(-45,false);
+				OurMotor.forward(1.20);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
 				pilote.openClaw();
 				etat=BUT;
@@ -289,7 +295,7 @@ public class Jarvis{
 	 * Methode permettant de mettre Jarvis en recherche
 	 */
 	public void setEtatRecherche() {
-		
+		etat=RECHERCHE;
 	}
 	
 	public OurMotor getPilote() {
