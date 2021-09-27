@@ -62,13 +62,13 @@ public class Jarvis{
 			switch(enemyPosition) {
 			case 0:
 				pilote.openClaw();
-				OurMotor.forward(0.60);
+				OurMotor.forward(0.65);
 				if(s.getTouch()==1) pilote.closeClaw();
 				//pilote.curveTry1(100, 1000, 1000, false);
 				pilote.seTourner(45,false);
 				OurMotor.forward(0.40);
 				pilote.seTourner(-45,false);
-				OurMotor.forward(1.20);
+				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
 				pilote.openClaw();
 				etat=BUT;

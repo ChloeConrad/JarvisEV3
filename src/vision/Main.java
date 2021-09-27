@@ -13,13 +13,12 @@ public class Main {
 		//simpleGetPallet();
 		//OurMotor m = new OurMotor();
 		//System.out.println("dist infinite = "+US.getDist()+"\n max float value = "+Float.MAX_VALUE);
-		//m.surrondings();
-		//m.surrondings();
 		Jarvis j = new Jarvis();
-		j.setPositions();
+		j.getPilote().curveTry1(500, 0.5, 1000, false);
+		/*j.setPositions();
 		Button.waitForAnyPress();
 		j.premierBut();
-		
+		*/
 		Button.waitForAnyPress();
 		
 	}
