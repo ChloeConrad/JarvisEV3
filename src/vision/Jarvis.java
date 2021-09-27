@@ -1,5 +1,6 @@
 package vision;
 
+import lejos.hardware.Button;
 import lejos.hardware.port.SensorPort;
 import lejos.robotics.navigation.MovePilot;
 import sensors.UltraSonicSensor;
@@ -53,6 +54,14 @@ public class Jarvis{
 	 * Algo simple pour mettre le premier but, il utilise les attributs notrePosition et enemyPosition pour déterminer quel palet récupérer
 	 */
 	public void premierBut() {
+		switch (notrePosition) {
+		case 0:
+			switch (enemyPosition) {
+			case 0:
+				pilote.openClaw();
+				pilote.forward(10000);
+			}
+		}
 		
 	}
 	/**
@@ -60,29 +69,42 @@ public class Jarvis{
 	 * @param a à 0 lorsqu'on l'a récupéré
 	 */
 	public void valeurPaletZero(int a) {
-	
-		
+		palets[a]=0;
 	}
 	/**
 	 * en prenant en compte @param enemyPosition on diminue à 50% la valeur des palets de sa colonne
 	 */
 	public void valeurPalet50() {
-		
+		if( enemyPosition == 0) {
+			palets[0]=0.5;
+			palets[1]=0.5;
+			palets[2]=0.5;
+		}
+		else if(enemyPosition==1) {
+			palets[3]=0.5;
+			palets[4]=0.5;
+			palets[5]=0.5;
+		}
+		else{
+			palets[6]=0.5;
+			palets[7]=0.5;
+			palets[8]=0.5;
+		}
 	}
 	/**
 	 * Methode permetant au robot de se déplacer de 
 	 * @param distance centimetre
 	 */
-	public void seDeplacer(double distance) {
-		
-	}
+	//public void seDeplacer(double distance) {
+	// methode presente dans ourmotor
+	//}
 	/**
 	 * Methode permetant au robot de se tourner de
 	 * @param degre
 	 */
-	public void seTourner(double degre) {
-		
-	}
+	//public void seTourner(double degre) {
+	// la meme	
+	//}
 	
 	/**
 	 * Méthode identifiant l'objet le plus proche et se tournant dans sa direction
@@ -184,6 +206,23 @@ public class Jarvis{
 	 */
 	public void setEtatRecherche() {
 		
+	}
+	
+	public  void setPositions() {
+		System.out.println("Quel est ma position? 0 Gauche 1 Bas 2 Droite");
+		Button.waitForAnyPress();
+		int p= Button.readButtons();
+		if (p==Button.ID_LEFT) notrePosition=0;
+		else if (p==Button.ID_DOWN) notrePosition=1;
+		else if (p==Button.ID_RIGHT) notrePosition=2;
+		System.out.println("Quel est la position adverse? 0 Gauche 1 Bas 2 Droite");
+		int q= Button.readButtons();
+		if (q==Button.ID_LEFT) enemyPosition=0;
+		else if (q==Button.ID_DOWN) enemyPosition=1;
+		else if (q==Button.ID_RIGHT) enemyPosition=2;
+		System.out.println(notrePosition+" HAHA"+enemyPosition);
+		Button.waitForAnyPress();
+		etat=DEPART;
 	}
 	
 
