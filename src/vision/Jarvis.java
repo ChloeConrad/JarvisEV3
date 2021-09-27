@@ -130,6 +130,7 @@ public class Jarvis{
 		 */
 		int valueCounterClock = min;
 		int valueClock = min;
+		System.out.println("I'm stuck ! c : "+valueClock+" - cc : "+valueCounterClock);
 		while(Math.abs(values[valueCounterClock]-values[min]) < 0.05) {
 			valueCounterClock--;
 		}
@@ -143,16 +144,16 @@ public class Jarvis{
 		float degMoved = meanMin*deg; 				//le nombre de degré dont on a bougé avant de voir le plus proche
 		int degToMove = (int) (360 - degMoved); 	//le nombre de degrés à bouger pour atteindre ce point
 		//int valueToMove = (int) pilote.degreeToRotation(degToMove);	//la valeur à donner au Clockrotate pour atteindre cette valeur.
+		//System.out.println("right before the if. DegToMove = "+degToMove);
 		if(degToMove > 180) {						//si on a plus de 180, c'est plus rapide de tourner dans le sens des aiguilles d'une montre
 			//valueToMove = pilote.getValue360()*(360-degToMove)/360; //il faut recalculer la valeur a bouger
 			//pilote.ClockRotate(valueToMove,false);
 			pilote.seTourner(360-degToMove);
-			
 		} else {									//sinon c'est plus rapide de tourner dans le sens inverse des aiguilles d'une montre
 			//pilote.counterClockRotate(valueToMove,false);
 			pilote.seTourner(-degToMove);
 		}
-		//System.out.println("Min was : "+min+"\nMin became : "+meanMin);	//debug
+		System.out.println("Min was : "+min+"\nMin became : "+meanMin);	//debug
 		return values[meanMin];
 	}
 	/**
@@ -184,6 +185,10 @@ public class Jarvis{
 	 */
 	public void setEtatRecherche() {
 		
+	}
+	
+	public OurMotor getPilote() {
+		return this.pilote;
 	}
 	
 

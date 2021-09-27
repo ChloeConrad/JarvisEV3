@@ -11,11 +11,14 @@ public class Main {
 		//r = new Robot();
 		//r.stopMessage("Dist : " + r.getDist());
 		//simpleGetPallet();
-		OurMotor m = new OurMotor();
+		//OurMotor m = new OurMotor();
 		//System.out.println("dist infinite = "+US.getDist()+"\n max float value = "+Float.MAX_VALUE);
 		//m.surrondings();
-		m.surrondings();
-		m.stopMessage("That's a stop !");
+		//m.surrondings();
+		Jarvis j = new Jarvis();
+		j.identifyNearest();
+		j.getPilote().curveTry1(500, 0.75, 2000, false);
+		//m.stopMessage("That's a stop !");
 		//System.out.println("I did "+m.howManyDist(US)+" measures of distance");
 		/*m.ClockRotate(360);
 		

@@ -97,11 +97,12 @@ public class OurMotor {
 	 */
 	public void seTourner(double degres, boolean boolCont) {
 		int rotation = degreeToRotation(degres);
-		if(degres>0) {
+		ClockRotate(rotation,boolCont);
+		/*if(degres>0) {
 			ClockRotate(rotation,boolCont);
 		} else {
 			counterClockRotate(rotation, boolCont);
-		}
+		}*/
 	}
 	/**
 	 * Effectue une rotation sur lui même dans le sens inverse des aiguilles d'une montre
