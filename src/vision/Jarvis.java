@@ -18,7 +18,6 @@ public class Jarvis{
 	private final static int PALET=4;
 	private final static int NOPALET=5;
 	private OurMotor pilote;
-	private UltraSonicSensor ultraSon;
 	private double[] palets;
 	private int notrePosition;
 	private int enemyPosition;
@@ -26,7 +25,6 @@ public class Jarvis{
 	public Jarvis() {
 		// TODO Auto-generated constructor stub
 		pilote = new OurMotor();
-		ultraSon = new UltraSonicSensor(SensorPort.S1);
 		palets= new double[9]; //On initialise la "valeur" des 9 palets à 1 (ils ont 100% de chance d'être sur le terrain)
 		for (int i = 0; i<9; i++) {
 			palets[i]=1;
@@ -98,7 +96,7 @@ public class Jarvis{
 		pilote.that360(true);					//fait un tour sur lui même et passe a la suite sans attendre
 		//System.out.println("Doing the 360");	//Pour le debug
 		while(pilote.getLeftMotor().isMoving()) {			//tant que le robot est en train de bouger
-			values[i] = ultraSon.getDist();			//je stock la valeur de la distance
+			values[i] = pilote.getUltraSon().getDist();			//je stock la valeur de la distance
 			i++;					
 			try {								//try-catch necessaire pour faire le Thread.sleep
 				Thread.sleep(5);				//Le son se deplace à 36 m/s, la distance max est 2,5m, 
