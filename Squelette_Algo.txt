@@ -1,4 +1,4 @@
-//Please note that any reference to the ennemy robot will be "The Fucker".
+//Please note that any reference to the ennemy robot will be "The LesserJarvis"
 
 Run(){
 	Init();
@@ -26,23 +26,22 @@ Main();{
 
 ErrorsWhatDo(){
 	//At the moment I don't have much ideas, but when something happens that shouldn't happen
-	//Jarvis has to react and get his shit together.
+	//Jarvis has to react
 }
 
 CheckSpeed(){
 	//This function is already done, but if we want to be faster, we could just use always the same speed.
-	//Theoretically it would work.
+	//it would work.
 }
 
 FirstPallet(){
-	//The first pallet should be right in front of me, and maybe in diagonal of the fucker on the other side
-	//So two choices, either get the first pallet, in front of me, or steal this fucker's pallet in front of him.
+	//The first pallet should be right in front of me, and maybe in diagonal of the LesserJarvis on the other side
+	//So two choices, either get the first pallet, in front of me, or steal this LesserJarvis's pallet in front of him.
 	//If his technique is the one that Damien gave, it's pointless, he's gonna search for a close one anyway.
 }
 
 ScoreThePoint(){
-	//I currently have a pallet. I have to go to the goal. And go FAST.
-	//I have to avoid a pallet on my path, or worse, the Fucker.
+	//I have to avoid a pallet on my path, or worse, the Lesser Jarvis.
 }
 
 //to add some randomness and avoid the robot to run circles, sometimes i should randomly move to some locations,
