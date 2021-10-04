@@ -225,7 +225,7 @@ public class Jarvis{
 	/**
 	 * Méthode identifiant l'objet le plus proche et se tournant dans sa direction
 	 */
-	public float[] identifyNearest() {
+	public float[] regarderAutour() {
 		float[] values = new float[10000]; 		//stock les mesures faites par le senseur
 		for(int k = 0; k<10000;k++)
 			values [k] = 9999999; 				//initialise les valeurs à une très grande valeur. 
@@ -244,9 +244,33 @@ public class Jarvis{
 				e.printStackTrace();
 			}
 		}
+		
+		return values;
+		
+		/* ------ Fin du calcul de la moyenne ------ */
+		/*
+		float deg = (float) (360.0 / (float)i); 	//le nombre de degrés qui bougent entre chaques mesurent.
+		float degMoved = meanMin*deg; 				//le nombre de degré dont on a bougé avant de voir le plus proche
+		int degToMove = (int) (360 - degMoved); 	//le nombre de degrés à bouger pour atteindre ce point
+		//int valueToMove = (int) pilote.degreeToRotation(degToMove);	//la valeur à donner au Clockrotate pour atteindre cette valeur.
+		//System.out.println("right before the if. DegToMove = "+degToMove);
+		if(degToMove > 180) {						//si on a plus de 180, c'est plus rapide de tourner dans le sens des aiguilles d'une montre
+			//valueToMove = pilote.getValue360()*(360-degToMove)/360; //il faut recalculer la valeur a bouger
+			//pilote.ClockRotate(valueToMove,false);
+			pilote.seTourner(360-degToMove);
+		} else {									//sinon c'est plus rapide de tourner dans le sens inverse des aiguilles d'une montre
+			//pilote.counterClockRotate(valueToMove,false);
+			pilote.seTourner(-degToMove);
+		}
+		System.out.println("Min was : "+min+"\nMin became : "+meanMin);	//debug
+		return values;*/
+	}
+	
+	public int trouverMinimum(float values[]) {
+
 		//System.out.println("Searching for min.."); //pour le debug
 		int min = 0;
-		for(int j = 0; j < i; j++) {			//pour j allant de 0 à la valeur max de i, donc la dernière entrée
+		for(int j = 0; j < values.length; j++) {			//pour j allant de 0 à la valeur max de i, donc la dernière entrée
 												//du tableau utilisé,
 			if(values[j] < values[min]) {		//on cherche la valeur minimal du tableau.
 				min = j;
@@ -276,29 +300,13 @@ public class Jarvis{
 			valueClock++;
 		}
 		int meanMin = (valueCounterClock+valueClock)/2; //ça c'est le centre.
-		/* ------ Fin du calcul de la moyenne ------ */
-		
-		float deg = (float) (360.0 / (float)i); 	//le nombre de degrés qui bougent entre chaques mesurent.
-		float degMoved = meanMin*deg; 				//le nombre de degré dont on a bougé avant de voir le plus proche
-		int degToMove = (int) (360 - degMoved); 	//le nombre de degrés à bouger pour atteindre ce point
-		//int valueToMove = (int) pilote.degreeToRotation(degToMove);	//la valeur à donner au Clockrotate pour atteindre cette valeur.
-		//System.out.println("right before the if. DegToMove = "+degToMove);
-		if(degToMove > 180) {						//si on a plus de 180, c'est plus rapide de tourner dans le sens des aiguilles d'une montre
-			//valueToMove = pilote.getValue360()*(360-degToMove)/360; //il faut recalculer la valeur a bouger
-			//pilote.ClockRotate(valueToMove,false);
-			pilote.seTourner(360-degToMove);
-		} else {									//sinon c'est plus rapide de tourner dans le sens inverse des aiguilles d'une montre
-			//pilote.counterClockRotate(valueToMove,false);
-			pilote.seTourner(-degToMove);
-		}
-		System.out.println("Min was : "+min+"\nMin became : "+meanMin);	//debug
-		return values;
+		return meanMin;
 	}
 	/**
 	 * Methode permettant d'attraper le Palet le plus proche
 	 */
 	public void attrapePalet() {
-		float[] distancePlusProche = identifyNearest();
+		float[] distancePlusProche = regarderAutour();
 		/*Avancer de la distance qui separe de l'objet. 
 		 * si le bouton est activé, s'arreter et fermer les pinces. 
 		 * Si c'est trop tot, il y a un probleme, peut etre qu'un autre palet est devant, peut etre que l'ennemi s'est mis entre nous. 
