@@ -313,7 +313,6 @@ public class Jarvis{
 		 * faire le chemin vers les buts, verifier regulierement la distance devant nous
 		 * quand on est dans les buts, lacher.
 		 */
-		//Hello ! 
 	}
 	/**
 	 * Methode permettant de mettre Jarvis en recherche
