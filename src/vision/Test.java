@@ -1,5 +1,6 @@
 package vision;
 
+import lejos.hardware.Sound;
 import lejos.hardware.motor.Motor;
 import lejos.robotics.chassis.Chassis;
 import lejos.robotics.chassis.Wheel;
@@ -43,6 +44,18 @@ public class Test {
 		System.out.println("rightMotor.setSpeed("+(int) (speedFirstWheel*multiplicatorSecondWheel)+");");
 		//double durationCorrector = 1/multiplicatorSecondWheel;
 		System.out.println("leftMotor.rotate("+(int) (rotation)+", true);"+"\nrightMotor.rotate("+(int)(rotation*multiplicatorSecondWheel)+", boolCont);");
+		/*Jarvis j = new Jarvis();
+		j.getPilote().getClawMotor().rotate(300);*/
+		
+	}
+	
+	public void orientation() {
+		Jarvis j = new Jarvis();
+		j.getPilote().setLeftS(200); //1000 = 0.476, 200 = x 1000x = 200*0.476 ; x = 200*0.476/1000
+		j.getPilote().setRightS(400); // x = 400*0.476/1000
+		int vr = 400;
+		int vl = 200;
+		
 	}
 
 }
