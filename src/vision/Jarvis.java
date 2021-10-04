@@ -223,9 +223,11 @@ public class Jarvis{
 	}
 	
 	/**
-	 * Méthode identifiant l'objet le plus proche et se tournant dans sa direction
+	 * Fait tourner jarvis sur lui meme et prends une mesure de la distance toutes les 5ms
+	 * @return un tableau de float contenant les valeurs mesurés
 	 */
 	public float[] regarderAutour() {
+		pilote.setAcceleration(pilote.getSpeed());
 		float[] values = new float[10000]; 		//stock les mesures faites par le senseur
 		for(int k = 0; k<10000;k++)
 			values [k] = 9999999; 				//initialise les valeurs à une très grande valeur. 
@@ -244,6 +246,7 @@ public class Jarvis{
 				e.printStackTrace();
 			}
 		}
+		pilote.setAcceleration(pilote.DEFAULT_ACCELERATION);
 		
 		return values;
 		
@@ -265,7 +268,11 @@ public class Jarvis{
 		System.out.println("Min was : "+min+"\nMin became : "+meanMin);	//debug
 		return values;*/
 	}
-	
+	/**
+	 * Trouve le minimum d'un tableau, renvoie l'indice
+	 * @param values un tableau de flottants
+	 * @return l'indice du minimum en moyenne
+	 */
 	public int trouverMinimum(float values[]) {
 
 		//System.out.println("Searching for min.."); //pour le debug
@@ -292,7 +299,7 @@ public class Jarvis{
 		 */
 		int valueCounterClock = min;
 		int valueClock = min;
-		System.out.println("I'm stuck ! c : "+valueClock+" - cc : "+valueCounterClock);
+		//System.out.println("I'm stuck ! c : "+valueClock+" - cc : "+valueCounterClock);
 		while(Math.abs(values[valueCounterClock]-values[min]) < 0.05) {
 			valueCounterClock--;
 		}
@@ -302,6 +309,23 @@ public class Jarvis{
 		int meanMin = (valueCounterClock+valueClock)/2; //ça c'est le centre.
 		return meanMin;
 	}
+	
+	public int[] trouverCassures(float [] values) {
+		int[] temp = new int[200];
+		int j = 0;
+		for(int i = 1; i<values.length; i++) {
+			if(Math.abs(values[i]-values[i-1]) > 0.1) {
+				temp[j] = i;
+				j++;
+			}
+		}
+		int [] ret = new int[j];
+		for(int i = 0; i<j; i++) {
+			ret[i] = temp[i];
+		}
+		return ret;
+	}
+	
 	/**
 	 * Methode permettant d'attraper le Palet le plus proche
 	 */

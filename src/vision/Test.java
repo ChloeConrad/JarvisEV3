@@ -52,7 +52,9 @@ public class Test {
 	public void orientation() {
 		Jarvis j = new Jarvis();
 		j.getPilote().setLeftS(200); //1000 = 0.476, 200 = x 1000x = 200*0.476 ; x = 200*0.476/1000
+		// == 0.0952m
 		j.getPilote().setRightS(400); // x = 400*0.476/1000
+		// == 0.1904m
 		int vr = 400;
 		int vl = 200;
 		

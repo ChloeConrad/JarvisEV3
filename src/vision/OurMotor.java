@@ -12,8 +12,10 @@ import sensors.UltraSonicSensor;
  * @version 0.1
  */
 public class OurMotor {
-	private static int speed = 500;
-	private static int acceleration = 100;
+	private static int speed;
+	private static int acceleration;
+	public static int DEFAULT_SPEED = 500;
+	public static int DEFAULT_ACCELERATION = 100;
 	private static int value360 = 780;
 	public static int distFor1000 = 0;
 	private boolean isClawOpen = false;
@@ -31,6 +33,8 @@ public class OurMotor {
     }
 	
     private static void initMotor() {
+    	speed = DEFAULT_SPEED;
+    	acceleration = DEFAULT_ACCELERATION;
     	leftMotor = new EV3LargeRegulatedMotor(MotorPort.A);
         rightMotor = new EV3LargeRegulatedMotor(MotorPort.B);
         clawMotor = new EV3LargeRegulatedMotor(MotorPort.D);
@@ -112,11 +116,6 @@ public class OurMotor {
 	public void seTourner(double degres, boolean boolCont) {
 		int rotation = degreeToRotation(degres);
 		ClockRotate(rotation,boolCont);
-		/*if(degres>0) {
-			ClockRotate(rotation,boolCont);
-		} else {
-			counterClockRotate(rotation, boolCont);
-		}*/
 	}
 	/**
 	 * Effectue une rotation sur lui même dans le sens inverse des aiguilles d'une montre
@@ -265,7 +264,8 @@ public class OurMotor {
 	/**
 	 * Mesure la distance parcouru a vitesse 100, acceleration 50 et rotate 1000
 	 */
-	public void measureSpeed() {
+	@SuppressWarnings("unused") //Stays here for testing reasons
+	private void measureSpeed() {
 		//On 5 tries, mean distance for speed = 100 and acc = 100 for rotate = 1000 
 		//is 0,476
 		setSpeed(500);
@@ -281,10 +281,17 @@ public class OurMotor {
 		float advance = startDist-stopDist;
 		System.out.println("For rotate 1000 I move "+advance+" meters");
 	}
-	
+	/**
+	 * renvoie la valeure de la variable de vitesse qui est
+	 * @return la dernière vitesse commune aux deux roues
+	 */
+	public int getSpeed() {
+		return speed;
+	}
 	public void setSpeed(int spe) {
 		setLeftS(spe);
 		setRightS(spe);
+		speed=spe;
 	}
 	public void setLeftS(int spe) {
 		leftMotor.setSpeed(spe);
@@ -295,6 +302,7 @@ public class OurMotor {
 	public void setAcceleration(int acc) {
 		setLeftA(acc);
 		setRightA(acc);
+		acceleration = acc;
 	}
 	public void setLeftA(int acc) {
 		leftMotor.setAcceleration(acc);
