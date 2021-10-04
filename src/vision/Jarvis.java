@@ -227,7 +227,8 @@ public class Jarvis{
 	 * @return un tableau de float contenant les valeurs mesurés
 	 */
 	public float[] regarderAutour() {
-		pilote.setAcceleration(pilote.getSpeed());
+		pilote.setSpeed(100);
+		pilote.setAcceleration(100);
 		float[] values = new float[10000]; 		//stock les mesures faites par le senseur
 		for(int k = 0; k<10000;k++)
 			values [k] = 9999999; 				//initialise les valeurs à une très grande valeur. 
@@ -247,6 +248,7 @@ public class Jarvis{
 			}
 		}
 		pilote.setAcceleration(pilote.DEFAULT_ACCELERATION);
+		pilote.setSpeed(pilote.DEFAULT_SPEED);
 		
 		return values;
 		
