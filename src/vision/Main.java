@@ -15,13 +15,16 @@ public class Main {
 		//OurMotor m = new OurMotor();
 		//System.out.println("dist infinite = "+US.getDist()+"\n max float value = "+Float.MAX_VALUE);
 		Jarvis j = new Jarvis();
-		j.getPilote().curveTry1(500, 0.5, 1000, false);
-		/*j.setPositions();
-		Button.waitForAnyPress();
-		j.premierBut();
-		*/
-		Button.waitForAnyPress();
+	
+		//j.getPilote().closeClaw();
+		//j.getPilote().curveTry1(500, 0.5, 1000, false);
+		//j.setPositions();
+		//Button.waitForAnyPress();
+		//j.premierBut();
 		
+		//Button.waitForAnyPress();
+		j.getPilote().closeClaw();
+		j.getPilote().getClawMotor().rotate(300);
 	}
 	
 	
