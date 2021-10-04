@@ -1,5 +1,10 @@
 package vision;
 
+import lejos.hardware.motor.Motor;
+import lejos.robotics.chassis.Chassis;
+import lejos.robotics.chassis.Wheel;
+import lejos.robotics.chassis.WheeledChassis;
+
 public class Test {
 
 	public static float[] location(float[] t1) {
