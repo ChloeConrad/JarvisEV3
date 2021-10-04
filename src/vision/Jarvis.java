@@ -19,6 +19,8 @@ public class Jarvis{
 	private final static int PALETNONTROUVE=4;
 	private final static int PALET=4;
 	private final static int NOPALET=5;
+	
+	private Boussole boussole;
 	private OurMotor pilote;
 	private TouchSensor s;
 	private double[] palets;
@@ -34,6 +36,7 @@ public class Jarvis{
 		}
 		s= new TouchSensor(SensorPort.S3);
 		etat=DEPART;
+		boussole = new Boussole();
 	}
 	public double[] getPalets() {
 		return palets;
@@ -215,13 +218,14 @@ public class Jarvis{
 	 * @param degre
 	 */
 	public void seTourner(double degre) {
-		
+		pilote.seTourner(degre);
+		boussole.majBoussole(degre);
 	}
 	
 	/**
 	 * Méthode identifiant l'objet le plus proche et se tournant dans sa direction
 	 */
-	public float identifyNearest() {
+	public float[] identifyNearest() {
 		float[] values = new float[10000]; 		//stock les mesures faites par le senseur
 		for(int k = 0; k<10000;k++)
 			values [k] = 9999999; 				//initialise les valeurs à une très grande valeur. 
@@ -288,13 +292,13 @@ public class Jarvis{
 			pilote.seTourner(-degToMove);
 		}
 		System.out.println("Min was : "+min+"\nMin became : "+meanMin);	//debug
-		return values[meanMin];
+		return values;
 	}
 	/**
 	 * Methode permettant d'attraper le Palet le plus proche
 	 */
 	public void attrapePalet() {
-		float distancePlusProche = identifyNearest();
+		float[] distancePlusProche = identifyNearest();
 		/*Avancer de la distance qui separe de l'objet. 
 		 * si le bouton est activé, s'arreter et fermer les pinces. 
 		 * Si c'est trop tot, il y a un probleme, peut etre qu'un autre palet est devant, peut etre que l'ennemi s'est mis entre nous. 
@@ -340,6 +344,10 @@ public class Jarvis{
 		System.out.println("Je suis en position"+notrePosition+"Iron Man est en position"+enemyPosition);
 		Button.waitForAnyPress();
 		etat=DEPART;
+	}
+	
+	public void recherchePalet(float[] valeurs) {
+		
 	}
 	
 
