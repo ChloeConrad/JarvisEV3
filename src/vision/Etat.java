@@ -205,7 +205,7 @@ public class Etat {
 		 this.palets[i].setProbaPresence(j);
 	}
 	/**
-	 * 
+	 *utilise les attributs pour mettre à jour l'état du robot 
 	 */
 	public void majState() {
 	
