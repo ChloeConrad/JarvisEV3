@@ -215,7 +215,7 @@ public class Jarvis{
 	}
 	/**
 	 * Methode permetant au robot de se tourner de
-	 * @param degre
+	 * @param degre avec mise à jour de sa position
 	 */
 	public void seTourner(double degre) {
 		pilote.seTourner(degre);
