@@ -190,15 +190,24 @@ public class OurMotor {
 		//	isClawOpen = false;
 		//}
     }
+	
 	/**
-	 * Ouvre la pince
+	 * si b == true  : permet de fermer la pince et passe à l'action suivante après avoir commencer la fermeture
+	 * si b == false : permet de fermer la pince puis passe à l'action suivante
+	 * @param b
 	 */
-    public void openClaw() {
-    	//if(!this.isClawOpen) {
-    		clawMotor.rotate(1800,true); 		//lorsqu'on ouvre la pince, pas besoin de rester immobile
-    	//	isClawOpen = true;
-    	//}
-    }
+	public void closeClaw(boolean b) {
+		clawMotor.rotate(-1800,b);
+	}
+	
+	/**
+	 * si b == true  : permet d'ouvrir la pince et passe à l'action suivante après avoir commencer la fermeture
+	 * si b == false : permet d'ouvrir la pince puis passe à l'action suivante
+	 * @param b
+	 */
+    public void openClaw(boolean b) {
+		clawMotor.rotate(1800,b);
+	}
 	
 	/**
 	 * Fait un tour sur lui mÃªme et mesure continuellement les distances face Ã  lui
