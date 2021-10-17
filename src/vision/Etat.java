@@ -2,10 +2,11 @@ package vision;
 
 import maths.Point;
 import maths.Vecteur;
+import sensors.OurSensors;
 /**
  * 
  * @author Yazid
- * Cette classe représente l'état interne du robot qu'il met à jour en permanence avec son thread secondaire 
+ * Cette classe reprï¿½sente l'ï¿½tat interne du robot qu'il met ï¿½ jour en permanence avec son thread secondaire 
  * : PerceptionThread
  *
  */
@@ -161,9 +162,9 @@ public class Etat {
 		this.cible = cible;
 	}
 	/**
-	 * Fonction permettant d'initialiser le vecteur représentant la position du robot en fonction de
+	 * Fonction permettant d'initialiser le vecteur reprï¿½sentant la position du robot en fonction de
 	 * @param a
-	 * le bouton pressé au startup
+	 * le bouton pressï¿½ au startup
 	 */
 	public void initPos(int a) {
 		switch (a) {
@@ -196,8 +197,8 @@ public class Etat {
 		}
 	}
 	/**
-	 * Met à jour la valeur relative du palet 
-	 * @param i palet à mettre à jour
+	 * Met ï¿½ jour la valeur relative du palet 
+	 * @param i palet ï¿½ mettre ï¿½ jour
 	 * @param j nouvelle valeur du palet ([0,1]
 	 */
 	
@@ -205,11 +206,11 @@ public class Etat {
 		 this.palets[i].setProbaPresence(j);
 	}
 	/**
-	 *utilise les attributs pour mettre à jour l'état du robot 
+	 *utilise les attributs pour mettre ï¿½ jour l'ï¿½tat du robot 
 	 */
-	public void majState() {
+	public void majState(OurSensors s) {
 	
-		
+		if (s.getTouch()==1) aPalet=true;
 	}
 	
 
