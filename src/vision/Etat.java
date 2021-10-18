@@ -103,7 +103,6 @@ public class Etat {
 		this.etatPinces = etatPinces;
 	}
 
-
 	public boolean isaPalet() {
 		return aPalet;
 	}
@@ -147,6 +146,7 @@ public class Etat {
 	public int getEtat() {
 		return etat;
 	}
+
 
 
 	public void setEtat(int etat) {
