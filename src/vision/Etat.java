@@ -37,6 +37,7 @@ public class Etat {
 	private double sErreur;
 	private int etat;
 	private Point cible;
+	private float nearest;
 	
 	
 	public Etat () {
@@ -206,11 +207,26 @@ public class Etat {
 		 this.palets[i].setProbaPresence(j);
 	}
 	/**
-	 *utilise les attributs pour mettre ï¿½ jour l'ï¿½tat du robot 
+	 *met à jour les attributs interne à l'aide des censors 
 	 */
 	public void majState(OurSensors s) {
 	
 		if (s.getTouch()==1) aPalet=true;
+		if (s.getTouch()==0) aPalet=false;
+		//a faire color
+		nearest=s.getDist();
+	}
+	
+	public void reset(Jarvis j) {
+		
+	}
+	
+	public double nearAngle() {
+		return 0;
+	}
+	
+	public double nearDist() {
+		return 0;
 	}
 	
 
