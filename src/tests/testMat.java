@@ -1,5 +1,8 @@
 package tests;
 
+import lejos.hardware.motor.Motor;
+import lejos.robotics.chassis.Wheel;
+import lejos.robotics.chassis.WheeledChassis;
 import vision.*;
 
 
@@ -22,10 +25,8 @@ public class testMat {
 		 * 0.7 = 47cm = 33.5 de rauyon
 		 * 0.65 = 41 = 27.5 de rayon
 		 */
-		for(int i = 0; i<7;i++) {
-			m.stopMessage("Test "+i+" - "+0.6+i*0.05);
-			m.curveTry1(500, 0.6+i*0.05, 3000, false);
-		}
+		Pilote p = new Pilote(new WheeledChassis( new Wheel[] {WheeledChassis.modelWheel(Motor.A, 56.0).offset(70), WheeledChassis.modelWheel(Motor.B, 56.0).offset(-70)}, WheeledChassis.TYPE_DIFFERENTIAL));
+		p.arcForward(100);
 		
 	}
 
