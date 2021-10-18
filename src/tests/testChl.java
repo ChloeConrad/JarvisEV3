@@ -1,9 +1,14 @@
 package tests;
 
+import lejos.hardware.Button;
+import vision.Jarvis;
+
 public class testChl {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		Jarvis j = new Jarvis();
+		j.getPilote().getClawMotor().rotate(-500);
+		j.premierBut();
 
 	}
 

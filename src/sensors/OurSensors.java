@@ -13,8 +13,8 @@ import lejos.utility.Delay;
 public class OurSensors {
 
 	/**Ultrasonic Sensor
-	 * Initialise les attributs nécessaires à l'utilisation du
-	 * senseur à ultrasons (branché au port S1)
+	 * Initialise les attributs nï¿½cessaires ï¿½ l'utilisation du
+	 * senseur ï¿½ ultrasons (branchï¿½ au port S1)
 	 */
 	private static EV3UltrasonicSensor Us = new EV3UltrasonicSensor(SensorPort.S1);
 	private SampleProvider USamp = Us.getDistanceMode();
@@ -31,7 +31,7 @@ public class OurSensors {
 
 	/**
 	 * 
-	 * @return Référence du senseur
+	 * @return Rï¿½fï¿½rence du senseur
 	 */
 	public EV3UltrasonicSensor getSensorU() {
 		return Us;
@@ -39,15 +39,15 @@ public class OurSensors {
 
 
 	/**Color Sensor
-	 * Initialise les attributs nécessaires à l'utilisation du
-	 * senseur de couleur (branché au port S2)
+	 * Initialise les attributs nï¿½cessaires ï¿½ l'utilisation du
+	 * senseur de couleur (branchï¿½ au port S2)
 	 */
 	private static EV3ColorSensor Color = new EV3ColorSensor(SensorPort.S2);
 	float[]	cSample;
 
 	/**
-	 * Renvoie trois int correspondant au code RGB de la couleur détectée
-	 * @return Renvoie le code RGB de la couleur détectée
+	 * Renvoie trois int correspondant au code RGB de la couleur dï¿½tectï¿½e
+	 * @return Renvoie le code RGB de la couleur dï¿½tectï¿½e
 	 */
 	public Color getColor() {
 		Color.fetchSample(cSample, 0);
@@ -57,8 +57,8 @@ public class OurSensors {
 
 
 	/**Touch Sensor
-	 * Initialise les attributs nécessaires à l'utilisation du
-	 * senseur de toucher (branché au port S3)
+	 * Initialise les attributs nï¿½cessaires ï¿½ l'utilisation du
+	 * senseur de toucher (branchï¿½ au port S3)
 	 */
 	private EV3TouchSensor Ts = new EV3TouchSensor(SensorPort.S3);
 	public SampleProvider Tsamp = Ts.getTouchMode();
@@ -74,10 +74,7 @@ public class OurSensors {
 	}
 
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 
 

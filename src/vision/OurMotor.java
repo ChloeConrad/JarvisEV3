@@ -185,20 +185,29 @@ public class OurMotor {
 	 * Ferme la pince
 	 */
 	public void closeClaw() {
-		closeClaw(false);
+		//if(this.isClawOpen) {
+			clawMotor.rotate(-1800);
+		//	isClawOpen = false;
+		//}
     }
-	public void closeClaw(boolean boolCont) {
-		clawMotor.rotate(-1800,boolCont);
-    }
+	
 	/**
-	 * Ouvre la pince
+	 * si b == true  : permet de fermer la pince et passe à l'action suivante après avoir commencer la fermeture
+	 * si b == false : permet de fermer la pince puis passe à l'action suivante
+	 * @param b
 	 */
-    public void openClaw() {
-    	clawMotor.rotate(1800,false); 		//lorsqu'on ouvre la pince, pas besoin de rester immobile
-    }
-    public void openClaw(boolean boolCont) {
-    	clawMotor.rotate(1800,boolCont); 		//lorsqu'on ouvre la pince, pas besoin de rester immobile
-    }
+	public void closeClaw(boolean b) {
+		clawMotor.rotate(-1800,b);
+	}
+	
+	/**
+	 * si b == true  : permet d'ouvrir la pince et passe à l'action suivante après avoir commencer la fermeture
+	 * si b == false : permet d'ouvrir la pince puis passe à l'action suivante
+	 * @param b
+	 */
+    public void openClaw(boolean b) {
+		clawMotor.rotate(1800,b);
+	}
 	
 	/**
 	 * Fait un tour sur lui mÃªme et mesure continuellement les distances face Ã  lui
@@ -229,7 +238,7 @@ public class OurMotor {
 	 * @param boolCont Si true, le robot ira en avant puis passera immediatement Ã  la tache suivante
 	 */
 	public void curveTry1(int speedOfFirstWheel, double multiplicatorOfSecondWheel, int rotation, boolean boolCont) {
-		setAcceleration(speedOfFirstWheel);
+		setAcceleration(500);
 		leftMotor.setSpeed(speedOfFirstWheel);
 		rightMotor.setSpeed((int) (speedOfFirstWheel*multiplicatorOfSecondWheel));
 		//Si la vitesse est differente, ils risquent de s'arreter de tourner a des moments differents.
