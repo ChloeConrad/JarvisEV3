@@ -220,13 +220,41 @@ public class Etat {
 	public void reset(Jarvis j) {
 		
 	}
-	
-	public double nearAngle() {
-		return 0;
+	/**
+	 * Methode servant a trouver la cible la plus proche
+	 * calculs capilotracté
+	 */
+	public void seekTarget() {
+		Vecteur[] cible=new Vecteur[9];
+		for (int i=0;i<9;i++) {
+			cible[i]=new Vecteur(position.getpDepart(),palets[i].coordonnee);
+		}
+		double[] envie=new double[9];
+		for (int i=0;i<9;i++) {
+			envie[i]=cible[i].normeVecteur()/palets[i].getProbaPresence();
+		}
+		int cib=0;
+		for (int i=1;i<9;i++) {
+			if (envie[i]<envie[cib]) cib=i;
+		}
+		this.cible=palets[cib].getCoordonnee();
+		
 	}
-	
+	/**
+	 * Methode qui permet de trouver l'angle entre le robot et la cible
+	 * @return angle sous forme de double
+	 */
+	public double nearAngle() {
+		if (cible.equals(null)) throw new IllegalArgumentException();
+		
+		return position.angleDeuxVecteurs(new Vecteur(position.getpDepart(),cible));
+	}
+	/**
+	 * MEthode qui permet de trouver la distance entre Jarvis et la cible
+	 * @return la distance en cm dans un double
+	 */
 	public double nearDist() {
-		return 0;
+		return new Vecteur(position.getpDepart(),cible).normeVecteur();
 	}
 	
 
