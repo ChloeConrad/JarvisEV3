@@ -103,7 +103,6 @@ public class Etat {
 		this.etatPinces = etatPinces;
 	}
 
-
 	public boolean isaPalet() {
 		return aPalet;
 	}
@@ -147,6 +146,7 @@ public class Etat {
 	public int getEtat() {
 		return etat;
 	}
+
 
 
 	public void setEtat(int etat) {
@@ -255,6 +255,12 @@ public class Etat {
 	 */
 	public double nearDist() {
 		return new Vecteur(position.getpDepart(),cible).normeVecteur();
+	}
+	/**
+	 * Determine la couleur sur laquelle on est
+	 */
+	public void quelCouleur(Jarvis j) {
+		
 	}
 	
 

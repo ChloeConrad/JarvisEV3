@@ -35,8 +35,8 @@ public class OurMotor {
     private static void initMotor() {
     	speed = DEFAULT_SPEED;
     	acceleration = DEFAULT_ACCELERATION;
-    	leftMotor = new EV3LargeRegulatedMotor(MotorPort.A);
-        rightMotor = new EV3LargeRegulatedMotor(MotorPort.B);
+    	leftMotor = new EV3LargeRegulatedMotor(MotorPort.B);
+        rightMotor = new EV3LargeRegulatedMotor(MotorPort.A);
         clawMotor = new EV3LargeRegulatedMotor(MotorPort.D);
     	initMotor(leftMotor);
     	initMotor(rightMotor);
@@ -105,17 +105,19 @@ public class OurMotor {
 	 * Se tourne en degres
 	 * @param degres le nombre de degres à tourner
 	 */
-	public void seTourner(double degres) {
-		seTourner(degres, false);
+	public void seTourner(double degres, Jarvis j) {
+		seTourner(degres, false, j);
+	
 	}
 	/**
 	 * Se tourne en degres
 	 * @param degres le nombre de degres à tourner
 	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
 	 */
-	public void seTourner(double degres, boolean boolCont) {
+	public void seTourner(double degres, boolean boolCont, Jarvis j) {
 		int rotation = degreeToRotation(degres);
 		ClockRotate(rotation,boolCont);
+		//j.getEtat().getOrientation().majBoussole(degres);
 	}
 	/**
 	 * Effectue une rotation sur lui même dans le sens inverse des aiguilles d'une montre
