@@ -14,7 +14,7 @@ import sensors.UltraSonicSensor;
 
 public class Pilote extends MovePilot {
 	public Pilote(Chassis chassis) {
-		super(new WheeledChassis( new Wheel[] {wheel1, wheel2}, WheeledChassis.TYPE_DIFFERENTIAL));
+		super(new WheeledChassis( new Wheel[] {wheelRight, wheelLeft}, WheeledChassis.TYPE_DIFFERENTIAL));
 		// TODO Auto-generated constructor stub
 		this.initMotor();
 	}
@@ -28,20 +28,21 @@ public class Pilote extends MovePilot {
     private static RegulatedMotor rightMotor;
     private static RegulatedMotor clawMotor;
     private static UltraSonicSensor US;
-    private static Wheel wheel1 = WheeledChassis.modelWheel(Motor.A, 81.6).offset(-70);
-	private static Wheel wheel2 = WheeledChassis.modelWheel(Motor.D, 81.6).offset(70);
+    private static Wheel wheelLeft = WheeledChassis.modelWheel(Motor.B, 56.0).offset(-70);
+	private static Wheel wheelRight = WheeledChassis.modelWheel(Motor.A, 56.0).offset(70);
 	
 	private void initMotor() {
     	speed = DEFAULT_SPEED;
     	acceleration = DEFAULT_ACCELERATION;
-    	leftMotor = new EV3LargeRegulatedMotor(MotorPort.A);
-        rightMotor = new EV3LargeRegulatedMotor(MotorPort.B);
+    	leftMotor = new EV3LargeRegulatedMotor(MotorPort.B);
+        rightMotor = new EV3LargeRegulatedMotor(MotorPort.A);
         clawMotor = new EV3LargeRegulatedMotor(MotorPort.D);
     	initMotor(leftMotor);
     	initMotor(rightMotor);
     	initMotor(clawMotor);
     	US = new UltraSonicSensor(SensorPort.S1);
     }
+	
     private static void initMotor(RegulatedMotor m) {
     	m.setSpeed(speed);
     	m.setAcceleration(acceleration);
