@@ -1,4 +1,3 @@
-
 package vision;
 
 import lejos.hardware.Button;
@@ -7,7 +6,7 @@ import lejos.robotics.navigation.MovePilot;
 import sensors.TouchSensor;
 import sensors.UltraSonicSensor;
 /**
- * Classe du robot servant Ã  dÃ©finir son comportement
+ * Classe du robot servant à définir son comportement
  * @author Maleus
  * @author Mat
  *
@@ -20,7 +19,7 @@ public class Jarvis{
 	private final static int PALETNONTROUVE=4;
 	private final static int PALET=4;
 	private final static int NOPALET=5;
-	
+
 	private Boussole boussole;
 	private OurMotor pilote;
 	private TouchSensor s;
@@ -28,12 +27,14 @@ public class Jarvis{
 	private int notrePosition;
 	private int enemyPosition;
 	private int etat;
-	private Etat cogito;
-	
+
+	/*
+	 * 
+	 */
 	public Jarvis() {
 		// TODO Auto-generated constructor stub
 		pilote = new OurMotor();
-		palets= new double[9]; //On initialise la "valeur" des 9 palets Ã  1 (ils ont 100% de chance d'Ãªtre sur le terrain)
+		palets= new double[9]; //On initialise la "valeur" des 9 palets à 1 (ils ont 100% de chance d'être sur le terrain)
 		for (int i = 0; i<9; i++) {
 			palets[i]=1;
 		}
@@ -59,12 +60,8 @@ public class Jarvis{
 	public void setEnemyPosition(int enemyPosition) {
 		this.enemyPosition = enemyPosition;
 	}
-	
-	public Etat getEtat() {
-		return cogito;
-	}
 	/**
-	 * Algo simple pour mettre le premier but, il utilise les attributs notrePosition et enemyPosition pour dÃ©terminer quel palet rÃ©cupÃ©rer
+	 * Algo simple pour mettre le premier but, il utilise les attributs notrePosition et enemyPosition pour déterminer quel palet récupérer
 	 */
 	public void premierBut() {
 		switch (notrePosition) {
@@ -73,24 +70,24 @@ public class Jarvis{
 			case 0:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
-				if(s.getTouch()==1) pilote.closeClaw(false);
+				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
-				pilote.seTourner(-45,false,this);
+				pilote.seTourner(-45,false);
 				OurMotor.forward(0.40);
-				pilote.seTourner(45,false,this);
+				pilote.seTourner(45,false);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(true);
+				pilote.openClaw(false);
 				etat=BUT;
 				break;
 			case 1:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
-				if(s.getTouch()==1) pilote.closeClaw(false);
+				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
-				pilote.seTourner(45,false,this);
+				pilote.seTourner(45,false);
 				OurMotor.forward(0.40);
-				pilote.seTourner(-45,false,this);
+				pilote.seTourner(-45,false);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
 				pilote.openClaw(false);
@@ -99,14 +96,14 @@ public class Jarvis{
 			case 2:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
-				if(s.getTouch()==1) pilote.closeClaw(false);
+				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
-				pilote.seTourner(-45,false,this);
+				pilote.seTourner(-45,false);
 				OurMotor.forward(0.40);
-				pilote.seTourner(45,false,this);
+				pilote.seTourner(45,false);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(true);
+				pilote.openClaw(false);
 				etat=BUT;
 				break;
 			}
@@ -116,40 +113,40 @@ public class Jarvis{
 			case 0:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
-				if(s.getTouch()==1) pilote.closeClaw(false);
+				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
-				pilote.seTourner(45,false,this);
+				pilote.seTourner(45,false);
 				OurMotor.forward(0.40);
-				pilote.seTourner(-45,false,this);
+				pilote.seTourner(-45,false);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(true);
+				pilote.openClaw(false);
 				etat=BUT;
 				break;
 			case 1:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
-				if(s.getTouch()==1) pilote.closeClaw(false);
+				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
-				pilote.seTourner(-45,false,this);
+				pilote.seTourner(-45,false);
 				OurMotor.forward(0.40);
-				pilote.seTourner(45,false,this);
+				pilote.seTourner(45,false);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(true);
+				pilote.openClaw(false);
 				etat=BUT;
 				break;
 			case 2:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
-				if(s.getTouch()==1) pilote.closeClaw(false);
+				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
-				pilote.seTourner(-45,false,this);
+				pilote.seTourner(-45,false);
 				OurMotor.forward(0.40);
-				pilote.seTourner(45,false,this);
+				pilote.seTourner(45,false);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(true);
+				pilote.openClaw(false);
 				etat=BUT;
 				break;
 			}
@@ -159,115 +156,112 @@ public class Jarvis{
 			case 0:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
-				if(s.getTouch()==1) pilote.closeClaw(false);
+				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
-				pilote.seTourner(45,false,this);
+				pilote.seTourner(45,false);
 				OurMotor.forward(0.40);
-				pilote.seTourner(-45,false,this);
+				pilote.seTourner(-45,false);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(true);
+				pilote.openClaw(false);
 				etat=BUT;
 				break;
 			case 1:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
-				if(s.getTouch()==1) pilote.closeClaw(false);
+				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
-				pilote.seTourner(-45,false,this);
+				pilote.seTourner(-45,false);
 				OurMotor.forward(0.40);
-				pilote.seTourner(45,false,this);
+				pilote.seTourner(45,false);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(true);
+				pilote.openClaw(false);
 				etat=BUT;
 				break;
 			case 2:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
-				if(s.getTouch()==1) pilote.closeClaw(false);
+				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
-				pilote.seTourner(-45,false,this);
+				pilote.seTourner(-45,false);
 				OurMotor.forward(0.40);
-				pilote.seTourner(45,false,this);
+				pilote.seTourner(45,false);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(true);
+				pilote.openClaw(false);
 				etat=BUT;
 				break;
 			}
 			break;
 		}
-		pilote.closeClaw(true);
-		pilote.backward(720);
-		
 	}
 	/**
 	 * Permet de mettre la valeur du palet 
-	 * @param a Ã  0 lorsqu'on l'a rÃ©cupÃ©rÃ©
+	 * @param a à 0 lorsqu'on l'a récupéré
 	 */
 	public void valeurPaletZero(int a) {
-	
-		
+
+
 	}
 	/**
-	 * en prenant en compte @param enemyPosition on diminue Ã  50% la valeur des palets de sa colonne
+	 * en prenant en compte @param enemyPosition on diminue à 50% la valeur des palets de sa colonne
 	 */
 	public void valeurPalet50() {
-		
+
 	}
 	/**
-	 * Methode permetant au robot de se dÃ©placer de 
+	 * Methode permetant au robot de se déplacer de 
 	 * @param distance centimetre
 	 */
 	public void seDeplacer(double distance) {
-		
+
 	}
 	/**
 	 * Methode permetant au robot de se tourner de
 	 * @param degre
 	 */
 	public void seTourner(double degre) {
-		pilote.seTourner(degre,false,this);
+		pilote.seTourner(degre);
 		boussole.majBoussole(degre);
 	}
-	
+
 	/**
 	 * Fait tourner jarvis sur lui meme et prends une mesure de la distance toutes les 5ms
-	 * @return un tableau de float contenant les valeurs mesurÃ©s
+	 * @return un tableau de float contenant les valeurs mesurés
 	 */
 	public float[] regarderAutour() {
 		pilote.setSpeed(100);
 		pilote.setAcceleration(100);
 		float[] values = new float[10000]; 		//stock les mesures faites par le senseur
 		for(int k = 0; k<10000;k++)
-			values [k] = 9999999; 				//initialise les valeurs Ã  une trÃ¨s grande valeur. 
-												//Dans les faits les cases Ã  cette valeur ne devraient jamais Ãªtre atteinte
+			values [k] = 9999999; 				//initialise les valeurs à une très grande valeur. 
+												//Dans les faits les cases à cette valeur ne devraient jamais être atteinte
 		int i = 0;
-		pilote.that360(true);					//fait un tour sur lui mÃªme et passe a la suite sans attendre
+		pilote.that360(true);					//fait un tour sur lui même et passe a la suite sans attendre
 		//System.out.println("Doing the 360");	//Pour le debug
 		while(pilote.getLeftMotor().isMoving()) {			//tant que le robot est en train de bouger
 			values[i] = pilote.getUltraSon().getDist();			//je stock la valeur de la distance
 			i++;					
 			try {								//try-catch necessaire pour faire le Thread.sleep
-				Thread.sleep(5);				//Le son se deplace Ã  36 m/s, la distance max est 2,5m, 
-												//dans la thÃ©orie on pourrait attendre 1/7 ms, dans les faits si on met juste
-												//Thread.sleep(1) Ã§a commence Ã  faire n'importe quoi, il y a des imprecisions. Ã  5ms c'est bien.
+				Thread.sleep(5);				//Le son se deplace à 36 m/s, la distance max est 2,5m, 
+												//dans la théorie on pourrait attendre 1/7 ms, dans les faits si on met juste
+												//Thread.sleep(1) ça commence à faire n'importe quoi, il y a des imprecisions. à 5ms c'est bien.
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
 		pilote.setAcceleration(pilote.DEFAULT_ACCELERATION);
 		pilote.setSpeed(pilote.DEFAULT_SPEED);
-		
+
 		return values;
-		
+
 		/* ------ Fin du calcul de la moyenne ------ */
 		/*
-		float deg = (float) (360.0 / (float)i); 	//le nombre de degrÃ©s qui bougent entre chaques mesurent.
-		float degMoved = meanMin*deg; 				//le nombre de degrÃ© dont on a bougÃ© avant de voir le plus proche
-		int degToMove = (int) (360 - degMoved); 	//le nombre de degrÃ©s Ã  bouger pour atteindre ce point
-		//int valueToMove = (int) pilote.degreeToRotation(degToMove);	//la valeur Ã  donner au Clockrotate pour atteindre cette valeur.
+		float deg = (float) (360.0 / (float)i); 	//le nombre de degrés qui bougent entre chaques mesurent.
+		float degMoved = meanMin*deg; 				//le nombre de degré dont on a bougé avant de voir le plus proche
+		int degToMove = (int) (360 - degMoved); 	//le nombre de degrés à bouger pour atteindre ce point
+		//int valueToMove = (int) pilote.degreeToRotation(degToMove);	//la valeur à donner au Clockrotate pour atteindre cette valeur.
 		//System.out.println("right before the if. DegToMove = "+degToMove);
 		if(degToMove > 180) {						//si on a plus de 180, c'est plus rapide de tourner dans le sens des aiguilles d'une montre
 			//valueToMove = pilote.getValue360()*(360-degToMove)/360; //il faut recalculer la valeur a bouger
@@ -289,8 +283,8 @@ public class Jarvis{
 
 		//System.out.println("Searching for min.."); //pour le debug
 		int min = 0;
-		for(int j = 0; j < values.length; j++) {			//pour j allant de 0 Ã  la valeur max de i, donc la derniÃ¨re entrÃ©e
-												//du tableau utilisÃ©,
+		for(int j = 0; j < values.length; j++) {			//pour j allant de 0 à la valeur max de i, donc la dernière entrée
+												//du tableau utilisé,
 			if(values[j] < values[min]) {		//on cherche la valeur minimal du tableau.
 				min = j;
 			}
@@ -300,13 +294,13 @@ public class Jarvis{
 		 * on va chercher deux minimums plus large que le minimu, parce que le fait que le robot
 		 * voit avec un angle fait qu'on se retrouve avec un grand nombre de cases dans lesquelles
 		 * il voit la distance minimale. Le robot tournant dans le sens des aiguilles d'une montre,
-		 * la premiÃ¨re valeur du tableau qui vaux le minimum sera Ã  gauche du palet, et pas en plein
-		 * dessus. Donc on cherche a determiner de quelle case Ã  quelle case on voit le point le plus proche.
-		 * donc on va aller voir a gauche, en arrondissant au centiÃ¨me, et en cherchant un Ã©cart superieur Ã 
+		 * la première valeur du tableau qui vaux le minimum sera à gauche du palet, et pas en plein
+		 * dessus. Donc on cherche a determiner de quelle case à quelle case on voit le point le plus proche.
+		 * donc on va aller voir a gauche, en arrondissant au centième, et en cherchant un écart superieur à
 		 * 0.05, et pas 0.01, parce que le senseur n'est pas parfait, donc on a des points ou il voit le
 		 * au dessus du mimum alors qu'il est en plein dessus. Par essai et erreur, 0.05 fonctionne le mieux. 
-		 * Moins, et c'est trop sensibles aux imprecisions, plus et on a un angle de 90Â°.
-		 * donc il cherche Ã  gauche et a droite du palet, voit le dernier point ou il voit le palet
+		 * Moins, et c'est trop sensibles aux imprecisions, plus et on a un angle de 90°.
+		 * donc il cherche à gauche et a droite du palet, voit le dernier point ou il voit le palet
 		 * puis fait une moyenne des numeros de case pour viser le centre.
 		 */
 		int valueCounterClock = min;
@@ -318,10 +312,10 @@ public class Jarvis{
 		while(Math.abs(values[valueClock]-values[min]) < 0.05) {
 			valueClock++;
 		}
-		int meanMin = (valueCounterClock+valueClock)/2; //Ã§a c'est le centre.
+		int meanMin = (valueCounterClock+valueClock)/2; //ça c'est le centre.
 		return meanMin;
 	}
-	
+
 	public int[] trouverCassures(float [] values) {
 		int[] temp = new int[200];
 		int j = 0;
@@ -337,56 +331,21 @@ public class Jarvis{
 		}
 		return ret;
 	}
-	
-	public boolean checkNearestPalet(double nearAngle) {
-		boolean b = false;
-		pilote.seTourner((int)nearAngle, true, this);
-		pilote.setSpeed(100);
-		pilote.setAcceleration(100);
-		float[] values = new float[10000]; 		//stock les mesures faites par le senseur
-		for(int k = 0; k<10000;k++)
-			values [k] = 9999999; 				//initialise les valeurs Ã  une trÃ¨s grande valeur. 
-												//Dans les faits les cases Ã  cette valeur ne devraient jamais Ãªtre atteinte
-		int i = 0;
-		while(pilote.getLeftMotor().isMoving()) {			//tant que le robot est en train de bouger
-			values[i] = pilote.getUltraSon().getDist();			//je stock la valeur de la distance
-			i++;					
-			try {								//try-catch necessaire pour faire le Thread.sleep
-				Thread.sleep(5);				//Le son se deplace Ã  36 m/s, la distance max est 2,5m, 
-												//dans la thÃ©orie on pourrait attendre 1/7 ms, dans les faits si on met juste
-												//Thread.sleep(1) Ã§a commence Ã  faire n'importe quoi, il y a des imprecisions. Ã  5ms c'est bien.
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			/*if(Math.abs(values[i]-values[i-1]) > 0.1 && Math.abs(values[i]-cogito.nearDist())<0.1) {
-				b = true;	
-			}*/
-			if(Math.abs(values[i]-values[i-1]) > 0.1) {
-				b = true;	
-			}
-			break;
-		}
-		pilote.setAcceleration(pilote.DEFAULT_ACCELERATION);
-		pilote.setSpeed(pilote.DEFAULT_SPEED);
-		System.out.println(b);
-		return b;	
-	}
-	
+
 	/**
 	 * Methode permettant d'attraper le Palet le plus proche
 	 */
 	public void attrapePalet() {
 		float[] distancePlusProche = regarderAutour();
-		int[] cassures = trouverCassures(distancePlusProche);
 		/*Avancer de la distance qui separe de l'objet. 
-		 * si le bouton est activÃ©, s'arreter et fermer les pinces. 
+		 * si le bouton est activé, s'arreter et fermer les pinces. 
 		 * Si c'est trop tot, il y a un probleme, peut etre qu'un autre palet est devant, peut etre que l'ennemi s'est mis entre nous. 
-		 * Si on est arrivÃ© au point et rien, peut etre que l'ennemi nous l'a volÃ©.
+		 * Si on est arrivé au point et rien, peut etre que l'ennemi nous l'a volé.
 		 */
 	}
-	
+
 	/**
-	 * Methode permettant d'aller marquer un but une fois le palet attrapÃ©
+	 * Methode permettant d'aller marquer un but une fois le palet attrapé
 	 *
 	 */
 	public void vasMarquer() {
@@ -403,7 +362,7 @@ public class Jarvis{
 	public void setEtatRecherche() {
 		etat=RECHERCHE;
 	}
-	
+
 	public OurMotor getPilote() {
 		return this.pilote;
 	}
@@ -424,8 +383,9 @@ public class Jarvis{
 		Button.waitForAnyPress();
 		etat=DEPART;
 	}
-	
-	public void recherchePalet(float[] valeurs) {
-	}
-}
 
+	public void recherchePalet(float[] valeurs) {
+
+	}
+
+} 
