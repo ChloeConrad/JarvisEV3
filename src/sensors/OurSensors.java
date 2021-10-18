@@ -11,6 +11,11 @@ import lejos.robotics.SampleProvider;
 import lejos.utility.Delay;
 
 public class OurSensors {
+	/**
+	 *OurSensors contient les getters et setters des sensors
+	 *de notre robot
+	 */
+	
 
 	/**Ultrasonic Sensor
 	 * Initialise les attributs n�cessaires � l'utilisation du
