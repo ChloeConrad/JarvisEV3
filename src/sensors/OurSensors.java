@@ -24,6 +24,8 @@ public class OurSensors {
 	private static EV3UltrasonicSensor Us = new EV3UltrasonicSensor(SensorPort.S1);
 	private SampleProvider USamp = Us.getDistanceMode();
 	float [] uSample = new float[USamp.sampleSize()];
+	
+	
 
 	/**
 	 * Renvoie une valeur flottante de la distance la plus proche detecté par le robot.
@@ -32,6 +34,13 @@ public class OurSensors {
 	public float getDist() {
 		USamp.fetchSample(uSample, 0);
 		return uSample[0];
+	}
+	
+	
+	public UltraSonicSensor(Port port) {
+		USs = new EV3UltrasonicSensor(port);
+		USsamp = USs.getDistanceMode();
+	    sample = new float[USsamp.sampleSize()];
 	}
 
 	/**
