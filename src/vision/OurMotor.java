@@ -194,8 +194,8 @@ public class OurMotor {
     }
 	
 	/**
-	 * si b == true  : permet de fermer la pince et passe à l'action suivante après avoir commencer la fermeture
-	 * si b == false : permet de fermer la pince puis passe à l'action suivante
+	 * si b == true  : permet de fermer la pince et passe ï¿½ l'action suivante aprï¿½s avoir commencer la fermeture
+	 * si b == false : permet de fermer la pince puis passe ï¿½ l'action suivante
 	 * @param b
 	 */
 	public void closeClaw(boolean b) {
@@ -203,8 +203,8 @@ public class OurMotor {
 	}
 	
 	/**
-	 * si b == true  : permet d'ouvrir la pince et passe à l'action suivante après avoir commencer la fermeture
-	 * si b == false : permet d'ouvrir la pince puis passe à l'action suivante
+	 * si b == true  : permet d'ouvrir la pince et passe ï¿½ l'action suivante aprï¿½s avoir commencer la fermeture
+	 * si b == false : permet d'ouvrir la pince puis passe ï¿½ l'action suivante
 	 * @param b
 	 */
     public void openClaw(boolean b) {

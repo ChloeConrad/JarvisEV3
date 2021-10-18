@@ -207,7 +207,7 @@ public class Etat {
 		 this.palets[i].setProbaPresence(j);
 	}
 	/**
-	 *met à jour les attributs interne à l'aide des censors 
+	 *met ï¿½ jour les attributs interne ï¿½ l'aide des censors 
 	 */
 	public void majState(OurSensors s) {
 	
@@ -222,7 +222,7 @@ public class Etat {
 	}
 	/**
 	 * Methode servant a trouver la cible la plus proche
-	 * calculs capilotracté
+	 * calculs capilotractï¿½
 	 */
 	public void seekTarget() {
 		Vecteur[] cible=new Vecteur[9];
