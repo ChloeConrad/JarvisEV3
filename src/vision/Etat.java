@@ -256,6 +256,12 @@ public class Etat {
 	public double nearDist() {
 		return new Vecteur(position.getpDepart(),cible).normeVecteur();
 	}
+	/**
+	 * Determine la couleur sur laquelle on est
+	 */
+	public void quelCouleur(Jarvis j) {
+		
+	}
 	
 
 }
