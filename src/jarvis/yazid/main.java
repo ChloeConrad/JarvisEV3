@@ -1,5 +1,6 @@
 package jarvis.yazid;
 
+import lejos.hardware.Button;
 import vision.Jarvis;
 
 public class main {
@@ -8,6 +9,11 @@ public class main {
 		// TODO Auto-generated method stub
 		Jarvis jarvis=new Jarvis();
 		PerceptionThread perception=new PerceptionThread(jarvis);
+		jarvis.setPositions();
+		perception.start();
+		jarvis.premierBut();
+		Button.waitForAnyPress();
+		
 	}
 
 }
