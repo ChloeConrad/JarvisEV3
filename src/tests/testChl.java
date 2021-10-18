@@ -6,10 +6,12 @@ import vision.Jarvis;
 public class testChl {
 
 	public static void main(String[] args) {
+		
 		Jarvis j = new Jarvis();
-		j.getPilote().getClawMotor().rotate(100);
-		j.setPositions();
-		j.premierBut();
+		//j.setPositions();
+		//j.premierBut();
+		j.checkNearestPalet(-40);
+		Button.waitForAnyPress();
 
 	}
 
