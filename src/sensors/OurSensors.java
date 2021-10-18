@@ -37,11 +37,7 @@ public class OurSensors {
 	}
 	
 	
-	public UltraSonicSensor(Port port) {
-		USs = new EV3UltrasonicSensor(port);
-		USsamp = USs.getDistanceMode();
-	    sample = new float[USsamp.sampleSize()];
-	}
+	
 
 	/**
 	 * 
