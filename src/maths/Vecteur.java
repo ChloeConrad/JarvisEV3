@@ -1,6 +1,16 @@
 package maths;
 
 /**
+ * <b>Vecteur est la classe représentant un segment dans l'espace, censé donner son orientation au robot.</b> <br/>
+ * Un vecteur est caractérisé par les informations suivantes : 
+ * 
+ * <ul>
+ * <li> un point de départ
+ * <li> un point d'arrivé
+ * <li> une composante horizontale 
+ * <li> une composante verticale 
+ * </ul>
+ * 
  * Segment permettant au robot de se donner une direction dans l'espace
  * depuis un point de départ et un point d'arrivé
  */
@@ -40,8 +50,6 @@ public class Vecteur {
 
 	/**
 	 * Constructeur Vecteur à partir de deux points
-	 * <p>
-	 * 
 	 * 
 	 * @param p
 	 * 			Le premier point du Vecteur
@@ -65,7 +73,6 @@ public class Vecteur {
 
 	/**
 	 * Constructeur Vecteur à partir d'un point d'arrivée
-	 * <p>
 	 * 
 	 * @param p
 	 * 			Le premier point du vecteur 
@@ -81,7 +88,7 @@ public class Vecteur {
 	/**
 	 * Retourne le point de départ 
 	 * 
-	 * @return le point de départ
+	 * @return le point de départ du vecteur
 	 */
 	public Point getpDepart() {
 		return pDepart;
@@ -100,51 +107,68 @@ public class Vecteur {
 	}
 
 	/**
-	 * Retourne le point de final
+	 * Retourne le point final
 	 * 
-	 * @return le point final 
+	 * @return le point final du vecteur
 	 */
 	public Point getpFinal() {
 		return pFinal;
 	}
 
 	/**
+	 * Met à jour le point final
 	 * 
+	 * @param pFinal
+	 * 			le nouveau point final
 	 */
 	public void setpFinal(Point pFinal) {
 		this.pFinal = pFinal;
 	}
 
 	/**
+	 * Retourne la composante horizontale
 	 * 
+	 * @return la composante horizontale du vecteur 
 	 */
 	public double getU1() {
 		return u1;
 	}
 
 	/**
+	 * Met à jour la composante horizontale
 	 * 
+	 * @param u1
+	 * 			La nouvelle composante horizontale 
 	 */
 	public void setU1(double u1) {
 		this.u1 = u1;
 	}
 
 	/**
+	 * Retourne la composante verticale
 	 * 
+	 * @return la composante verticale du vecteur 
 	 */
 	public double getU2() {
 		return u2;
 	}
 
 	/**
+	 * Met à jour la composante vertical
 	 * 
+	 * @param u2
+	 * 			La nouvelle composante verticale 
 	 */
 	public void setU2(double u2) {
 		this.u2 = u2;
 	}
 
 	/**
+	 * Calcul Theta à partir des composantes verticale et horizontale du vecteur
 	 * 
+	 * @return un nombre réel (théta)
+	 * @see u1
+	 * @see u2
 	 */
 	public double calculTheta() {
 		double theta = Math.atan2(u2, u1);
@@ -152,7 +176,9 @@ public class Vecteur {
 	}
 
 	/**
+	 * Calcul la taille du vecteur
 	 * 
+	 * @see Point#distance
 	 */
 	public double taille() {
 		double t = pDepart.distance(pFinal);
@@ -169,16 +195,20 @@ public class Vecteur {
 	}
 
 	/**
+	 * Calcul le produit scalaire entre ce vecteur et un vecteur V placé en paramètre
 	 * 
+	 * @return un nombre réel (scalaire)
 	 */
-	public double scalaireVecteur(Vecteur V) {//calcul produit scalaire entre ce vecteur et un vecteur v
+	public double scalaireVecteur(Vecteur V) {
 		return this.u1*V.u1+this.u2*V.u2;
 	}
 
 	/**
+	 * Calcul l'angle entre ce vecteur et un vecteur V placé en paramètre
 	 * 
+	 * @return un nombre réel (angle)
 	 */
-	public double angleDeuxVecteurs(Vecteur V) {//calcul d'angle entre ce vecteur et un vecteur v
+	public double angleDeuxVecteurs(Vecteur V) {
 		return Math.acos(this.scalaireVecteur(V)/(this.normeVecteur()*V.normeVecteur()));
 	}
 
