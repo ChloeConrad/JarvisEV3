@@ -80,7 +80,7 @@ public class Jarvis{
 				pilote.seTourner(45,false,this);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(false);
+				pilote.openClaw(true);
 				etat=BUT;
 				break;
 			case 1:
@@ -106,7 +106,7 @@ public class Jarvis{
 				pilote.seTourner(45,false,this);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(false);
+				pilote.openClaw(true);
 				etat=BUT;
 				break;
 			}
@@ -123,7 +123,7 @@ public class Jarvis{
 				pilote.seTourner(-45,false,this);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(false);
+				pilote.openClaw(true);
 				etat=BUT;
 				break;
 			case 1:
@@ -136,7 +136,7 @@ public class Jarvis{
 				pilote.seTourner(45,false,this);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(false);
+				pilote.openClaw(true);
 				etat=BUT;
 				break;
 			case 2:
@@ -149,7 +149,7 @@ public class Jarvis{
 				pilote.seTourner(45,false,this);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(false);
+				pilote.openClaw(true);
 				etat=BUT;
 				break;
 			}
@@ -166,7 +166,7 @@ public class Jarvis{
 				pilote.seTourner(-45,false,this);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(false);
+				pilote.openClaw(true);
 				etat=BUT;
 				break;
 			case 1:
@@ -179,7 +179,7 @@ public class Jarvis{
 				pilote.seTourner(45,false,this);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(false);
+				pilote.openClaw(true);
 				etat=BUT;
 				break;
 			case 2:
@@ -198,8 +198,9 @@ public class Jarvis{
 			}
 			break;
 		}
+		pilote.closeClaw(true);
 		pilote.backward(720);
-		pilote.closeClaw();
+		
 	}
 	/**
 	 * Permet de mettre la valeur du palet 
