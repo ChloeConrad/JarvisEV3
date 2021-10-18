@@ -14,7 +14,7 @@ import sensors.UltraSonicSensor;
 
 public class Pilote extends MovePilot {
 	public Pilote(Chassis chassis) {
-		super(new WheeledChassis( new Wheel[] {wheelRight, wheelLeft}, WheeledChassis.TYPE_DIFFERENTIAL));
+		super(chassis);
 		// TODO Auto-generated constructor stub
 		this.initMotor();
 	}
