@@ -18,6 +18,7 @@ public class OurSensors {
 	public OurSensors() {
 		touch= new TouchSensor(SensorPort.S3);
 		ultra = new UltraSonicSensor (SensorPort.S1);
+		color = new ColorSensor (SensorPort.S2);
 		
 	}
 
