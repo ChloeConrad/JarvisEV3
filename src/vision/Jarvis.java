@@ -3,6 +3,8 @@ package vision;
 import lejos.hardware.Button;
 import lejos.hardware.port.SensorPort;
 import lejos.robotics.navigation.MovePilot;
+import maths.Point;
+import maths.Vecteur;
 import sensors.TouchSensor;
 import sensors.UltraSonicSensor;
 /**
@@ -395,6 +397,13 @@ public class Jarvis{
 		 * faire le chemin vers les buts, verifier regulierement la distance devant nous
 		 * quand on est dans les buts, lacher.
 		 */
+		double angle;
+		if (cogito.getOrientation().getOurAngle()>180.0) {
+			angle=360-cogito.getOrientation().getOurAngle();
+			pilote.seTourner(angle, this);
+			
+			
+		}
 	}
 	/**
 	 * Methode permettant de mettre Jarvis en recherche
@@ -425,5 +434,50 @@ public class Jarvis{
 	}
 	
 	public void recherchePalet(float[] valeurs) {
+	}
+	/**
+	 * Methode permettant à Jarvis de se déplacer vers sa cible tout en metant à jour sa position
+	 * A documenter
+	 */
+	public void go() {
+		Point cible=cogito.getCible();
+		if(cible.getX()<=cogito.getPosition().getpFinal().getX()) {
+			pilote.seTourner(-cogito.getPosition().angleDeuxVecteurs(new Vecteur (cogito.getPosition().getpDepart(),cible)), this);
+			cogito.getOrientation().majBoussole(-cogito.getPosition().angleDeuxVecteurs(new Vecteur (cogito.getPosition().getpDepart(),cible)));
+			pilote.forward(new Vecteur(cogito.getPosition().getpFinal(),cible).normeVecteur()/100);
+			
+		}
+		else {
+			pilote.seTourner(cogito.getPosition().angleDeuxVecteurs(new Vecteur (cogito.getPosition().getpDepart(),cible)), this);
+			cogito.getOrientation().majBoussole(cogito.getPosition().angleDeuxVecteurs(new Vecteur (cogito.getPosition().getpDepart(),cible)));
+			pilote.forward(new Vecteur(cogito.getPosition().getpFinal(),cible).normeVecteur()/100);
+		}
+		
+		cogito.getPosition().setpFinal(cible);
+		if (cogito.getOrientation().getOurAngle()<=90) {
+			cogito.getPosition().setU1(Math.sin(cogito.getOrientation().getOurAngle()/10));
+			cogito.getPosition().setU2(Math.cos(cogito.getOrientation().getOurAngle()/10));
+			cogito.getPosition().setpDepart(new Point(cible.getX()+cogito.getPosition().getU1(),cible.getY()+cogito.getPosition().getU2()));
+			return;
+		}
+		
+		else if(cogito.getOrientation().getOurAngle()<=180) {
+			cogito.getPosition().setU1(Math.sin((180-cogito.getOrientation().getOurAngle())/10));
+			cogito.getPosition().setU2(Math.cos((180-cogito.getOrientation().getOurAngle())/10));
+			cogito.getPosition().setpDepart(new Point(cible.getX()+cogito.getPosition().getU1(),cible.getY()-cogito.getPosition().getU2()));
+			return;
+		}
+		else if(cogito.getOrientation().getOurAngle()<=270) {
+			cogito.getPosition().setU1(Math.sin((270-cogito.getOrientation().getOurAngle())/10));
+			cogito.getPosition().setU2(Math.cos((270-cogito.getOrientation().getOurAngle())/10));
+			cogito.getPosition().setpDepart(new Point(cible.getX()-cogito.getPosition().getU1(),cible.getY()-cogito.getPosition().getU2()));
+			return;
+		}
+		else if(cogito.getOrientation().getOurAngle()<=360) {
+			cogito.getPosition().setU1(Math.sin((360-cogito.getOrientation().getOurAngle())/10));
+			cogito.getPosition().setU2(Math.cos((360-cogito.getOrientation().getOurAngle())/10));
+			cogito.getPosition().setpDepart(new Point(cible.getX()-cogito.getPosition().getU1(),cible.getY()+cogito.getPosition().getU2()));
+			return;
+		}
 	}
 }
