@@ -16,7 +16,7 @@ public class Pilote extends MovePilot {
 	public Pilote(Chassis chassis) {
 		super(chassis);
 		// TODO Auto-generated constructor stub
-		this.initMotor();
+		//this.initMotor();
 	}
 	public static int DEFAULT_SPEED = 500;
 	public static int DEFAULT_ACCELERATION = 100;
@@ -28,8 +28,8 @@ public class Pilote extends MovePilot {
     private static RegulatedMotor rightMotor;
     private static RegulatedMotor clawMotor;
     private static UltraSonicSensor US;
-    private static Wheel wheelLeft = WheeledChassis.modelWheel(Motor.B, 56.0).offset(-70);
-	private static Wheel wheelRight = WheeledChassis.modelWheel(Motor.A, 56.0).offset(70);
+    //private static Wheel wheelLeft = WheeledChassis.modelWheel(Motor.B, 56.0).offset(-70);
+	//private static Wheel wheelRight = WheeledChassis.modelWheel(Motor.A, 56.0).offset(70);
 	
 	private void initMotor() {
     	speed = DEFAULT_SPEED;
