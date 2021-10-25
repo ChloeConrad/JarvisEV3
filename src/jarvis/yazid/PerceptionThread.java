@@ -10,10 +10,7 @@ public class PerceptionThread extends Thread {
 	}
 	
 	public void run() {
-	int i = 0;
-	while(i<10) {
-		System.out.println("hello !");
-		i++;
-	}
+	
+	System.out.println("Je suis un con!");
 	}
 }
