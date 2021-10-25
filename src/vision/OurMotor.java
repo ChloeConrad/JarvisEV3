@@ -14,8 +14,8 @@ import sensors.UltraSonicSensor;
 public class OurMotor {
 	private static int speed;
 	private static int acceleration;
-	public static int DEFAULT_SPEED = 500;
-	public static int DEFAULT_ACCELERATION = 100;
+	public static int DEFAULT_SPEED = 1000;
+	public static int DEFAULT_ACCELERATION = 150;
 	private static int value360 = 780;
 	public static int distFor1000 = 0;
 	private boolean isClawOpen = false;
@@ -40,7 +40,7 @@ public class OurMotor {
         clawMotor = new EV3LargeRegulatedMotor(MotorPort.D);
     	initMotor(leftMotor);
     	initMotor(rightMotor);
-    	initMotor(clawMotor);
+    	clawMotor.setSpeed(1000);
     	US = new UltraSonicSensor(SensorPort.S1);
     }
     private static void initMotor(RegulatedMotor m) {
@@ -117,7 +117,7 @@ public class OurMotor {
 	public void seTourner(double degres, boolean boolCont, Jarvis j) {
 		int rotation = degreeToRotation(degres);
 		ClockRotate(rotation,boolCont);
-		//j.getEtat().getOrientation().majBoussole(degres);
+		
 	}
 	/**
 	 * Effectue une rotation sur lui même dans le sens inverse des aiguilles d'une montre

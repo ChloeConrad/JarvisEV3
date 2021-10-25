@@ -17,8 +17,8 @@ public class Jarvis{
 	private final static int RECHERCHE=2;
 	private final static int PALETTROUVE=3;
 	private final static int PALETNONTROUVE=4;
-	private final static int PALET=4;
-	private final static int NOPALET=5;
+	private final static int PALET=5;
+	//private final static int NOPALET=5;
 	
 	private Boussole boussole;
 	private OurMotor pilote;
@@ -72,20 +72,20 @@ public class Jarvis{
 			case 0:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
-				if(s.getTouch()==1) pilote.closeClaw(false);
+				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
 				pilote.seTourner(-45,false,this);
 				OurMotor.forward(0.40);
 				pilote.seTourner(45,false,this);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(true);
+				pilote.openClaw(false);
 				etat=BUT;
 				break;
 			case 1:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
-				if(s.getTouch()==1) pilote.closeClaw(false);
+				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
 				pilote.seTourner(45,false,this);
 				OurMotor.forward(0.40);
@@ -98,14 +98,14 @@ public class Jarvis{
 			case 2:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
-				if(s.getTouch()==1) pilote.closeClaw(false);
+				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
 				pilote.seTourner(-45,false,this);
 				OurMotor.forward(0.40);
 				pilote.seTourner(45,false,this);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(true);
+				pilote.openClaw(false);
 				etat=BUT;
 				break;
 			}
@@ -115,40 +115,40 @@ public class Jarvis{
 			case 0:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
-				if(s.getTouch()==1) pilote.closeClaw(false);
+				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
 				pilote.seTourner(45,false,this);
 				OurMotor.forward(0.40);
 				pilote.seTourner(-45,false,this);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(true);
+				pilote.openClaw(false);
 				etat=BUT;
 				break;
 			case 1:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
-				if(s.getTouch()==1) pilote.closeClaw(false);
+				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
 				pilote.seTourner(-45,false,this);
 				OurMotor.forward(0.40);
 				pilote.seTourner(45,false,this);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(true);
+				pilote.openClaw(false);
 				etat=BUT;
 				break;
 			case 2:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
-				if(s.getTouch()==1) pilote.closeClaw(false);
+				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
 				pilote.seTourner(-45,false,this);
 				OurMotor.forward(0.40);
 				pilote.seTourner(45,false,this);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(true);
+				pilote.openClaw(false);
 				etat=BUT;
 				break;
 			}
@@ -158,40 +158,40 @@ public class Jarvis{
 			case 0:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
-				if(s.getTouch()==1) pilote.closeClaw(false);
+				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
 				pilote.seTourner(45,false,this);
 				OurMotor.forward(0.40);
 				pilote.seTourner(-45,false,this);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(true);
+				pilote.openClaw(false);
 				etat=BUT;
 				break;
 			case 1:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
-				if(s.getTouch()==1) pilote.closeClaw(false);
+				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
 				pilote.seTourner(-45,false,this);
 				OurMotor.forward(0.40);
 				pilote.seTourner(45,false,this);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(true);
+				pilote.openClaw(false);
 				etat=BUT;
 				break;
 			case 2:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
-				if(s.getTouch()==1) pilote.closeClaw(false);
+				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
 				pilote.seTourner(-45,false,this);
 				OurMotor.forward(0.40);
 				pilote.seTourner(45,false,this);
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
-				pilote.openClaw(true);
+				pilote.openClaw(false);
 				etat=BUT;
 				break;
 			}
@@ -342,7 +342,7 @@ public class Jarvis{
 		pilote.seTourner((int)nearAngle, true, this);
 		pilote.setSpeed(100);
 		pilote.setAcceleration(100);
-		float[] values = new float[10000]; 		//stock les mesures faites par le senseur
+		float[] values = new float[10000]; 		
 		for(int k = 0; k<10000;k++)
 			values [k] = 9999999; 				//initialise les valeurs à une très grande valeur. 
 												//Dans les faits les cases à cette valeur ne devraient jamais être atteinte
@@ -357,11 +357,13 @@ public class Jarvis{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			
 			/*if(Math.abs(values[i]-values[i-1]) > 0.1 && Math.abs(values[i]-cogito.nearDist())<0.1) {
 				b = true;	
 			}*/
 			if(Math.abs(values[i]-values[i-1]) > 0.1) {
 				b = true;	
+				pilote.seTourner(0, true, this);
 			}
 			break;
 		}
@@ -369,6 +371,49 @@ public class Jarvis{
 		pilote.setSpeed(pilote.DEFAULT_SPEED);
 		System.out.println(b);
 		return b;	
+	}
+	
+	public void checkNearestPalet() {
+		
+		
+		pilote.setSpeed(100);
+		pilote.setAcceleration(100);
+		
+		float[] values = new float[10000]; 	
+		float val1;
+		float val2;
+		for(int k = 0; k<10000;k++)
+			values [k] = 9999999; 				//initialise les valeurs à une très grande valeur. 
+												//Dans les faits les cases à cette valeur ne devraient jamais être atteinte
+		int i = 0;
+		pilote.that360(true);
+		while(pilote.getLeftMotor().isMoving()) {
+			values[i]= pilote.getUltraSon().getDist();			//je stock la valeur de la distance
+			i++;
+			val1 = pilote.getUltraSon().getDist();
+			System.out.println(values[i]);
+			try {								//try-catch necessaire pour faire le Thread.sleep
+				Thread.sleep(5);				//Le son se deplace à 36 m/s, la distance max est 2,5m, 
+												//dans la théorie on pourrait attendre 1/7 ms, dans les faits si on met juste
+												//Thread.sleep(1) ça commence à faire n'importe quoi, il y a des imprecisions. à 5ms c'est bien.
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			val2 = pilote.getUltraSon().getDist();
+			/*if(Math.abs(values[i]-values[i-1]) > 0.1 && Math.abs(values[i]-cogito.nearDist())<0.1) {
+				b = true;	
+			}*/
+			float f = Float.POSITIVE_INFINITY;
+			if(Math.abs(val1 - val2) > 0.1 && val1!=f && val2 != f) {
+				System.out.print("caca");
+				etat = PALETTROUVE;	
+				pilote.seTourner(1, true, this);
+			}
+	
+		}
+		pilote.setAcceleration(pilote.DEFAULT_ACCELERATION);
+		pilote.setSpeed(pilote.DEFAULT_SPEED);
 	}
 	
 	/**
@@ -426,4 +471,38 @@ public class Jarvis{
 	
 	public void recherchePalet(float[] valeurs) {
 	}
+	
+	
+	public void partieSimple() {
+		boolean jeu = true;
+		//this.setPositions();
+		//this.premierBut();
+		etat = PALETNONTROUVE;
+		do {
+			if(Button.readButtons()!=0) 
+				jeu = false;
+			if(etat == PALETNONTROUVE) {
+				this.checkNearestPalet();
+				System.out.println("Stopped searching !");
+				if(etat==PALETTROUVE) {
+					etat = PALETTROUVE;
+					float dist = this.pilote.getUltraSon().getDist();
+					if(dist>0.32) {
+						this.pilote.openClaw(true);
+						this.pilote.forward(dist);
+						if(s.getTouch()==1) {
+							this.pilote.closeClaw(true); 
+							jeu = false;
+						}
+					}
+					else {
+						etat = PALETNONTROUVE;
+
+					}
+				}
+				else break;
+			}
+		}while(jeu);
+	}
+	
 }
