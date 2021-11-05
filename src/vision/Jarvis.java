@@ -204,6 +204,9 @@ public class Jarvis{
 		pilote.backward(720);
 		
 	}
+	
+	
+	//fonction plus utilisée ??
 	/**
 	 * Permet de mettre la valeur du palet 
 	 * @param a à 0 lorsqu'on l'a récupéré
@@ -212,12 +215,18 @@ public class Jarvis{
 	
 		
 	}
+	
+	
+	//fonction plus utilisée ??
 	/**
 	 * en prenant en compte @param enemyPosition on diminue à 50% la valeur des palets de sa colonne
 	 */
 	public void valeurPalet50() {
 		
 	}
+	
+	
+	//fonction plus utilisée ??
 	/**
 	 * Methode permetant au robot de se déplacer de 
 	 * @param distance centimetre
@@ -225,6 +234,7 @@ public class Jarvis{
 	public void seDeplacer(double distance) {
 		
 	}
+	
 	
 	/**
 	 * Methode permetant au robot de se tourner de
@@ -235,7 +245,7 @@ public class Jarvis{
 		boussole.majBoussole(degre);
 	}
 	
-	
+	//fonction plus utilisée ??
 	/**
 	 * Fait tourner jarvis sur lui meme et prends une mesure de la distance toutes les 5ms
 	 * @return un tableau de float contenant les valeurs mesurés
