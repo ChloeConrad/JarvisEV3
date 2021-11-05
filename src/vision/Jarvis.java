@@ -343,8 +343,7 @@ public class Jarvis{
 		etat=DEPART;
 	}
 	
-	public void recherchePalet(float[] valeurs) {
-	}
+
 	
 	/**
 	 * Méthode représentant un automate simple de la partie.
@@ -387,6 +386,8 @@ public class Jarvis{
 	////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////
 	
+	public void recherchePalet(float[] valeurs) {
+	}
 	
 	//fonction plus utilisée ??
 		/**
