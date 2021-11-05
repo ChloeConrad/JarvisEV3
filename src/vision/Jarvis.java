@@ -1,5 +1,7 @@
 package vision;
 
+import java.lang.annotation.Documented;
+
 import lejos.hardware.Button;
 import lejos.hardware.port.SensorPort;
 import lejos.robotics.navigation.MovePilot;
@@ -18,6 +20,7 @@ public class Jarvis{
 	private final static int PALETTROUVE=3;
 	private final static int PALETNONTROUVE=4;
 	private final static int PALET=5;
+
 	//private final static int NOPALET=5;
 	
 	private Boussole boussole;
@@ -222,6 +225,7 @@ public class Jarvis{
 	public void seDeplacer(double distance) {
 		
 	}
+	
 	/**
 	 * Methode permetant au robot de se tourner de
 	 * @param degre
@@ -230,6 +234,7 @@ public class Jarvis{
 		pilote.seTourner(degre,false,this);
 		boussole.majBoussole(degre);
 	}
+	
 	
 	/**
 	 * Fait tourner jarvis sur lui meme et prends une mesure de la distance toutes les 5ms
@@ -279,6 +284,8 @@ public class Jarvis{
 		System.out.println("Min was : "+min+"\nMin became : "+meanMin);	//debug
 		return values;*/
 	}
+	
+	//fonction plus utilisée ??
 	/**
 	 * Trouve le minimum d'un tableau, renvoie l'indice
 	 * @param values un tableau de flottants
@@ -321,6 +328,7 @@ public class Jarvis{
 		return meanMin;
 	}
 	
+	//fonction plus utilisée ??
 	public int[] trouverCassures(float [] values) {
 		int[] temp = new int[200];
 		int j = 0;
@@ -337,6 +345,7 @@ public class Jarvis{
 		return ret;
 	}
 	
+	//fonction plus utilisée ??
 	public boolean checkNearestPalet(double nearAngle) {
 		boolean b = false;
 		pilote.seTourner((int)nearAngle, true, this);
@@ -373,8 +382,13 @@ public class Jarvis{
 		return b;	
 	}
 	
+	/**
+	 * Fonction permettant de trouver un palet et d'orienter Jarvis vers ce dernier. 
+	 * Pour ce faire, elle fait réaliser à Jarvis un tour sur lui même en cherchant les cassures dans les distances des objets autour de lui.
+	 * Si Jarvis repère une cassure, c'est qu'il a repéré soit un palet soit le robot adverse(cas à traiter)
+	 * elle met à jour l'état de jarvis lorsqu'elle trouve un palet 
+	 */
 	public void checkNearestPalet() {
-		
 		
 		pilote.setSpeed(100);
 		pilote.setAcceleration(100);
@@ -417,29 +431,50 @@ public class Jarvis{
 	}
 	
 	/**
-	 * Methode permettant d'attraper le Palet le plus proche
+	 * méthode permettant à Jarvis d'aller atttraper un palet après l'avoir repéré et s'être orienter dans sa direction grâce à checkNearestPalet
+	 * Elle met à jour l'état de Jarvis lorsqu'elle a attrappé le palet
+	 * @param dist : distance séparant Jarvis du palet repéré
+	 *
 	 */
-	public void attrapePalet() {
-		float[] distancePlusProche = regarderAutour();
-		int[] cassures = trouverCassures(distancePlusProche);
-		/*Avancer de la distance qui separe de l'objet. 
-		 * si le bouton est activé, s'arreter et fermer les pinces. 
-		 * Si c'est trop tot, il y a un probleme, peut etre qu'un autre palet est devant, peut etre que l'ennemi s'est mis entre nous. 
-		 * Si on est arrivé au point et rien, peut etre que l'ennemi nous l'a volé.
-		 */
+	public void attrapePalet(float dist) {
+		this.pilote.openClaw(true);
+		OurMotor.forward(dist);
+		if(s.getTouch()==1) {
+			this.pilote.closeClaw(true); 
+			etat = PALET;
+		}
 	}
 	
 	/**
 	 * Methode permettant d'aller marquer un but une fois le palet attrapé
-	 *
+	 * Elle met à jour l'état de Jarvis lorsque le but a été marqué 
 	 */
+	
 	public void vasMarquer() {
-		/*
-		 * Identifier la direction des buts
-		 * determiner si des palets sur le chemin sont a eviter
-		 * faire le chemin vers les buts, verifier regulierement la distance devant nous
-		 * quand on est dans les buts, lacher.
-		 */
+		double angle = boussole.getOurAngle();
+		if(angle>180)
+			seTourner((360-angle));
+		else 
+			seTourner(-angle);
+		OurMotor.forward(10000,true);
+		while(pilote.getLeftMotor().isMoving()) {
+			float dist = this.pilote.getUltraSon().getDist();
+			if(dist<0.3) {
+				OurMotor.forward(0,true);
+				this.pilote.openClaw(false);
+				this.pilote.closeClaw(true);
+				OurMotor.backward(720);
+				etat = PALETNONTROUVE;
+				
+			}
+			try {								
+				Thread.sleep(5);																		
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
 	}
 	/**
 	 * Methode permettant de mettre Jarvis en recherche
@@ -451,6 +486,11 @@ public class Jarvis{
 	public OurMotor getPilote() {
 		return this.pilote;
 	}
+	
+	/**
+	 * Méthode permettant d'initialiser la position de Jarvis ainsi que celle du robot adverse au début de la partie
+	 */
+	
 	public  void setPositions() {
 		System.out.println("Quel est ma position? 0 Gauche 1 Bas 2 Droite");
 		Button.waitForAnyPress();
@@ -472,11 +512,15 @@ public class Jarvis{
 	public void recherchePalet(float[] valeurs) {
 	}
 	
+	/**
+	 * Méthode représentant un automate simple de la partie.
+	 * 
+	 */
 	
 	public void partieSimple() {
 		boolean jeu = true;
-		//this.setPositions();
-		//this.premierBut();
+		this.setPositions();
+		this.premierBut();
 		etat = PALETNONTROUVE;
 		do {
 			if(Button.readButtons()!=0) 
@@ -485,22 +529,20 @@ public class Jarvis{
 				this.checkNearestPalet();
 				System.out.println("Stopped searching !");
 				if(etat==PALETTROUVE) {
-					etat = PALETTROUVE;
 					float dist = this.pilote.getUltraSon().getDist();
 					if(dist>0.32) {
-						this.pilote.openClaw(true);
-						this.pilote.forward(dist);
-						if(s.getTouch()==1) {
-							this.pilote.closeClaw(true); 
-							jeu = false;
-						}
+						attrapePalet(dist);
+						if(etat == PALETTROUVE)
+							etat = PALETNONTROUVE;
 					}
 					else {
 						etat = PALETNONTROUVE;
-
 					}
 				}
-				else break;
+				
+			}
+			else if(etat == PALET) {
+				vasMarquer();
 			}
 		}while(jeu);
 	}
