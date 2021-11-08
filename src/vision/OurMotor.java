@@ -40,7 +40,7 @@ public class OurMotor {
         clawMotor = new EV3LargeRegulatedMotor(MotorPort.D);
     	initMotor(leftMotor);
     	initMotor(rightMotor);
-    	initMotor(clawMotor);
+    	clawMotor.setSpeed(1000);
     	US = new UltraSonicSensor(SensorPort.S1);
     }
     private static void initMotor(RegulatedMotor m) {
@@ -120,7 +120,7 @@ public class OurMotor {
 		}
 		int rotation = degreeToRotation(degres);
 		ClockRotate(rotation,boolCont);
-		//j.getEtat().getOrientation().majBoussole(degres);
+		
 	}
 	/**
 	 * Effectue une rotation sur lui même dans le sens inverse des aiguilles d'une montre
