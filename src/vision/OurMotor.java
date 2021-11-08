@@ -14,8 +14,8 @@ import sensors.UltraSonicSensor;
 public class OurMotor {
 	private static int speed;
 	private static int acceleration;
-	public static int DEFAULT_SPEED = 500;
-	public static int DEFAULT_ACCELERATION = 100;
+	public static int DEFAULT_SPEED = 800;
+	public static int DEFAULT_ACCELERATION = 400;
 	private static int value360 = 780;
 	public static int distFor1000 = 0;
 	private boolean isClawOpen = false;
@@ -60,7 +60,7 @@ public class OurMotor {
      * Effectue un mouvement vers l'avant.
      * @param rotation Le nombre de degrés de rotation de roues à effectuer
      */
-	public static void forward(double metres) {
+	public void forward(double metres) {
 		/*
 		 * pour 1000rot = 0,476
 		 * donc x = metres
@@ -115,6 +115,9 @@ public class OurMotor {
 	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
 	 */
 	public void seTourner(double degres, boolean boolCont, Jarvis j) {
+		if(degres>180) {
+			
+		}
 		int rotation = degreeToRotation(degres);
 		ClockRotate(rotation,boolCont);
 		//j.getEtat().getOrientation().majBoussole(degres);

@@ -16,7 +16,7 @@ public class Pilote extends MovePilot {
 	public Pilote(Chassis chassis) {
 		super(chassis);
 		// TODO Auto-generated constructor stub
-		//this.initMotor();
+		this.initMotor();
 	}
 	public static int DEFAULT_SPEED = 500;
 	public static int DEFAULT_ACCELERATION = 100;
@@ -34,8 +34,8 @@ public class Pilote extends MovePilot {
 	private void initMotor() {
     	speed = DEFAULT_SPEED;
     	acceleration = DEFAULT_ACCELERATION;
-    	leftMotor = new EV3LargeRegulatedMotor(MotorPort.B);
-        rightMotor = new EV3LargeRegulatedMotor(MotorPort.A);
+    	//leftMotor = new EV3LargeRegulatedMotor(MotorPort.B);
+        //rightMotor = new EV3LargeRegulatedMotor(MotorPort.A);
         clawMotor = new EV3LargeRegulatedMotor(MotorPort.D);
     	initMotor(leftMotor);
     	initMotor(rightMotor);
@@ -270,6 +270,13 @@ public class Pilote extends MovePilot {
 	public UltraSonicSensor getUltraSon() {
 		return Pilote.US;
 	}
+	
+	public void arcMoveTo(int dist) {
+		double denom = Math.sqrt(2-Math.sqrt(2));
+		double ddist = (double)dist;
+		super.arc(ddist/denom, 45);
+	}
+	
 	/**
 	 * Mesure la distance parcouru a vitesse 100, acceleration 50 et rotate 1000
 	 */
