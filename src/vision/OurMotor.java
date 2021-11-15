@@ -15,7 +15,7 @@ public class OurMotor {
 	private static int speed;
 	private static int acceleration;
 	public static int DEFAULT_SPEED = 1000;
-	public static int DEFAULT_ACCELERATION = 150;
+	public static int DEFAULT_ACCELERATION = 400;
 	private static int value360 = 780;
 	public static int distFor1000 = 0;
 	private boolean isClawOpen = false;
@@ -32,6 +32,7 @@ public class OurMotor {
     	initMotor();
     }
 	
+ 
     private static void initMotor() {
     	speed = DEFAULT_SPEED;
     	acceleration = DEFAULT_ACCELERATION;
@@ -105,8 +106,8 @@ public class OurMotor {
 	 * Se tourne en degres
 	 * @param degres le nombre de degres à tourner
 	 */
-	public void seTourner(double degres, Jarvis j) {
-		seTourner(degres, false, j);
+	public void seTourner(double degres) {
+		seTourner(degres, false);
 	
 	}
 	/**
@@ -114,10 +115,10 @@ public class OurMotor {
 	 * @param degres le nombre de degres à tourner
 	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
 	 */
-	public void seTourner(double degres, boolean boolCont, Jarvis j) {
+	public void seTourner(double degres, boolean boolCont) {
+		leftMotor.resetTachoCount();
 		int rotation = degreeToRotation(degres);
 		ClockRotate(rotation,boolCont);
-		
 	}
 	/**
 	 * Effectue une rotation sur lui même dans le sens inverse des aiguilles d'une montre
@@ -182,15 +183,16 @@ public class OurMotor {
 	public void that360(boolean boolCont) {
 		leftMotor.rotate(value360,true);
 		rightMotor.rotate(-value360,boolCont);
+		seTourner(360,boolCont);
 	}
 	/**
 	 * Ferme la pince
 	 */
 	public void closeClaw() {
-		//if(this.isClawOpen) {
+		if(this.isClawOpen) {
 			clawMotor.rotate(-1800);
-		//	isClawOpen = false;
-		//}
+			isClawOpen = false;
+		}
     }
 	
 	/**
@@ -199,7 +201,10 @@ public class OurMotor {
 	 * @param b
 	 */
 	public void closeClaw(boolean b) {
-		clawMotor.rotate(-1800,b);
+		if(this.isClawOpen) {
+			clawMotor.rotate(-1800,b);
+			isClawOpen = false;
+		}
 	}
 	
 	/**
@@ -208,8 +213,17 @@ public class OurMotor {
 	 * @param b
 	 */
     public void openClaw(boolean b) {
-		clawMotor.rotate(1800,b);
+		if(!this.isClawOpen) {
+			clawMotor.rotate(1800,b);
+			isClawOpen = true;
+		}
 	}
+    public void ForceOpen() {
+    	clawMotor.rotate(1800);
+    }
+    public void ForceClose() {
+    	clawMotor.rotate(-1800);
+    }
 	
 	/**
 	 * Fait un tour sur lui même et mesure continuellement les distances face à lui
@@ -251,7 +265,7 @@ public class OurMotor {
 	/**
 	 * @return Renvoie le moteur gauche.
 	 */
-	public RegulatedMotor getLeftMotor() {
+	public static RegulatedMotor getLeftMotor() {
 		return leftMotor;
 	}
 	/**

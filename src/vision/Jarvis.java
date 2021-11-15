@@ -5,6 +5,7 @@ import java.lang.annotation.Documented;
 import lejos.hardware.Button;
 import lejos.hardware.port.SensorPort;
 import lejos.robotics.navigation.MovePilot;
+import lejos.robotics.navigation.Pose;
 import sensors.TouchSensor;
 import sensors.UltraSonicSensor;
 /**
@@ -31,6 +32,7 @@ public class Jarvis{
 	private int enemyPosition;
 	private int etat;
 	private Etat cogito;
+	private Pose p;
 	
 	public Jarvis() {
 		// TODO Auto-generated constructor stub
@@ -42,6 +44,7 @@ public class Jarvis{
 		s= new TouchSensor(SensorPort.S3);
 		etat=PALETNONTROUVE;
 		boussole = new Boussole();
+		
 	}
 	public double[] getPalets() {
 		return palets;
@@ -69,6 +72,8 @@ public class Jarvis{
 	 * Algo simple pour mettre le premier but, il utilise les attributs notrePosition et enemyPosition pour déterminer quel palet récupérer
 	 */
 	public void premierBut() {
+		pilote.setSpeed(800);
+		pilote.setAcceleration(400);
 		switch (notrePosition) {
 		case 0:
 			switch(enemyPosition) {
@@ -77,9 +82,11 @@ public class Jarvis{
 				OurMotor.forward(0.65);
 				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
-				pilote.seTourner(-45,false,this);
+				pilote.seTourner(-45,false);
+				boussole.majBoussole();
 				OurMotor.forward(0.40);
-				pilote.seTourner(45,false,this);
+				pilote.seTourner(45,false);
+				boussole.majBoussole();
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
 				pilote.openClaw(false);
@@ -90,9 +97,11 @@ public class Jarvis{
 				OurMotor.forward(0.65);
 				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
-				pilote.seTourner(-45,false,this);
+				pilote.seTourner(-45,false);
+				boussole.majBoussole();
 				OurMotor.forward(0.40);
-				pilote.seTourner(45,false,this);
+				pilote.seTourner(45,false);
+				boussole.majBoussole();
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
 				pilote.openClaw(false);
@@ -103,9 +112,11 @@ public class Jarvis{
 				OurMotor.forward(0.65);
 				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
-				pilote.seTourner(45,false,this);
+				pilote.seTourner(45,false);
+				boussole.majBoussole();
 				OurMotor.forward(0.40);
-				pilote.seTourner(-45,false,this);
+				pilote.seTourner(-45,false);
+				boussole.majBoussole();
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
 				pilote.openClaw(false);
@@ -120,9 +131,11 @@ public class Jarvis{
 				OurMotor.forward(0.65);
 				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
-				pilote.seTourner(45,false,this);
+				pilote.seTourner(45,false);
+				boussole.majBoussole();
 				OurMotor.forward(0.40);
-				pilote.seTourner(-45,false,this);
+				pilote.seTourner(-45,false);
+				boussole.majBoussole();
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
 				pilote.openClaw(false);
@@ -133,9 +146,11 @@ public class Jarvis{
 				OurMotor.forward(0.65);
 				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
-				pilote.seTourner(-45,false,this);
+				pilote.seTourner(-45,false);
+				boussole.majBoussole();
 				OurMotor.forward(0.40);
-				pilote.seTourner(45,false,this);
+				pilote.seTourner(45,false);
+				boussole.majBoussole();
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
 				pilote.openClaw(false);
@@ -146,9 +161,11 @@ public class Jarvis{
 				OurMotor.forward(0.65);
 				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
-				pilote.seTourner(-45,false,this);
+				pilote.seTourner(-45,false);
+				boussole.majBoussole();
 				OurMotor.forward(0.40);
-				pilote.seTourner(45,false,this);
+				pilote.seTourner(45,false);
+				boussole.majBoussole();
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
 				pilote.openClaw(false);
@@ -163,9 +180,11 @@ public class Jarvis{
 				OurMotor.forward(0.65);
 				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
-				pilote.seTourner(-45,false,this);
+				pilote.seTourner(-45,false);
+				boussole.majBoussole();
 				OurMotor.forward(0.40);
-				pilote.seTourner(45,false,this);
+				pilote.seTourner(45,false);
+				boussole.majBoussole();
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
 				pilote.openClaw(false);
@@ -176,9 +195,11 @@ public class Jarvis{
 				OurMotor.forward(0.65);
 				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
-				pilote.seTourner(45,false,this);
+				pilote.seTourner(45,false);
+				boussole.majBoussole();
 				OurMotor.forward(0.40);
-				pilote.seTourner(-45,false,this);
+				pilote.seTourner(-45,false);
+				boussole.majBoussole();
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
 				pilote.openClaw(false);
@@ -189,9 +210,11 @@ public class Jarvis{
 				OurMotor.forward(0.65);
 				if(s.getTouch()==1) pilote.closeClaw(true);
 				//pilote.curveTry1(100, 1000, 1000, false);
-				pilote.seTourner(45,false,this);
+				pilote.seTourner(45,false);
+				boussole.majBoussole();
 				OurMotor.forward(0.40);
-				pilote.seTourner(-45,false,this);
+				pilote.seTourner(-45,false);
+				boussole.majBoussole();
 				OurMotor.forward(1.60);
 				//ici mettre la condition qu'on avance tant qu'on est pas sur la ligne
 				pilote.openClaw(false);
@@ -202,6 +225,8 @@ public class Jarvis{
 		}
 		pilote.closeClaw(true);
 		pilote.backward(720);
+		pilote.setSpeed(pilote.DEFAULT_SPEED);
+		pilote.setAcceleration(pilote.DEFAULT_ACCELERATION);
 		
 	}
 	
@@ -211,8 +236,8 @@ public class Jarvis{
 	 * @param degre
 	 */
 	public void seTourner(double degre) {
-		pilote.seTourner(degre,false,this);
-		boussole.majBoussole(degre);
+		pilote.seTourner(degre,false);
+		boussole.majBoussole();
 	}
 	
 	
@@ -254,9 +279,11 @@ public class Jarvis{
 			
 			float f = Float.POSITIVE_INFINITY;
 			if(Math.abs(val1 - val2) > 0.1 && val1!=f && val2 != f) {
-				System.out.print("caca");
+				
 				etat = PALETTROUVE;	
-				pilote.seTourner(1, true, this);
+				boussole.majBoussole();
+				pilote.seTourner(1, false);
+				boussole.majBoussole();
 			}
 	
 		}
@@ -271,6 +298,7 @@ public class Jarvis{
 	 *
 	 */
 	public void attrapePalet(float dist) {
+		System.out.println("attrapePalet");
 		this.pilote.openClaw(true);
 		OurMotor.forward(dist);
 		if(s.getTouch()==1) {
@@ -285,6 +313,7 @@ public class Jarvis{
 	 */
 	
 	public void vasMarquer() {
+		System.out.println("vasMarquer");
 		double angle = boussole.getOurAngle();
 		if(angle>180)
 			seTourner((360-angle));
@@ -302,7 +331,7 @@ public class Jarvis{
 				
 			}
 			try {								
-				Thread.sleep(5);																		
+				Thread.sleep(3);																		
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -351,16 +380,18 @@ public class Jarvis{
 	 */
 	
 	public void partieSimple() {
+		System.out.println("partieSimple");
 		boolean jeu = true;
 		this.setPositions();
 		this.premierBut();
 		etat = PALETNONTROUVE;
+		int i = 0;
 		do {
 			if(Button.readButtons()!=0) 
 				jeu = false;
 			if(etat == PALETNONTROUVE) {
 				this.checkNearestPalet();
-				System.out.println("Stopped searching !");
+				//System.out.println("Stopped searching !");
 				if(etat==PALETTROUVE) {
 					float dist = this.pilote.getUltraSon().getDist();
 					if(dist>0.32) {
@@ -377,7 +408,14 @@ public class Jarvis{
 			else if(etat == PALET) {
 				vasMarquer();
 			}
-		}while(jeu);
+			i++;
+		}while(Button.readButtons() == 0&&i<10);
+	}
+	
+	public void test() {
+		do {
+			System.out.println("prout");
+		}while(Button.readButtons() == 0);
 	}
 	
 	////////////////////////////////////////////////////////////////////
@@ -531,7 +569,7 @@ public class Jarvis{
 		//fonction plus utilisée ??
 		public boolean checkNearestPalet(double nearAngle) {
 			boolean b = false;
-			pilote.seTourner((int)nearAngle, true, this);
+			pilote.seTourner((int)nearAngle, true);
 			pilote.setSpeed(100);
 			pilote.setAcceleration(100);
 			float[] values = new float[10000]; 		
@@ -555,7 +593,7 @@ public class Jarvis{
 				}*/
 				if(Math.abs(values[i]-values[i-1]) > 0.1) {
 					b = true;	
-					pilote.seTourner(0, true, this);
+					pilote.seTourner(0, true);
 				}
 				break;
 			}

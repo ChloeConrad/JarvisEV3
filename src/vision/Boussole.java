@@ -4,6 +4,7 @@ public class Boussole {
 	private double ourAngle;
 	private final static double enButDirection = 0;
 	
+	
 	public Boussole() {
 		ourAngle = 0;
 	}
@@ -16,7 +17,8 @@ public class Boussole {
 		ourAngle = a;
 	}
 
-	public void majBoussole(double a) {
+	public void majBoussole() {
+		int a = OurMotor.getLeftMotor().getTachoCount();
 		ourAngle = (ourAngle+a)%360;
 	}
 }
