@@ -211,5 +211,10 @@ public class Vecteur {
 	public double angleDeuxVecteurs(Vecteur V) {
 		return Math.acos(this.scalaireVecteur(V)/(this.normeVecteur()*V.normeVecteur()));
 	}
+	
+	public void calculComp() {
+		u1 = Math.abs(this.pDepart.getX()-this.pFinal.getX());
+		u2 = Math.abs(this.pDepart.getY()-this.pFinal.getY());
+	}
 
 }

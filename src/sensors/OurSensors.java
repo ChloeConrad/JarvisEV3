@@ -11,82 +11,30 @@ import lejos.robotics.SampleProvider;
 import lejos.utility.Delay;
 
 public class OurSensors {
-	/**
-	 *OurSensors contient les getters et setters des sensors
-	 *de notre robot
-	 */
+	private TouchSensor touch; //Port 3
+	private UltraSonicSensor ultra; //Port 1
+	private ColorSensor color; //Port 2
 	
-
-	/**Ultrasonic Sensor
-	 * Initialise les attributs n�cessaires � l'utilisation du
-	 * senseur � ultrasons (branch� au port S1)
-	 */
-	private static EV3UltrasonicSensor Us = new EV3UltrasonicSensor(SensorPort.S1);
-	private SampleProvider USamp = Us.getDistanceMode();
-	float [] uSample = new float[USamp.sampleSize()];
-	
-	
-
-	/**
-	 * Renvoie une valeur flottante de la distance la plus proche detecté par le robot.
-	 * @return Renvoie la distance la plus proche detecté par le senseur en float
-	 */
-	public float getDist() {
-		USamp.fetchSample(uSample, 0);
-		return uSample[0];
-	}
-	
-	
-	
-
-	/**
-	 * 
-	 * @return R�f�rence du senseur
-	 */
-	public EV3UltrasonicSensor getSensorU() {
-		return Us;
+	public OurSensors() {
+		touch= new TouchSensor(SensorPort.S3);
+		ultra = new UltraSonicSensor (SensorPort.S1);
+		color = new ColorSensor (SensorPort.S2);
+		
 	}
 
-
-	/**Color Sensor
-	 * Initialise les attributs n�cessaires � l'utilisation du
-	 * senseur de couleur (branch� au port S2)
-	 */
-	private static EV3ColorSensor Color = new EV3ColorSensor(SensorPort.S2);
-	float[]	cSample;
-
-	/**
-	 * Renvoie trois int correspondant au code RGB de la couleur d�tect�e
-	 * @return Renvoie le code RGB de la couleur d�tect�e
-	 */
-	public Color getColor() {
-		Color.fetchSample(cSample, 0);
-		return new Color((int)(cSample[0] * 255), (int)(cSample[1] * 255), (int)(cSample[2] * 255));
+	public String getCouleur() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-
-
-	/**Touch Sensor
-	 * Initialise les attributs n�cessaires � l'utilisation du
-	 * senseur de toucher (branch� au port S3)
-	 */
-	private EV3TouchSensor Ts = new EV3TouchSensor(SensorPort.S3);
-	public SampleProvider Tsamp = Ts.getTouchMode();
-	float [] tSample = new float[Tsamp.sampleSize()];
-
-	/**
-	 * Determine si le senseur de toucher est actuellement activé
-	 * @return 0 si le senseur n'est pas activé, 1 sinon. 
-	 */
-	public float getTouch() {
-		Tsamp.fetchSample(tSample, 0);
-		return tSample[0];
+	public boolean getTouch() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-
-	
-
-
-
+	public float getDistance() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }
