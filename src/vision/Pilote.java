@@ -12,6 +12,11 @@ import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
 import sensors.UltraSonicSensor;
 
+/**
+ *  **** Probablement à supprimer, classe en projet de OurMotor suivant MovePilot, pour faire des trajectoires arrondis, mais ne marche pas.
+ * @author JarvisTeam
+ *
+ */
 public class Pilote extends MovePilot {
 	public Pilote(Chassis chassis) {
 		super(chassis);

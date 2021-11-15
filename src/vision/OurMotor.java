@@ -8,8 +8,7 @@ import lejos.robotics.RegulatedMotor;
 import sensors.UltraSonicSensor;
 
 /** Créé une interface sur le modèle de MovePilot permettant de réaliser divers mouvements et methodes plus complexes d'orientation du robot.
- * @author mat
- * @version 0.1
+ * @author JarvisTeam
  */
 public class OurMotor {
 	private static int speed;

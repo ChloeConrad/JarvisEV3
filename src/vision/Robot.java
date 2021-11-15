@@ -18,7 +18,7 @@ import sensors.UltraSonicSensor;
 
 /**
  * Ancienne version de OurMotor, suivant movePilot, mais étant plus limité dans certains mouvements.
- * @author mat
+ * @author JarvisTeam
  * @version 0.1
  */
 public class Robot {

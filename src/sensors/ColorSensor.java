@@ -1,23 +1,91 @@
 package sensors;
 
-import lejos.hardware.port.Port;
+import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.hardware.sensor.EV3TouchSensor;
-import lejos.robotics.SampleProvider;
+import lejos.robotics.Color;
+
 /**
- * Permet de gerer les actions d'un EV3 color sensor
- * @author yasiz
- *
+ * ColorSensor est la classe gérant le capteur couleur de la brique EV3.
+ * Il permet notament de retourner une couleur perçu.
  */
 public class ColorSensor {
-	private EV3ColorSensor color;
-    public SampleProvider Tsamp;
-    float [] sample;
+
+	/**
+	 * Le capteur couleur dont dépend les données recueilli par le robot. Par défaut, il est affecté au capteur S2, celui de notre robot.
+	 * @see ColorSensor#ColorSensor()
+	 * @see ColorSensor#ColorSensor(port)
+	 */
+	private static EV3ColorSensor colorSensor;
+
+	/**
+	 * Le tableau stockant les échantillons de mesures faites par le capteur couleur.
+	 */
+	float[] sampleC;
 
 
-	public ColorSensor(Port s2) {
-		color = new EV3ColorSensor(s2);
-		Tsamp = color.getColorIDMode();
-	    sample = new float[Tsamp.sampleSize()];
+	/**
+	 * Constructeur de ColorSensor. Assigne le port rentré au mesure du capteur couleur. 
+	 * @param port auquel le capteur couleur est branché.
+	 */
+	public ColorSensor() {
+		colorSensor = new EV3ColorSensor(SensorPort.S2);
+	}
+
+	
+	/**
+	 * Retourne le capteur couleur de la classe. 
+	 * @return colorSensor (capteur couleur affilié) 
+	 */
+	public EV3ColorSensor getSensor() {
+		return colorSensor;
+	}
+	/**
+	 * 
+	 * 
+	 */
+	public String getColorID() {
+		return couleur(colorSensor.getColorID());
+	}
+	
+	
+	/**
+	 * Convertit le code couleur en chaîne de caractère
+	 * @param color
+	 * @return une chaîne de caractère contenant le nom de la couleur (en minuscule), "none" si la couleur ne correspond pas à celles existantes. 
+	 */
+	public String couleur(int color) {
+		switch(color) {
+
+		case Color.NONE:return "none";
+
+		case Color.BLACK:return "noir";
+
+		case Color.BLUE:return "bleu";
+		
+		case Color.BROWN:return "jaune";
+
+		case Color.CYAN:return "bleu";
+
+		case Color.DARK_GRAY:return "gris";
+
+		case Color.GRAY:return "gris";
+		
+		case Color.GREEN: return "vert";
+
+		case Color.LIGHT_GRAY:return "gris";
+
+		case Color.MAGENTA:return "rouge";
+
+		case Color.ORANGE:return "orange";
+
+		case Color.PINK:return "rose";
+
+		case Color.RED:return "rouge";
+
+		case Color.WHITE:return "blanc";
+
+		case Color.YELLOW:return "jaune";
+		}
+		return"";
 	}
 }
