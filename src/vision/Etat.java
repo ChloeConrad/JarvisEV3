@@ -211,8 +211,8 @@ public class Etat {
 	 */
 	public void majState(OurSensors s) {
 	
-		if (s.getTouch()==1) aPalet=true;
-		if (s.getTouch()==0) aPalet=false;
+		if (s.getTouch()) aPalet=true;
+		if (s.getTouch()) aPalet=false;
 		//a faire color
 		nearest=s.getDist();
 	}

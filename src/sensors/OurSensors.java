@@ -37,4 +37,9 @@ public class OurSensors {
 		return 0;
 	}
 
+	public float getDist() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
