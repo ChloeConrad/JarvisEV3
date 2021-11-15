@@ -22,4 +22,19 @@ public class OurSensors {
 		
 	}
 
+	public String getCouleur() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean getTouch() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public float getDistance() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
