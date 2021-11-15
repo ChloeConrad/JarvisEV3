@@ -68,6 +68,18 @@ public class OurMotor {
 		int rotation = (int)(metres*1000/0.476);
 		forward(rotation, false);
 	}
+	/**
+     * Effectue un mouvement vers l'avant.
+     * @param rotation Le nombre de degrés de rotation de roues à effectuer
+     */
+	public static void forward(double metres, boolean boolCont) {
+		/*
+		 * pour 1000rot = 0,476
+		 * donc x = metres
+		 */
+		int rotation = (int)(metres*1000/0.476);
+		forward(rotation, boolCont);
+	}
     /**
      * Effectue un mouvement vers l'avant.
      * @param rotation Le nombre de degrés de rotation de roues à effectuer
