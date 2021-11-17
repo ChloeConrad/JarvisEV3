@@ -9,10 +9,20 @@ public class testChl {
 		
 		Jarvis j = new Jarvis();
 		//j.getPilote().closeClaw();
-		//j.checkNearestPalet();
+		//j.getPilote().getClawMotor().rotate(-500);
+		j.checkNearestPalet();
 		//j.partieSimple();
-		j.getPilote().getClawMotor().rotate(-1500);
-		
+		//j.seTourner(20);
+		//j.checkNearestPalet();
+		//j.attrapePalet(j.getPilote().getUltraSon().getDist());
+		//Button.waitForAnyPress();
+		//j.vasMarquer();
+		//j.getPilote().that360(true);
+		//j.setPositions();
+		//j.premierBut();
+		//j.getPilote().seTourner(90, true);
+		//System.out.println(j.getPilote().getUltraSon().getDist());
+		Button.waitForAnyPress();
 		
 	}
 

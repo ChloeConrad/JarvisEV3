@@ -59,7 +59,7 @@ public class OurMotor {
     }
     /**
      * Effectue un mouvement vers l'avant.
-     * @param rotation Le nombre de degrés de rotation de roues à effectuer
+     * @param le nombre de metre à parcourir
      */
 	public static void forward(double metres) {
 		/*
@@ -68,6 +68,20 @@ public class OurMotor {
 		 */
 		int rotation = (int)(metres*1000/0.476);
 		forward(rotation, false);
+	}
+	
+	/**
+	 * Effectue un mouvement vers l'avant.
+	 * @param le nombre de metre a parcourir
+	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
+	 */
+	public static void forward(double metres, boolean b) {
+		/*
+		 * pour 1000rot = 0,476
+		 * donc x = metres
+		 */
+		int rotation = (int)(metres*1000/0.476);
+		forward(rotation, b);
 	}
     /**
      * Effectue un mouvement vers l'avant.
@@ -116,7 +130,7 @@ public class OurMotor {
 	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
 	 */
 	public void seTourner(double degres, boolean boolCont) {
-		leftMotor.resetTachoCount();
+		//leftMotor.resetTachoCount();
 		int rotation = degreeToRotation(degres);
 		ClockRotate(rotation,boolCont);
 	}
@@ -138,51 +152,15 @@ public class OurMotor {
 		leftMotor.rotate(rotation, true);
 		rightMotor.rotate(-rotation, boolCont);
 	}
-	/**
-	 * Effectue une rotation sur lui même de 180° en ne bougeant qu'une seule roue
-	 * @param direction String contenant "left" ou "right" selon la roue a utiliser
-	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
-	 * @deprecated Utilisez plutôt ClockRotate ou that360.
-	 */
-	public void monoWheel180(String wheel,boolean boolCont) {
-		int radius = value360;
-		switch(wheel) {
-		case "left" :
-			leftMotor.rotate(radius,boolCont);
-			break;
-		case "right" :
-			rightMotor.rotate(radius,boolCont);
-			break;
-		default :
-			break;
-		}
-	}
-	/**
-	 * Effectue une rotation sur lui même de 360° en ne bougeant qu'une seule roue
-	 * @param direction String contenant "left" ou "right" selon la roue a utiliser
-	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
-	 * @deprecated Utilisez plutôt ClockRotate ou that360.
-	 */
-	public void monoWheel360(String direction,boolean boolCont) {
-		int radius = value360*2;
-		switch(direction) {
-		case "left" :
-			leftMotor.rotate(radius,boolCont);
-			break;
-		case "right" :
-			rightMotor.rotate(radius,boolCont);
-			break;
-		default :
-			break;
-		}
-	}
+
+
 	/**
 	 * Effectue une rotation d'exactement 360°
 	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
 	 */
 	public void that360(boolean boolCont) {
-		leftMotor.rotate(value360,true);
-		rightMotor.rotate(-value360,boolCont);
+		//leftMotor.rotate(value360,true);
+		//rightMotor.rotate(-value360,boolCont);
 		seTourner(360,boolCont);
 	}
 	/**

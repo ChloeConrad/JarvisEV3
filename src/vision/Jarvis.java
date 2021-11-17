@@ -1,6 +1,7 @@
 package vision;
 
 import java.lang.annotation.Documented;
+import java.util.Arrays;
 
 import lejos.hardware.Button;
 import lejos.hardware.port.SensorPort;
@@ -72,8 +73,8 @@ public class Jarvis{
 	 * Algo simple pour mettre le premier but, il utilise les attributs notrePosition et enemyPosition pour déterminer quel palet récupérer
 	 */
 	public void premierBut() {
-		pilote.setSpeed(800);
-		pilote.setAcceleration(400);
+		pilote.setSpeed(1000);
+		pilote.setAcceleration(500);
 		switch (notrePosition) {
 		case 0:
 			switch(enemyPosition) {
@@ -248,47 +249,46 @@ public class Jarvis{
 	 * elle met à jour l'état de jarvis lorsqu'elle trouve un palet 
 	 */
 	public void checkNearestPalet() {
-		
-		pilote.setSpeed(100);
-		pilote.setAcceleration(100);
-		
-		//float[] values = new float[10000]; 	
+		pilote.setSpeed(50);
+		pilote.setAcceleration(50);
 		float val1;
-		float val2;
-		/*for(int k = 0; k<10000;k++)
-			values [k] = 9999999; 				
-		*/										
-		//int i = 0;
-		pilote.that360(true);
-		while(pilote.getLeftMotor().isMoving()) {
-			//values[i]= pilote.getUltraSon().getDist();			
-			//i++;
+		float val2;							
+		int i = 0;
+		pilote.seTourner(360,true);
+		while(true) {
+					
+			
 			val1 = pilote.getUltraSon().getDist();
-			//System.out.println(values[i]);
+			
 			try {								
 				Thread.sleep(5);												
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			
-			val2 = pilote.getUltraSon().getDist();
 			
-			/*if(Math.abs(values[i]-values[i-1]) > 0.1 && Math.abs(values[i]-cogito.nearDist())<0.1) {
-				b = true;	
-			}*/
-			
-			float f = Float.POSITIVE_INFINITY;
-			if(Math.abs(val1 - val2) > 0.1 && val1!=f && val2 != f) {
 				
+			val2 = pilote.getUltraSon().getDist();
+			i++;	
+			float f = Float.POSITIVE_INFINITY;
+			
+			
+			
+			if(Math.abs(val1 - val2) > 0.1 && val1!=f && val2 != f) {
+				System.out.println("prout");
 				etat = PALETTROUVE;	
 				boussole.majBoussole();
 				pilote.seTourner(1, false);
 				boussole.majBoussole();
+				break;
 			}
+			
 	
 		}
 		pilote.setAcceleration(pilote.DEFAULT_ACCELERATION);
 		pilote.setSpeed(pilote.DEFAULT_SPEED);
+		
+		
 	}
 	
 	/**
@@ -298,22 +298,31 @@ public class Jarvis{
 	 *
 	 */
 	public void attrapePalet(float dist) {
-		System.out.println("attrapePalet");
-		this.pilote.openClaw(true);
-		OurMotor.forward(dist);
-		if(s.getTouch()==1) {
-			this.pilote.closeClaw(true); 
-			etat = PALET;
+		OurMotor.forward(dist,true);
+		while(pilote.getLeftMotor().isMoving()) {
+			System.out.println("attrapePalet");
+			this.pilote.openClaw(true);
+			if(this.pilote.getUltraSon().getDist()<0.10) {
+				etat = PALETNONTROUVE;
+				break;
+			}
+			if(s.getTouch()==1) {
+				this.pilote.closeClaw(true); 
+				etat = PALET;
+				OurMotor.forward(0);
+			}
 		}
+		
 	}
 	
 	/**
 	 * Methode permettant d'aller marquer un but une fois le palet attrapé
 	 * Elle met à jour l'état de Jarvis lorsque le but a été marqué 
 	 */
-	
+
 	public void vasMarquer() {
 		System.out.println("vasMarquer");
+
 		double angle = boussole.getOurAngle();
 		if(angle>180)
 			seTourner((360-angle));
@@ -328,16 +337,20 @@ public class Jarvis{
 				this.pilote.closeClaw(true);
 				OurMotor.backward(720);
 				etat = PALETNONTROUVE;
-				
+
 			}
 			try {								
 				Thread.sleep(3);																		
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
+			if(Button.readButtons() == 0)
+				break;
 		}
-		
+
+
+
+
 	}
 	/**
 	 * Methode permettant de mettre Jarvis en recherche
@@ -369,7 +382,7 @@ public class Jarvis{
 		else if (q==Button.ID_RIGHT) enemyPosition=2;
 		System.out.println("Je suis en position"+notrePosition+"Iron Man est en position"+enemyPosition);
 		Button.waitForAnyPress();
-		etat=DEPART;
+		etat=PALETNONTROUVE;
 	}
 	
 
@@ -403,13 +416,14 @@ public class Jarvis{
 						etat = PALETNONTROUVE;
 					}
 				}
-				
+
 			}
 			else if(etat == PALET) {
 				vasMarquer();
 			}
 			i++;
-		}while(Button.readButtons() == 0&&i<10);
+			
+		}while(Button.readButtons() == 0);
 	}
 	
 	public void test() {
