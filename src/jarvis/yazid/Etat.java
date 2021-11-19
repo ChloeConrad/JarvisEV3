@@ -129,6 +129,9 @@ public class Etat {
 		this.state = state;
 	}
 
+	public Waypoint getPalets(int i) {
+		return palets[i];
+	}
 	public Waypoint[] getPalets() {
 		return palets;
 	}

@@ -5,6 +5,9 @@ import java.io.IOException;
 import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
 import lejos.robotics.navigation.Navigator;
+import lejos.robotics.navigation.Pose;
+import lejos.robotics.navigation.Waypoint;
+import maths.Point;
 
 public class Jarvis {
 	private Etat state;
@@ -45,7 +48,7 @@ public class Jarvis {
 	}
 
 	private void reset() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -64,9 +67,18 @@ public class Jarvis {
 	}
 
 	private void recherchePalet() {
-		
-		// TODO Auto-generated method stub
-		
+		Waypoint cible=state.getPalets(0);
+		 for (int i =1;i<state.getPalets().length;i++) {
+			 double j=new Point(chassis.getPoseProvider().getPose().getX(),chassis.getPoseProvider().getPose().getY()).distance(new Point(state.getPalets(i).getX(),state.getPalets(i).getY()));
+			 double k= new Point(cible.getX(),cible.getY()).distance(new Point(chassis.getPoseProvider().getPose().getX(),chassis.getPoseProvider().getPose().getY()));
+			 if (j<k) {
+				 cible=state.getPalets(i);
+				 
+			 }
+		 }
+		 state.setCible(cible);
+		 state.setState(2);
+				
 	}
 
 	private void premierBut() {
