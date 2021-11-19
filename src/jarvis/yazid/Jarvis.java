@@ -2,11 +2,17 @@ package jarvis.yazid;
 
 import java.io.IOException;
 
+import lejos.robotics.chassis.WheeledChassis;
+import lejos.robotics.navigation.MovePilot;
+import lejos.robotics.navigation.Navigator;
+
 public class Jarvis {
 	private Etat state;
-	private OurPilote pilote;
+	//private OurPilote pilote;
+	private WheeledChassis chassis;
+	private MovePilot pilote;
 	
-	Jarvis(int idPos){
+	public Jarvis(int idPos){
 		try {
 			state= new Etat(idPos);
 		} catch (IOException e) {
@@ -16,8 +22,9 @@ public class Jarvis {
 		pilote= new OurPilote(null);
 	}
 	
-	public void agissements(int etat){
+	public void agissements(){
 		
 	}
+	
 
 }
