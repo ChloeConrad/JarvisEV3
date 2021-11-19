@@ -11,6 +11,7 @@ public class Jarvis {
 	//private OurPilote pilote;
 	private WheeledChassis chassis;
 	private MovePilot pilote;
+	private Navigator navigation;
 	
 	public Jarvis(int idPos){
 		try {
@@ -19,10 +20,57 @@ public class Jarvis {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		pilote= new OurPilote(null);
+		chassis=new WheeledChassis(null, idPos);
+		chassis.getPoseProvider().setPose(state.getPosition());
+		pilote = new MovePilot(chassis);
+		navigation= new Navigator(pilote);
 	}
 	
 	public void agissements(){
+		switch (state.getState()){
+		case 0:
+			premierBut();
+		case 1:
+			recherchePalet();
+		case 2:
+			attrapePalet();
+		case 3:
+			vasMarquer();
+		case 4:
+			reset();
+		case -1:
+			reset();
+		
+		}
+	}
+
+	private void reset() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void vasMarquer() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void attrapePalet() {
+		navigation.clearPath();
+		navigation.addWaypoint(state.getCible());
+		navigation.followPath();
+		
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void recherchePalet() {
+		
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void premierBut() {
+		// TODO Auto-generated method stub
 		
 	}
 	
