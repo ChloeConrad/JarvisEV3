@@ -64,9 +64,9 @@ public class OurSensors {
 	 * Determine si le senseur de toucher est actuellement activÃ©
 	 * @return 0 si le senseur n'est pas activÃ©, 1 sinon. 
 	 */
-	public float getTouch() {
+	public boolean getTouch() {
 		Tsamp.fetchSample(tSample, 0);
-		return tSample[0];
+		return tSample[0]>0;
 	}
 
 }
