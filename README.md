@@ -9,7 +9,7 @@ Si vous souhaitez utiliser ce programme il vous faut une brique EV3 ainsi que le
 
 L'objectif est de faire se deplacer de manière autonome un robot à 2 roues dans l'objectif d'attraper un maximum de palets sur une arène, dans un temps impartit, et en compétition avec un robot adverse.
 
----## Documentation
+## Documentation
 La documentation complete est disponible [dans l'onglet wiki](https://github.com/ChloeConrad/JarvisEV3/wiki).
 
 ## Spécifications Techniques
