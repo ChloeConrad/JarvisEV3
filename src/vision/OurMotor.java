@@ -5,6 +5,7 @@ import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.robotics.RegulatedMotor;
+import lejos.robotics.chassis.Chassis;
 import sensors.UltraSonicSensor;
 
 /** Créé une interface sur le modèle de MovePilot permettant de réaliser divers mouvements et methodes plus complexes d'orientation du robot.
@@ -24,7 +25,7 @@ public class OurMotor {
     private static RegulatedMotor rightMotor;
     private static RegulatedMotor clawMotor;
     private static UltraSonicSensor US;
-    
+   
     /**
      * Initialise OurMotor, les moteurs et senseurs utilisés. 
      */
@@ -43,6 +44,8 @@ public class OurMotor {
     	initMotor(rightMotor);
     	clawMotor.setSpeed(1000);
     	US = new UltraSonicSensor(SensorPort.S1);
+    	
+    	
     }
     private static void initMotor(RegulatedMotor m) {
     	m.setSpeed(speed);
@@ -130,7 +133,7 @@ public class OurMotor {
 	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
 	 */
 	public void seTourner(double degres, boolean boolCont) {
-		//leftMotor.resetTachoCount();
+		leftMotor.resetTachoCount();
 		int rotation = degreeToRotation(degres);
 		ClockRotate(rotation,boolCont);
 	}
@@ -224,6 +227,7 @@ public class OurMotor {
 	public int degreeToRotation(double degres) {
 		return (int) (value360*degres/360);
 	}
+
 	/**
 	 * Essai de methode pour avancer de manière incurvée.
 	 * @param speedOfFirstWheel La vitesse de la roue gauche.
