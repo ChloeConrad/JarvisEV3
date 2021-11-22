@@ -76,9 +76,9 @@ public class Jarvis{
 		pilote.setSpeed(1000);
 		pilote.setAcceleration(500);
 		switch (notrePosition) {
-		case 0:
+		case 2:
 			switch(enemyPosition) {
-			case 0:
+			case 2:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
 				if(s.getTouch()==1) pilote.closeClaw(true);
@@ -108,7 +108,7 @@ public class Jarvis{
 				pilote.openClaw(false);
 				etat=BUT;
 				break;
-			case 2:
+			case 0:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
 				if(s.getTouch()==1) pilote.closeClaw(true);
@@ -127,7 +127,7 @@ public class Jarvis{
 			break;
 		case 1:
 			switch(enemyPosition) {
-			case 0:
+			case 2:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
 				if(s.getTouch()==1) pilote.closeClaw(true);
@@ -157,7 +157,7 @@ public class Jarvis{
 				pilote.openClaw(false);
 				etat=BUT;
 				break;
-			case 2:
+			case 0:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
 				if(s.getTouch()==1) pilote.closeClaw(true);
@@ -174,9 +174,9 @@ public class Jarvis{
 				break;
 			}
 			break;
-		case 2:
+		case 0:
 			switch(enemyPosition) {
-			case 0:
+			case 2:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
 				if(s.getTouch()==1) pilote.closeClaw(true);
@@ -206,7 +206,7 @@ public class Jarvis{
 				pilote.openClaw(false);
 				etat=BUT;
 				break;
-			case 2:
+			case 0:
 				pilote.openClaw(true);
 				OurMotor.forward(0.65);
 				if(s.getTouch()==1) pilote.closeClaw(true);
@@ -226,6 +226,7 @@ public class Jarvis{
 		}
 		pilote.closeClaw(true);
 		pilote.backward(720);
+		seTourner(90);
 		pilote.setSpeed(pilote.DEFAULT_SPEED);
 		pilote.setAcceleration(pilote.DEFAULT_ACCELERATION);
 		
@@ -249,46 +250,32 @@ public class Jarvis{
 	 * elle met à jour l'état de jarvis lorsqu'elle trouve un palet 
 	 */
 	public void checkNearestPalet() {
-		pilote.setSpeed(50);
-		pilote.setAcceleration(50);
+		//pilote.setSpeed(50);
+		//pilote.setAcceleration(50);
 		float val1;
 		float val2;							
-		int i = 0;
 		pilote.seTourner(360,true);
 		while(true) {
-					
-			
 			val1 = pilote.getUltraSon().getDist();
-			
 			try {								
 				Thread.sleep(5);												
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
-			
-				
 			val2 = pilote.getUltraSon().getDist();
-			i++;	
 			float f = Float.POSITIVE_INFINITY;
-			
-			
-			
-			if(Math.abs(val1 - val2) > 0.1 && val1!=f && val2 != f) {
+			if(Math.abs(val1 - val2) > 0.20 && val1!=f && val2 != f) {
 				System.out.println("prout");
 				etat = PALETTROUVE;	
 				boussole.majBoussole();
-				pilote.seTourner(1, false);
+				pilote.getRightMotor().stop(true);
+				pilote.getLeftMotor().stop();
 				boussole.majBoussole();
 				break;
 			}
-			
-	
 		}
 		pilote.setAcceleration(pilote.DEFAULT_ACCELERATION);
-		pilote.setSpeed(pilote.DEFAULT_SPEED);
-		
-		
+		pilote.setSpeed(pilote.DEFAULT_SPEED);	
 	}
 	
 	/**
@@ -307,9 +294,9 @@ public class Jarvis{
 				break;
 			}
 			if(s.getTouch()==1) {
-				this.pilote.closeClaw(true); 
+				this.pilote.closeClaw(false); 
 				etat = PALET;
-				OurMotor.forward(0);
+				
 			}
 		}
 		
@@ -324,33 +311,18 @@ public class Jarvis{
 		System.out.println("vasMarquer");
 
 		double angle = boussole.getOurAngle();
+		System.out.println(angle);
 		if(angle>180)
 			seTourner((360-angle));
 		else 
 			seTourner(-angle);
-		OurMotor.forward(10000,true);
-		while(pilote.getLeftMotor().isMoving()) {
-			float dist = this.pilote.getUltraSon().getDist();
-			if(dist<0.3) {
-				OurMotor.forward(0,true);
-				this.pilote.openClaw(false);
-				this.pilote.closeClaw(true);
-				OurMotor.backward(720);
-				etat = PALETNONTROUVE;
-
-			}
-			try {								
-				Thread.sleep(3);																		
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			if(Button.readButtons() == 0)
-				break;
-		}
-
-
-
-
+		float dist = this.pilote.getUltraSon().getDist();
+		OurMotor.forward(dist-0.2,false);
+		this.pilote.openClaw(false);
+		this.pilote.closeClaw(true);
+		OurMotor.backward(720);
+		etat = PALETNONTROUVE;
+		seTourner(90);
 	}
 	/**
 	 * Methode permettant de mettre Jarvis en recherche
@@ -393,6 +365,8 @@ public class Jarvis{
 	 */
 	
 	public void partieSimple() {
+		pilote.getLeftMotor().resetTachoCount();
+		boussole.setOurAngle(0);
 		System.out.println("partieSimple");
 		boolean jeu = true;
 		this.setPositions();

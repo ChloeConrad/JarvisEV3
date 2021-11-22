@@ -2,7 +2,9 @@ package sensors;
 
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
+import lejos.hardware.sensor.SensorMode;
 import lejos.robotics.Color;
+import lejos.robotics.SampleProvider;
 
 /**
  * ColorSensor est la classe gérant le capteur couleur de la brique EV3.
@@ -16,6 +18,8 @@ public class ColorSensor {
 	 * @see ColorSensor#ColorSensor(port)
 	 */
 	private static EV3ColorSensor colorSensor;
+	private SampleProvider CSamp;
+
 
 	/**
 	 * Le tableau stockant les échantillons de mesures faites par le capteur couleur.
@@ -29,6 +33,8 @@ public class ColorSensor {
 	 */
 	public ColorSensor() {
 		colorSensor = new EV3ColorSensor(SensorPort.S2);
+		colorSensor.setFloodlight(6);
+		CSamp=colorSensor.getRGBMode();
 	}
 
 	
@@ -87,5 +93,11 @@ public class ColorSensor {
 		case Color.YELLOW:return "jaune";
 		}
 		return"";
+	}
+	public float[] getRGB() {
+		
+		float[] sample = new float[CSamp.sampleSize()] ;
+		CSamp.fetchSample(sample, 0);
+		return sample;
 	}
 }

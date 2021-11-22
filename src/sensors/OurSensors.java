@@ -69,4 +69,20 @@ public class OurSensors {
 		return tSample[0]>0;
 	}
 
+
+
+
+	public String getCouleur() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+	public double getDistance() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
