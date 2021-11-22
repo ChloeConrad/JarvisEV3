@@ -57,7 +57,7 @@ public class Jarvis {
 		
 	}
 
-	private void attrapePalet() {
+	public void attrapePalet() {
 		navigation.clearPath();
 		navigation.addWaypoint(state.getCible());
 		navigation.followPath();
@@ -66,7 +66,7 @@ public class Jarvis {
 		
 	}
 
-	private void recherchePalet() {
+	public void recherchePalet() {
 		Waypoint cible=state.getPalets(0);
 		 for (int i =1;i<state.getPalets().length;i++) {
 			 double j=new Point(chassis.getPoseProvider().getPose().getX(),chassis.getPoseProvider().getPose().getY()).distance(new Point(state.getPalets(i).getX(),state.getPalets(i).getY()));

@@ -2,7 +2,7 @@
  * Nouvelle classe état ayant pour but de prendre partie de l'outil de détection des palets en IR
  */
 package jarvis.yazid;
-
+//100 = 9 cm
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -80,6 +80,9 @@ public class Etat {
         	String[] coord = palets[i].split(";");
         	int x = Integer.parseInt(coord[1]);
         	int y = Integer.parseInt(coord[2]);
+        	x=300-x;
+        	x=x*100/9;
+        	y=y*100/9;
         	this.palets[i]=new Waypoint(x,y);
         	
         }
