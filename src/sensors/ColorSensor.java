@@ -94,10 +94,11 @@ public class ColorSensor {
 		}
 		return"";
 	}
-	public float[] getRGB() {
+	public boolean getRGB() {
 		
 		float[] sample = new float[CSamp.sampleSize()] ;
 		CSamp.fetchSample(sample, 0);
-		return sample;
+		if ((sample[0]>0.255f) && (sample[0]<0.265f) && (sample[1]>0.260f) && (sample[1]<0.270f) && (sample[2]>0.195f) && (sample[2]<0.205f))return true;
+		else return false;
 	}
 }
