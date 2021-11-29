@@ -14,8 +14,9 @@ public class Jarvis {
 	private Etat state;
 	//private OurPilote pilote;
 	private WheeledChassis chassis;
-	private MovePilot pilote;
+	private OurPilote pilote;
 	private Navigator navigation;
+	private int positionInit;
 	
 	public Jarvis(int idPos){
 		try {
@@ -24,9 +25,10 @@ public class Jarvis {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		positionInit=idPos;
 		chassis=new WheeledChassis(null, idPos);
 		chassis.getPoseProvider().setPose(state.getPosition());
-		pilote = new MovePilot(chassis);
+		pilote = new OurPilote(chassis);
 		navigation= new Navigator(pilote);
 	}
 	
@@ -49,21 +51,36 @@ public class Jarvis {
 	}
 
 	private void reset() {
-		
+		state.setState(1);
 		
 	}
 
 	private void vasMarquer() {
-	 navigation.goTo(new Waypoint(chassis.getPoseProvider().getPose().getX(),270));
-		
+	if (positionInit==4 || positionInit==8 ||positionInit==10) {
+	 navigation.goTo(new Waypoint(chassis.getPoseProvider().getPose().getX(),270*100/9));
+	 pilote.ouvrirPinces(true);
+	 navigation.goTo(new Waypoint(chassis.getPoseProvider().getPose().getX(),chassis.getPoseProvider().getPose().getY()-100));
+	 pilote.rotate(180);
+		}
+	else {
+		navigation.goTo(new Waypoint(chassis.getPoseProvider().getPose().getX(),30*100/9));
+		 pilote.ouvrirPinces(true);
+		 navigation.goTo(new Waypoint(chassis.getPoseProvider().getPose().getX(),chassis.getPoseProvider().getPose().getY()-100));
+		 pilote.rotate(180);
+	}
 	}
 
 	public void attrapePalet() {
 		navigation.clearPath();
 		navigation.addWaypoint(state.getCible());
+		pilote.ouvrirPinces(true);
 		navigation.followPath();
+		if(state.isPalet()) {
+			pilote.fermerPinces(true);
+			state.setState(3);
+		}
 		
-		// TODO Auto-generated method stub
+		
 		
 	}
 /**
@@ -85,7 +102,28 @@ public class Jarvis {
 	}
 
 	private void premierBut() {
-		
+	
+		if (positionInit==4 || positionInit==8 ||positionInit==10) {
+			pilote.ouvrirPinces(true);
+			navigation.goTo(new Waypoint(chassis.getPoseProvider().getPose().getX(),90*100/9));
+			pilote.fermerPinces(true);
+			navigation.goTo(new Waypoint(chassis.getPoseProvider().getPose().getX()+200,270*100/9));
+			pilote.ouvrirPinces(true);
+			navigation.goTo(new Waypoint(chassis.getPoseProvider().getPose().getX(),chassis.getPoseProvider().getPose().getY()-100));
+			pilote.rotate(180);
+		}
+		else {
+			pilote.ouvrirPinces(true);
+			navigation.goTo(new Waypoint(chassis.getPoseProvider().getPose().getX(),210*100/9));
+			pilote.fermerPinces(true);
+			navigation.goTo(new Waypoint(chassis.getPoseProvider().getPose().getX()+200,30*100/9));
+			pilote.ouvrirPinces(true);
+			navigation.goTo(new Waypoint(chassis.getPoseProvider().getPose().getX(),chassis.getPoseProvider().getPose().getY()-100));
+			pilote.rotate(180);
+		}
+		state.setState(4);
+			
+			
 		
 	}
 	

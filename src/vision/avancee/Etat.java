@@ -20,10 +20,12 @@ public class Etat {
 	private final static int APALET=3;
 	private final static int BUT=4;
 	private final static int COLLISION=-1;
+	private final static int PAUSE=-2;
 	
 	private Waypoint cible;//Destination
 	private boolean aPalet;
 	private Pose position; 
+	private boolean boutonPresse;
 	private OurSensors senseurs;
 	int state;
 	private Waypoint[] buts=new Waypoint[3];
@@ -90,6 +92,7 @@ public class Etat {
 
          packet.setLength(buffer.length);
          state=INIT;
+         boutonPresse=false;
 	}
 	
 	public Waypoint getCible() {
@@ -160,6 +163,10 @@ public class Etat {
         packet.setLength(buffer.length);
 	}
 	public void majState() {
+		if(Button.waitForAnyPress()!=0) {
+			boutonPresse=true;
+			state=PAUSE;
+		}
 		if (dist<30 && position.getHeading()>180) {
 			state=COLLISION;
 			return;
@@ -180,7 +187,7 @@ public class Etat {
 		}
 		else if(state==PALETTROUVE) {
 			if(senseurs.getTouch()) {
-				state=APALET;
+				aPalet=true;
 				return;
 			}
 		}
@@ -200,6 +207,10 @@ public class Etat {
 	
 	public void setDist() {
 		dist=senseurs.getDist();
+	}
+	
+	public void setaPalet(boolean b) {
+		aPalet=b;
 	}
 	
 }
