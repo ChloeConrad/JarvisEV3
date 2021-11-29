@@ -1,7 +1,7 @@
 /**
  * Classe servant de pilote à notre robot
  */
-package jarvis.yazid;
+package vision.avancee;
 
 import lejos.robotics.chassis.Chassis;
 import lejos.robotics.navigation.MovePilot;

@@ -1,4 +1,4 @@
-package jarvis.yazid;
+package vision.avancee;
 
 import java.io.IOException;
 
@@ -8,6 +8,7 @@ import lejos.robotics.navigation.Navigator;
 import lejos.robotics.navigation.Pose;
 import lejos.robotics.navigation.Waypoint;
 import maths.Point;
+import vision.OurMotor;
 
 public class Jarvis {
 	private Etat state;
@@ -53,7 +54,7 @@ public class Jarvis {
 	}
 
 	private void vasMarquer() {
-		// TODO Auto-generated method stub
+	 navigation.goTo(new Waypoint(chassis.getPoseProvider().getPose().getX(),270));
 		
 	}
 
@@ -84,7 +85,7 @@ public class Jarvis {
 	}
 
 	private void premierBut() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	

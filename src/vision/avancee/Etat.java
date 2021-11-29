@@ -1,7 +1,7 @@
 /**
  * Nouvelle classe état ayant pour but de prendre partie de l'outil de détection des palets en IR
  */
-package jarvis.yazid;
+package vision.avancee;
 //100 = 9 cm
 import java.io.IOException;
 import java.net.DatagramPacket;
