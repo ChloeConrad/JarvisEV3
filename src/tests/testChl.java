@@ -1,7 +1,9 @@
 package tests;
 
 import lejos.hardware.Button;
+import sensors.ColorSensor;
 import vision.Jarvis;
+import vision.PerceptionThread;
 
 public class testChl {
 
@@ -9,10 +11,17 @@ public class testChl {
 		
 		Jarvis j = new Jarvis();
 		//j.getPilote().closeClaw();
-		j.getPilote().getClawMotor().rotate(-800);
+		//j.getPilote().getClawMotor().rotate(-100);
 		//j.checkNearestPalet();
+				//j.getPilote().closeClaw(false);
+		PerceptionThread p=new PerceptionThread(j);
+		p.start();
 		j.partieSimple();
-		int i = (int)(Math.random()*180)+180;
+		
+		
+		//int i = (int)(Math.random()*180)+180;
+		
+		
 		//j.getPilote().getLeftMotor().resetTachoCount();
 		//j.seTourner(i);
 		//j.checkNearestPalet();

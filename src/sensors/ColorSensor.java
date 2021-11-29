@@ -32,11 +32,13 @@ public class ColorSensor {
 	 * @param port auquel le capteur couleur est branché.
 	 */
 	public ColorSensor() {
-		colorSensor = new EV3ColorSensor(SensorPort.S2);
+		colorSensor = new EV3ColorSensor(SensorPort.S4);
+		colorSensor.setFloodlight(true);
 		colorSensor.setFloodlight(6);
 		CSamp=colorSensor.getRGBMode();
 	}
 
+	
 	
 	/**
 	 * Retourne le capteur couleur de la classe. 

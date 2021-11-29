@@ -28,6 +28,11 @@ public class Boussole {
 
 	public void majBoussole() {
 		int a = rotationToDegree(OurMotor.getLeftMotor().getTachoCount());
-		ourAngle = (ourAngle+a)%360;
+		
+		if(a+ourAngle<0) {
+			ourAngle = ourAngle+a+360;
+		}
+		else ourAngle = (ourAngle+a)%360;
+		OurMotor.getLeftMotor().resetTachoCount();
 	}
 }

@@ -170,10 +170,10 @@ public class OurMotor {
 	 * Ferme la pince
 	 */
 	public void closeClaw() {
-		if(this.isClawOpen) {
-			clawMotor.rotate(-1800);
+		
+			clawMotor.rotate(-900);
 			isClawOpen = false;
-		}
+	
     }
 	
 	/**
@@ -182,10 +182,10 @@ public class OurMotor {
 	 * @param b
 	 */
 	public void closeClaw(boolean b) {
-		if(this.isClawOpen) {
-			clawMotor.rotate(-1800,b);
+		
+			clawMotor.rotate(-900,b);
 			isClawOpen = false;
-		}
+		
 	}
 	
 	/**
@@ -194,16 +194,16 @@ public class OurMotor {
 	 * @param b
 	 */
     public void openClaw(boolean b) {
-		if(!this.isClawOpen) {
-			clawMotor.rotate(1800,b);
+	
+			clawMotor.rotate(900,b);
 			isClawOpen = true;
-		}
+		
 	}
     public void ForceOpen() {
-    	clawMotor.rotate(1800);
+    	clawMotor.rotate(900);
     }
     public void ForceClose() {
-    	clawMotor.rotate(-1800);
+    	clawMotor.rotate(-900);
     }
 	
 	/**

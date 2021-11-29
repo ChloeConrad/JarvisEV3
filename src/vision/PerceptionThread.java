@@ -1,6 +1,6 @@
-package jarvis.yazid;
+package vision;
 
-import vision.Jarvis;
+import lejos.hardware.Button;
 
 public class PerceptionThread extends Thread {
 	protected Jarvis j;
@@ -11,6 +11,12 @@ public class PerceptionThread extends Thread {
 	
 	public void run() {
 	
-	System.out.println("Je suis un con!");
+	while(true) {
+		
+		
+		if(j.s.getTouch()==1) j.touch=true;
+		System.out.println(j.touch);
+	}
+	
 	}
 }

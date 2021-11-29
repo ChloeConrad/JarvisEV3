@@ -7,6 +7,7 @@ import lejos.hardware.Button;
 import lejos.hardware.port.SensorPort;
 import lejos.robotics.navigation.MovePilot;
 import lejos.robotics.navigation.Pose;
+import sensors.ColorSensor;
 import sensors.TouchSensor;
 import sensors.UltraSonicSensor;
 /**
@@ -27,15 +28,21 @@ public class Jarvis{
 	
 	private Boussole boussole;
 	private OurMotor pilote;
-	private TouchSensor s;
+	protected TouchSensor s;
 	private double[] palets;
 	private int notrePosition;
 	private int enemyPosition;
 	private int etat;
+	protected boolean bout;
+	protected boolean touch;
 	private Etat cogito;
 	private Pose p;
+	ColorSensor color;
 	
 	public Jarvis() {
+		bout=false;
+		touch=false;
+		color = new ColorSensor();
 		// TODO Auto-generated constructor stub
 		pilote = new OurMotor();
 		palets= new double[9]; //On initialise la "valeur" des 9 palets à 1 (ils ont 100% de chance d'être sur le terrain)
@@ -73,7 +80,7 @@ public class Jarvis{
 	 * Algo simple pour mettre le premier but, il utilise les attributs notrePosition et enemyPosition pour déterminer quel palet récupérer
 	 */
 	public void premierBut() {
-		pilote.setSpeed(1000);
+		pilote.setSpeed(3000);
 		pilote.setAcceleration(500);
 		switch (notrePosition) {
 		case 2:
@@ -229,6 +236,7 @@ public class Jarvis{
 		seTourner(90);
 		pilote.setSpeed(pilote.DEFAULT_SPEED);
 		pilote.setAcceleration(pilote.DEFAULT_ACCELERATION);
+		touch=false;
 		
 	}
 	
@@ -250,8 +258,8 @@ public class Jarvis{
 	 * elle met à jour l'état de jarvis lorsqu'elle trouve un palet 
 	 */
 	public void checkNearestPalet() {
-		//pilote.setSpeed(50);
-		//pilote.setAcceleration(50);
+		pilote.setSpeed(100);
+		pilote.setAcceleration(100);
 		float val1;
 		float val2;							
 		pilote.seTourner(360,true);
@@ -285,19 +293,26 @@ public class Jarvis{
 	 *
 	 */
 	public void attrapePalet(float dist) {
-		OurMotor.forward(dist,true);
+		OurMotor.forward(dist+0.05,true);
 		while(pilote.getLeftMotor().isMoving()) {
 			System.out.println("attrapePalet");
 			this.pilote.openClaw(true);
 			if(this.pilote.getUltraSon().getDist()<0.10) {
 				etat = PALETNONTROUVE;
+				pilote.getRightMotor().stop(true);
+				pilote.getLeftMotor().stop();
 				break;
 			}
-			if(s.getTouch()==1) {
-				this.pilote.closeClaw(false); 
-				etat = PALET;
-				
-			}
+		
+		}
+		if(touch==true) {
+		this.pilote.closeClaw(false); 
+		etat = PALET;
+		}
+		else {
+			this.pilote.closeClaw(true);
+			pilote.backward(720);
+			etat = PALETNONTROUVE;
 		}
 		
 	}
@@ -316,12 +331,16 @@ public class Jarvis{
 			seTourner((360-angle));
 		else 
 			seTourner(-angle);
+		
 		float dist = this.pilote.getUltraSon().getDist();
-		OurMotor.forward(dist-0.2,false);
+		OurMotor.forward(dist-0.25,false);
+		
+		
 		this.pilote.openClaw(false);
 		this.pilote.closeClaw(true);
 		OurMotor.backward(720);
 		etat = PALETNONTROUVE;
+		touch=false;
 		seTourner(90);
 	}
 	/**
@@ -354,6 +373,7 @@ public class Jarvis{
 		else if (q==Button.ID_RIGHT) enemyPosition=2;
 		System.out.println("Je suis en position"+notrePosition+"Iron Man est en position"+enemyPosition);
 		Button.waitForAnyPress();
+		bout=false;
 		etat=PALETNONTROUVE;
 	}
 	
@@ -397,7 +417,7 @@ public class Jarvis{
 			}
 			i++;
 			
-		}while(Button.readButtons() == 0);
+		}while (bout==false);
 	}
 	
 	public void test() {

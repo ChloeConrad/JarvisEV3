@@ -6,6 +6,7 @@ import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
 import lejos.robotics.navigation.Navigator;
+import lejos.robotics.navigation.Waypoint;
 import utils.Chronos;
 import jarvis.yazid.*;
 
@@ -27,7 +28,7 @@ public class testMat {
         WheeledChassis chassis = new WheeledChassis(new Wheel[]{rightW, leftW}, WheeledChassis.TYPE_DIFFERENTIAL); //chassis. Differential car le robot ne se deplace pas dans toutes les directions
         MovePilot pilot = new MovePilot(chassis);
 		Navigator nav= new Navigator(pilot);
-		nav.goTo(10, 0);
+		nav.goTo(new Waypoint(50*100/9,-60*100/9));
 		System.out.println("done 10;0 - position : "+nav.getPoseProvider());
 		Button.waitForAnyPress();
 	}
