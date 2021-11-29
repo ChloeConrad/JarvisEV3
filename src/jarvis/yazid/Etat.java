@@ -54,17 +54,17 @@ public class Etat {
 	public Etat(int a) throws IOException {
 		switch(a) {
 		 case 4:
-			 position = new Pose(100,30,90);
+			 position = new Pose(100*100/9,30*100/9,90);
 		 case 8:
-			 position = new Pose(150,30,90);
+			 position = new Pose(150*100/9,30*100/9,90);
 		 case 10:
-			 position = new Pose(50,30,90);
+			 position = new Pose(50*100/9,30*100/9,90);
 		 case 14:
-			 position = new Pose(100,270,270);
+			 position = new Pose(100*100/9,270*100/9,270);
 		 case 18:
-			 position = new Pose(150,270,270);
+			 position = new Pose(150*100/9,270*100/9,270);
 		 case 20:
-			 position = new Pose(50,270,270);
+			 position = new Pose(50*100/9,270*100/9,270);
 		}
 		
 		

@@ -65,7 +65,9 @@ public class Jarvis {
 		// TODO Auto-generated method stub
 		
 	}
-
+/**
+ * 
+ */
 	public void recherchePalet() {
 		Waypoint cible=state.getPalets(0);
 		 for (int i =1;i<state.getPalets().length;i++) {
