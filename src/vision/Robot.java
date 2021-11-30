@@ -16,7 +16,7 @@ import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
 import sensors.UltraSonicSensor;
 
-/**
+/**@deprecated
  * Ancienne version de OurMotor, suivant movePilot, mais étant plus limité dans certains mouvements.
  * @author JarvisTeam
  * @version 0.1

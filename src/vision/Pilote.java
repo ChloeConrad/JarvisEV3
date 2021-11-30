@@ -12,7 +12,7 @@ import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
 import sensors.UltraSonicSensor;
 
-/**
+/**@deprecated
  *  **** Probablement à supprimer, classe en projet de OurMotor suivant MovePilot, pour faire des trajectoires arrondis, mais ne marche pas.
  * @author JarvisTeam
  *
@@ -292,7 +292,7 @@ public class Pilote extends MovePilot {
 		setSpeed(500);
 		setAcceleration(100);
 		float startDist = US.getDist();
-		OurMotor.forward(1000);
+		//OurMotor.forward(1000);
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {

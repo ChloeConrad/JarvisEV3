@@ -4,7 +4,7 @@ import java.io.File;
 import lejos.hardware.Sound;
 
 /**
- * 
+ * @deprecated
  * @author JarvisTeam
  *
  */

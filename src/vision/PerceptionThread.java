@@ -1,7 +1,11 @@
 package vision;
 
 import lejos.hardware.Button;
-
+/**
+ * Classe permettant de détecter un contact avec un palet à tout moment dans la partie
+ * @author JarvisTeam
+ *
+ */
 public class PerceptionThread extends Thread {
 	protected Jarvis j;
 	public PerceptionThread(Jarvis j) {

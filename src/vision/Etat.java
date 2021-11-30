@@ -4,8 +4,8 @@ import maths.Point;
 import maths.Vecteur;
 import sensors.OurSensors;
 /**
- * 
- * @author Yazid
+ * @deprecated
+ * @author JarvisTeam
  * Cette classe repr�sente l'�tat interne du robot qu'il met � jour en permanence avec son thread secondaire 
  * : PerceptionThread
  *

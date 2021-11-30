@@ -19,7 +19,7 @@ public class OurMotor {
 	public static int DEFAULT_ACCELERATION = 400;
 	private static int value360 = 780;
 	public static int distFor1000 = 0;
-	private boolean isClawOpen = false;
+	
 	
 	private static RegulatedMotor leftMotor;
     private static RegulatedMotor rightMotor;
@@ -34,7 +34,7 @@ public class OurMotor {
     }
 	
  
-    private static void initMotor() {
+    private void initMotor() {
     	speed = DEFAULT_SPEED;
     	acceleration = DEFAULT_ACCELERATION;
     	leftMotor = new EV3LargeRegulatedMotor(MotorPort.B);
@@ -64,7 +64,7 @@ public class OurMotor {
      * Effectue un mouvement vers l'avant.
      * @param le nombre de metre à parcourir
      */
-	public static void forward(double metres) {
+	public void forward(double metres) {
 		/*
 		 * pour 1000rot = 0,476
 		 * donc x = metres
@@ -78,7 +78,7 @@ public class OurMotor {
 	 * @param le nombre de metre a parcourir
 	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
 	 */
-	public static void forward(double metres, boolean b) {
+	public void forward(double metres, boolean b) {
 		/*
 		 * pour 1000rot = 0,476
 		 * donc x = metres
@@ -90,7 +90,7 @@ public class OurMotor {
      * Effectue un mouvement vers l'avant.
      * @param rotation Le nombre de degrés de rotation de roues à effectuer
      */
-	public static void forward(int rotation) {
+	public void forward(int rotation) {
 		forward(rotation, false);
 	}
 	/**
@@ -98,7 +98,7 @@ public class OurMotor {
 	 * @param rotation Le nombre de degrés de rotation de roues à effectuer
 	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
 	 */
-	public static void forward(int rotation, boolean boolCont) {
+	public void forward(int rotation, boolean boolCont) {
 		leftMotor.rotate(rotation, true);
 		rightMotor.rotate(rotation, boolCont);
 	}
@@ -107,7 +107,7 @@ public class OurMotor {
 	 * Effectue un mouvement vers l'arrière
 	 * @param rotation Le nombre de degrés de rotation de roues à effectuer
 	 */
-	public static void backward(int rotation) {
+	public void backward(int rotation) {
 		backward(rotation, false);
 	}
 	/**
@@ -115,7 +115,7 @@ public class OurMotor {
 	 * @param rotation Le nombre de degrés de rotation de roues à effectuer
 	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
 	 */
-	public static void backward(int rotation, boolean boolCont) {
+	public void backward(int rotation, boolean boolCont) {
 		leftMotor.rotate(-rotation, true);
 		rightMotor.rotate(-rotation, boolCont);
 	}
@@ -172,7 +172,7 @@ public class OurMotor {
 	public void closeClaw() {
 		
 			clawMotor.rotate(-900);
-			isClawOpen = false;
+			
 	
     }
 	
@@ -184,7 +184,7 @@ public class OurMotor {
 	public void closeClaw(boolean b) {
 		
 			clawMotor.rotate(-900,b);
-			isClawOpen = false;
+			
 		
 	}
 	
@@ -196,7 +196,7 @@ public class OurMotor {
     public void openClaw(boolean b) {
 	
 			clawMotor.rotate(900,b);
-			isClawOpen = true;
+			
 		
 	}
     public void ForceOpen() {
@@ -253,7 +253,7 @@ public class OurMotor {
 	/**
 	 * @return Renvoie le moteur droit.
 	 */
-	public RegulatedMotor getRightMotor() {
+	public static RegulatedMotor getRightMotor() {
 		return rightMotor;
 	}
 	/**
@@ -278,7 +278,7 @@ public class OurMotor {
 		setSpeed(500);
 		setAcceleration(100);
 		float startDist = US.getDist();
-		OurMotor.forward(1000);
+		this.forward(1000);
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
