@@ -2,6 +2,7 @@ package vision.avancee;
 
 import java.io.IOException;
 
+import lejos.hardware.Button;
 import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
 import lejos.robotics.navigation.Navigator;
@@ -45,7 +46,10 @@ public class Jarvis {
 		case 4:
 			reset();
 		case -1:
-			reset();
+			lejos.utility.Delay.msDelay(150);
+		case -2:
+			lejos.utility.Delay.msDelay(150);
+			if(Button.waitForAnyPress()!=0) state.state=1;
 		
 		}
 	}
