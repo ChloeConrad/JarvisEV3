@@ -1,6 +1,6 @@
 /**
- * Classe ayant pour objectif de déterminer l'état interne du robot en fonction des retours de ses différents
- * senseurs et du detecteur infrarouge situé au dessus du terrain cette classe throw des <b>IOExceptions</B>
+ * Classe ayant pour objectif de dï¿½terminer l'ï¿½tat interne du robot en fonction des retours de ses diffï¿½rents
+ * senseurs et du detecteur infrarouge situï¿½ au dessus du terrain cette classe throw des <b>IOExceptions</B>
  */
 package vision.avancee;
 //100 = 9 cm
@@ -23,13 +23,13 @@ public class Etat {
 	private final static int COLLISION=-1;
 	private final static int PAUSE=-2;
 	/**
-	 * Attribut determinant le palet cible actuel sous forme de <i> Waypoint</i> qui sera ensuite utilisé
+	 * Attribut determinant le palet cible actuel sous forme de <i> Waypoint</i> qui sera ensuite utilisï¿½
 	 * par @class Navigator pour determiner le prochain point de l'espace de jeu ou se rendre
 	 * @author JarvisTeam
 	 */
 	private Waypoint cible;
 	/**
-	 * Boolean se mettant a jour en fonction de la présence ou non d'un palet dans les pinces du robot
+	 * Boolean se mettant a jour en fonction de la prï¿½sence ou non d'un palet dans les pinces du robot
 	 */
 	private boolean aPalet;
 	/**
@@ -37,15 +37,15 @@ public class Etat {
 	 */
 	private Pose position;
 	/**
-	 * Boolean servant à determiner si un bouton est pressé durant la partie pour mettre le programme en pause
+	 * Boolean servant ï¿½ determiner si un bouton est pressï¿½ durant la partie pour mettre le programme en pause
 	 */
-	private boolean boutonPresse;
+	protected boolean boutonPresse;
 	/**
 	 *  Instance de la @class OurSensors permettant d'intialiser les senseurs du robot
 	 */
 	private OurSensors senseurs;
 	/**
-	 * Représentation sous la forme d'entier de l'état du robot
+	 * Reprï¿½sentation sous la forme d'entier de l'ï¿½tat du robot
 	 */
 	int state;
 	/**
@@ -54,7 +54,7 @@ public class Etat {
 	 */
 	private Waypoint[] palets=new Waypoint[9];
 	/**
-	 * Ensemble d'attributs nécessaire à la communication avec le serveur ou se trouve les données Infrarouge 
+	 * Ensemble d'attributs nï¿½cessaire ï¿½ la communication avec le serveur ou se trouve les donnï¿½es Infrarouge 
 	 * de la position des palets sur le terrain
 	 */
 	private int port = 8888;
@@ -62,7 +62,7 @@ public class Etat {
 	private DatagramPacket packet;
 	private DatagramSocket dsocket;
 	/**
-	 * Attribut servant à récupérer les données du capteur UltraSon sous forme de float et ainsi d'éviter les collisions
+	 * Attribut servant ï¿½ rï¿½cupï¿½rer les donnï¿½es du capteur UltraSon sous forme de float et ainsi d'ï¿½viter les collisions
 	 */
 	private float dist;
 	/**
@@ -70,20 +70,20 @@ public class Etat {
 	 * @return un entier
 	 * ayant pour valeurs 
 	 * {@value 4,8,10,14,18,20}
-	 * en fonction de la position sur le terrain (Haut ou bas en ordonnée, puis gauche, central ou droite en abscisse)
+	 * en fonction de la position sur le terrain (Haut ou bas en ordonnï¿½e, puis gauche, central ou droite en abscisse)
 	 */
 	public static int init() {
-		System.out.println("Bonjour, je m'appel Jarvis, êtes vous à droite ou à gauche du terrain?");
+		System.out.println("Bonjour, je m'appel Jarvis, ï¿½tes vous ï¿½ droite ou ï¿½ gauche du terrain?");
 		if(Button.waitForAnyPress()==Button.ID_LEFT) {
-			System.out.println("Vous êtes à gauche du terrain? Veuillez confirmer par n'importe quelle touche");
+			System.out.println("Vous ï¿½tes ï¿½ gauche du terrain? Veuillez confirmer par n'importe quelle touche");
 			Button.waitForAnyPress();
-			System.out.println("Etes vous a gauche ? au centre ou à droite?");
+			System.out.println("Etes vous a gauche ? au centre ou ï¿½ droite?");
 			return Button.waitForAnyPress();
 		}
 		else if(Button.waitForAnyPress()==Button.ID_RIGHT) {
-			System.out.println("Vous êtes à gauche du terrain? Veuillez confirmer par n'importe quelle touche");
+			System.out.println("Vous ï¿½tes ï¿½ gauche du terrain? Veuillez confirmer par n'importe quelle touche");
 			Button.waitForAnyPress();
-			System.out.println("Etes vous a gauche ? au centre ou à droite?");
+			System.out.println("Etes vous a gauche ? au centre ou ï¿½ droite?");
 			return Button.waitForAnyPress()+10;
 		}
 		return 0;
@@ -92,9 +92,9 @@ public class Etat {
 	/**
 	 * Constructeur de la classe Etat prennant 
 	 * @param a
-	 * en parametre qui correspond à l'entier retourné par la @method static init() pour initialiser la position initiale du robot  
+	 * en parametre qui correspond ï¿½ l'entier retournï¿½ par la @method static init() pour initialiser la position initiale du robot  
 	 * @throws IOException
-	 * initialise l'ensemble des attributs de la classe avec les valeurs initiale récupéré  par les capteurs lorsque cela est necessaire
+	 * initialise l'ensemble des attributs de la classe avec les valeurs initiale rï¿½cupï¿½rï¿½  par les capteurs lorsque cela est necessaire
 	 *
 	 */
 	public Etat(int a) throws IOException {
@@ -139,7 +139,7 @@ public class Etat {
          boutonPresse=false;
 	}
 	/**
-	 * Methode permettant de récuperer
+	 * Methode permettant de rï¿½cuperer
 	 * @return cible
 	 */
 	public Waypoint getCible() {
@@ -153,7 +153,7 @@ public class Etat {
 		this.cible = cible;
 	}
 	/**
-	 * Methode permettant de récuperer
+	 * Methode permettant de rï¿½cuperer
 	 * @return aPalet
 	 */
 	public boolean isPalet() {
@@ -167,7 +167,7 @@ public class Etat {
 		this.aPalet = palet;
 	}
 	/**
-	 * Methode permettant de récuperer
+	 * Methode permettant de rï¿½cuperer
 	 * @return position
 	 */
 	public Pose getPosition() {
@@ -181,7 +181,7 @@ public class Etat {
 		this.position = position;
 	}
 	/**
-	 * Methode permettant de récuperer 
+	 * Methode permettant de rï¿½cuperer 
 	 * @return senseurs
 	 */
 	public OurSensors getSenseurs() {
@@ -195,7 +195,7 @@ public class Etat {
 		this.senseurs = senseurs;
 	}
 	/**
-	 * Methode permettant de récuperer la valeur numérique correspondant à
+	 * Methode permettant de rï¿½cuperer la valeur numï¿½rique correspondant ï¿½
 	 * @return state
 	 */
 	public int getState() {
@@ -209,7 +209,7 @@ public class Etat {
 		this.state = state;
 	}
 	/**
-	 * Methode permettant de récuperer un @class Waypoint dans le tableau palets en fonction de 
+	 * Methode permettant de rï¿½cuperer un @class Waypoint dans le tableau palets en fonction de 
 	 * @param i
 	 * 
 	 * @return palets[i]
@@ -218,7 +218,7 @@ public class Etat {
 		return palets[i];
 	}
 	/**
-	 * Methode permettant de récuperer l'ensemble des @class Waypoint correspondant aux coordonnées des palets sur le terrain
+	 * Methode permettant de rï¿½cuperer l'ensemble des @class Waypoint correspondant aux coordonnï¿½es des palets sur le terrain
 	 * @return palets
 	 */
 	public Waypoint[] getPalets() {
@@ -232,10 +232,10 @@ public class Etat {
 		this.palets = palets;
 	}
 	/**
-	 * Methode utilisant les données de la caméra infrarouge pour mettre a jour les données positionelles des palets 
-	 * les modifications sur les coordonnées x et y servent à rendre les @class Waypoint lisible par le @class lejos.robotics.navigation.Navigator
-	 * de même les modifications sur l'abscisse de chaque point sont due au fait que les coordonnées renvoyé ont une abscisse inversé par rapport à un repére
-	 * orthonormé classique 
+	 * Methode utilisant les donnï¿½es de la camï¿½ra infrarouge pour mettre a jour les donnï¿½es positionelles des palets 
+	 * les modifications sur les coordonnï¿½es x et y servent ï¿½ rendre les @class Waypoint lisible par le @class lejos.robotics.navigation.Navigator
+	 * de mï¿½me les modifications sur l'abscisse de chaque point sont due au fait que les coordonnï¿½es renvoyï¿½ ont une abscisse inversï¿½ par rapport ï¿½ un repï¿½re
+	 * orthonormï¿½ classique 
 	 */
 	public void majPalets() {
 		String msg = new String(buffer, 0, packet.getLength());
@@ -256,6 +256,9 @@ public class Etat {
      
         packet.setLength(buffer.length);
 	}
+	/**
+	 * Methode principale servant Ã  mettre Ã  jour l'Ã©tat interne du robot en fonction de des donnÃ©es transmises par les diffÃ©rents capteurs et boutons du robot
+	 */
 	public void majState() {
 		this.majPalets();
 		dist=senseurs.getDist();
@@ -300,11 +303,16 @@ public class Etat {
 			}
 		}
 	}
-	
+	/**
+	 * Methode permetant de stocker la distance devant le robot dans l'attribut dist
+	 */
 	public void setDist() {
 		dist=senseurs.getDist();
 	}
-	
+	/**
+	 * Methode permettant de set l'attribut aPalet Ã  l'aide du boolean 
+	 * @param b
+	 */
 	public void setaPalet(boolean b) {
 		aPalet=b;
 	}

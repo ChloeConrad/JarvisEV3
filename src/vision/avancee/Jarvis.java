@@ -13,7 +13,7 @@ import vision.OurMotor;
 
 public class Jarvis {
 	private Etat state;
-	//private OurPilote pilote;
+	
 	private WheeledChassis chassis;
 	private OurPilote pilote;
 	private Navigator navigation;
@@ -129,6 +129,46 @@ public class Jarvis {
 			
 			
 		
+	}
+
+	public Etat getState() {
+		return state;
+	}
+
+	public void setState(Etat state) {
+		this.state = state;
+	}
+
+	public WheeledChassis getChassis() {
+		return chassis;
+	}
+
+	public void setChassis(WheeledChassis chassis) {
+		this.chassis = chassis;
+	}
+
+	public OurPilote getPilote() {
+		return pilote;
+	}
+
+	public void setPilote(OurPilote pilote) {
+		this.pilote = pilote;
+	}
+
+	public Navigator getNavigation() {
+		return navigation;
+	}
+
+	public void setNavigation(Navigator navigation) {
+		this.navigation = navigation;
+	}
+
+	public int getPositionInit() {
+		return positionInit;
+	}
+
+	public void setPositionInit(int positionInit) {
+		this.positionInit = positionInit;
 	}
 	
 
