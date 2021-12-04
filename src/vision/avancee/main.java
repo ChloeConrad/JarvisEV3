@@ -10,7 +10,7 @@ public class main {
 		int a =Etat.init();
 		Jarvis j=new Jarvis(a);
 		PerceptionThread t1=new PerceptionThread(j);
-		t1.run();
+		t1.start();
 		do {
 			j.agissements();
 		}while(j.getState().getState()!=-2);
