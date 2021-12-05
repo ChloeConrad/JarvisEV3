@@ -1,19 +1,13 @@
 package vision;
 
-import java.lang.annotation.Documented;
-import java.util.Arrays;
 
 import lejos.hardware.Button;
 import lejos.hardware.port.SensorPort;
-import lejos.robotics.navigation.MovePilot;
-import lejos.robotics.navigation.Pose;
 import sensors.ColorSensor;
 import sensors.TouchSensor;
-import sensors.UltraSonicSensor;
 /**
- * Classe du robot servant à définir son comportement
- * @author Maleus
- * @author Mat
+ * Classe du robot servant ï¿½ dï¿½finir son comportement
+ * @author JarvisTeam
  *
  */
 public class Jarvis{
@@ -22,47 +16,82 @@ public class Jarvis{
 	private final static int PALETNONTROUVE=2;
 	private final static int PALET=3;
 
-
+	/**
+	 * instance de Boussole permettant de connaitre en temps reel la direction du robot.
+	 */
 	private Boussole boussole;
+	/**
+	 * Instance de OurMotor permettant d'executer les commandes de bases permettant de bouger le robot.
+	 */
 	private OurMotor moteur;
+	/**
+	 * Instance de TouchSensor permettant de gerer le capteur de toucher
+	 */
 	protected TouchSensor s;
 	
+	/**
+	 * Variables permettant d'initialiser les positions des deux competiteurs afin de determiner quelle strategie utiliser
+	 * afin d'eviter de se cogner contre le robot adverse.
+	 */
 	private int notrePosition;
 	private int enemyPosition;
+	/**
+	 * Etat courant du robot
+	 */
 	private int etat;
 	
+	/**
+	 * BoolÃ©en Ã©tant vrai si le capteur de touchÃ© est enclanchÃ©.
+	 */
 	protected boolean touch;
+	/**
+	 * Instance de ColorSensor permettant de connaitre la couleur vu par le robot.
+	 */
 	ColorSensor color;
 
+	/**
+	 * Constructeur, initialise les valeurs par dÃ©fauts des variables de classe
+	 */
 	public Jarvis() {
-		
 		touch=false;
-		color = new ColorSensor();
-		// TODO Auto-generated constructor stub
-		moteur = new OurMotor();
-		
-		s= new TouchSensor(SensorPort.S3);
 		etat=PALETNONTROUVE;
+		color = new ColorSensor();
+		s= new TouchSensor(SensorPort.S3);
+		moteur = new OurMotor();
 		boussole = new Boussole();
-
 	}
 	
+	/**
+	 * Getter de notre Position
+	 * @return un entier indiquant le point de dÃ©part de notre robot en dÃ©but de manche
+	 */
 	public int getNotrePosition() {
 		return notrePosition;
 	}
+	/**
+	 * Initialise la valeur de notre position Ã 
+	 * @param notrePosition
+	 */
 	public void setNotrePosition(int notrePosition) {
 		this.notrePosition = notrePosition;
 	}
+	/**
+	 * Getter de la position ennemi
+	 * @return un entier indiquant le point de dÃ©part du robot adverse en dÃ©but de manche
+	 */
 	public int getEnemyPosition() {
 		return enemyPosition;
 	}
+	/**
+	 * Initialise la valeur de la position ennemi Ã 
+	 * @param enemyPosition
+	 */
 	public void setEnemyPosition(int enemyPosition) {
 		this.enemyPosition = enemyPosition;
 	}
 
-
 	/**
-	 * Algo simple pour mettre le premier but, il utilise les attributs notrePosition et enemyPosition pour déterminer quel palet récupérer
+	 * Algo simple pour mettre le premier but, il utilise les attributs notrePosition et enemyPosition pour dï¿½terminer quel palet rï¿½cupï¿½rer
 	 */
 	public void premierBut() {
 		moteur.setSpeed(3000);
@@ -210,15 +239,15 @@ public class Jarvis{
 		moteur.closeClaw(true);
 		moteur.backward(720);
 		seTourner(90);
-		moteur.setSpeed(moteur.DEFAULT_SPEED);
-		moteur.setAcceleration(moteur.DEFAULT_ACCELERATION);
+		moteur.setSpeed(OurMotor.DEFAULT_SPEED);
+		moteur.setAcceleration(OurMotor.DEFAULT_ACCELERATION);
 		touch=false;
 
 	}
 
 
 	/**
-	 * Methode permetant au robot de se tourner de
+	 * Methode permetant au robot de se tourner d'un nombre donnÃ© de degres et met Ã  jour la direction de la boussole
 	 * @param degre
 	 */
 	public void seTourner(double degre) {
@@ -229,59 +258,83 @@ public class Jarvis{
 
 	/**
 	 * Fonction permettant de trouver un palet et d'orienter Jarvis vers ce dernier. 
-	 * Pour ce faire, elle fait réaliser à Jarvis un tour sur lui même en cherchant les cassures dans les distances des objets autour de lui.
-	 * Si Jarvis repère une cassure, c'est qu'il a repéré soit un palet soit le robot adverse(cas à traiter)
-	 * elle met à jour l'état de jarvis lorsqu'elle trouve un palet 
+	 * Pour ce faire, elle fait rï¿½aliser ï¿½ Jarvis un tour sur lui mï¿½me en cherchant les cassures dans les distances des objets autour de lui.
+	 * Si Jarvis repï¿½re une cassure, c'est qu'il a repï¿½rï¿½ soit un palet soit le robot adverse(cas ï¿½ traiter)
+	 * elle met ï¿½ jour l'ï¿½tat de jarvis lorsqu'elle trouve un palet 
 	 */
 	public void checkNearestPalet() {
+		/**
+		 * Mettre la vitesse Ã  une faible valeur afin de rendre les mesures de distances plus precises
+		 */
 		moteur.setSpeed(100);
 		moteur.setAcceleration(100);
-		float val1;
-		float val2;							
+		float valDistanceUS1;
+		float valDistanceUS2;
+		/**
+		 * Faire un tour sur lui mÃªme Ã  360 degres, et tant que le robot tourne, faire des mesures de distances
+		 */
 		moteur.seTourner(360,true);
-		while(true) {
-			val1 = moteur.getUltraSon().getDist();
+		while(true && OurMotor.getLeftMotor().isMoving()) {
+			valDistanceUS1 = moteur.getUltraSon().getDist();
 			try {								
 				Thread.sleep(5);												
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			val2 = moteur.getUltraSon().getDist();
+			valDistanceUS2 = moteur.getUltraSon().getDist();
 			float f = Float.POSITIVE_INFINITY;
-			if(Math.abs(val1 - val2) > 0.20 && val1!=f && val2 != f) {
+			/**
+			 * Si l'ecart entre deux distances est superieur Ã  20cm, on estime qu'il y a une "cassure", et donc la presence d'un objet, surement un palet
+			 */
+			if(Math.abs(valDistanceUS1 - valDistanceUS2) > 0.20 && valDistanceUS1!=f && valDistanceUS2 != f) {
 				etat = PALETTROUVE;	
 				boussole.majBoussole();
-				moteur.getRightMotor().stop(true);
-				moteur.getLeftMotor().stop();
+				OurMotor.getRightMotor().stop(true);
+				OurMotor.getLeftMotor().stop();
 				boussole.majBoussole();
 				break;
 			}
 		}
-		moteur.setAcceleration(moteur.DEFAULT_ACCELERATION);
-		moteur.setSpeed(moteur.DEFAULT_SPEED);	
+		/**
+		 * Remettre la vitesse Ã  leurs valeurs normales
+		 */
+		moteur.setAcceleration(OurMotor.DEFAULT_ACCELERATION);
+		moteur.setSpeed(OurMotor.DEFAULT_SPEED);	
 	}
 
 	/**
-	 * méthode permettant à Jarvis d'aller atttraper un palet après l'avoir repéré et s'être orienter dans sa direction grâce à checkNearestPalet
-	 * Elle met à jour l'état de Jarvis lorsqu'elle a attrappé le palet
-	 * @param dist : distance séparant Jarvis du palet repéré
+	 * mÃ©thode permettant Ã  Jarvis d'aller atttraper un palet aprÃ¨s l'avoir repÃ©rÃ© et s'Ãªtre orientÃ© dans sa direction
+	 * Elle met Ã  jour l'Ã©tat de Jarvis lorsqu'elle a attrappÃ© le palet
+	 * @param dist : distance sÃ©parant Jarvis du palet repÃ©rÃ©
 	 *
 	 */
 	public void attrapePalet(float dist) {
+		/**
+		 * Avance de un peu plus que la distance sÃ©parant le robot du palet, et ouvre les pinces
+		 */
 		moteur.forward(dist+0.05,true);
-		while(moteur.getLeftMotor().isMoving()) {
-			this.moteur.openClaw(true);
+		this.moteur.openClaw(true);
+		/**
+		 * Tant que le robot bouge, si la distance est inferieur Ã  10cm, Ã§a veux dire qu'on est fac Ã  un mur ou un robot adverse
+		 */
+		while(OurMotor.getLeftMotor().isMoving()) {
 			if(this.moteur.getUltraSon().getDist()<0.10) {
 				etat = PALETNONTROUVE;
-				moteur.getRightMotor().stop(true);
-				moteur.getLeftMotor().stop();
+				OurMotor.getRightMotor().stop(true);
+				OurMotor.getLeftMotor().stop();
 				break;
 			}
 		}
+		/**
+		 * Si le capteur de toucher est activÃ©, on a trouvÃ© un palet
+		 */
 		if(touch==true) {
 			this.moteur.closeClaw(false); 
 			etat = PALET;
 		}
+		/**
+		 * Sinon on part en arriere d'une courte distance et on se remet en cherche d'un palet
+		 */
 		else {
 			this.moteur.closeClaw(true);
 			moteur.backward(720);
@@ -291,10 +344,9 @@ public class Jarvis{
 	}
 
 	/**
-	 * Methode permettant d'aller marquer un but une fois le palet attrapé
-	 * Elle met à jour l'état de Jarvis lorsque le but a été marqué 
+	 * Methode permettant d'aller marquer un but une fois le palet attrapÃ©
+	 * Elle met Ã  jour l'Ã©tat de Jarvis lorsque le but a Ã©tÃ© marquÃ© 
 	 */
-
 	public void vasMarquer() {
 		double angle = boussole.getOurAngle();
 
@@ -314,26 +366,27 @@ public class Jarvis{
 		touch=false;
 		seTourner(90);
 	}
-	/**
-	 * Methode permettant de mettre Jarvis en recherche
-	 */
 	
+	/**
+	 * Getter de l'instance de OurMotor
+	 * @return OurMotor moteur
+	 */
 	public OurMotor getPilote() {
 		return this.moteur;
 	}
 
 	/**
-	 * Méthode permettant d'initialiser la position de Jarvis ainsi que celle du robot adverse au début de la partie
+	 * MÃ©thode permettant d'initialiser la position de Jarvis ainsi que celle du robot adverse au dÃ©but de la partie
 	 */
 
 	public  void setPositions() {
-		System.out.println("Quel est ma position? 0 Gauche 1 Bas 2 Droite");
+		System.out.println("Quel est ma position? 0-Gauche 1-Bas 2-Droite");
 		Button.waitForAnyPress();
 		int p= Button.readButtons();
 		if (p==Button.ID_LEFT) notrePosition=0;
 		else if (p==Button.ID_DOWN) notrePosition=1;
 		else if (p==Button.ID_RIGHT) notrePosition=2;
-		System.out.println("Quel est la position adverse? 0 Gauche 1 Bas 2 Droite");
+		System.out.println("Quel est la position adverse? 0-Gauche 1-Bas 2-Droite");
 		Button.waitForAnyPress();
 		int q= Button.readButtons();
 		if (q==Button.ID_LEFT) enemyPosition=0;
@@ -348,12 +401,11 @@ public class Jarvis{
 
 
 	/**
-	 * Méthode représentant un automate simple de la partie.
+	 * MÃ©thode reprÃ©sentant un automate simple de la partie.
 	 * 
 	 */
-
 	public void partieSimple() {
-		moteur.getLeftMotor().resetTachoCount();
+		OurMotor.getLeftMotor().resetTachoCount();
 		boussole.setOurAngle(0);
 		boolean jeu = true;
 		this.setPositions();

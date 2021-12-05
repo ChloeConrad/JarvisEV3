@@ -8,7 +8,6 @@ package vision;
 public class Boussole {
 	
 	private double ourAngle;
-	private final static double enButDirection = 0;
 	private final static int value360 = 780; //nombre de rotations effectu�s lors d'une roation d'un angle de 360�
 	
 	public Boussole() {

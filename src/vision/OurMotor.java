@@ -5,36 +5,58 @@ import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.robotics.RegulatedMotor;
-import lejos.robotics.chassis.Chassis;
 import sensors.UltraSonicSensor;
 
 /** Créé une interface sur le modèle de MovePilot permettant de réaliser divers mouvements et methodes plus complexes d'orientation du robot.
- * @author mat
- * @version 0.1
+ * @author JarvisTeam
  */
 public class OurMotor {
+	/**
+	 * Vitesse actuelle du robot
+	 */
 	private static int speed;
+	/**
+	 * Acceleration actuelle du robot
+	 */
 	private static int acceleration;
+	/**
+	 * Vitesse par défaut du robot ( = vitesse maximale)
+	 */
 	public static int DEFAULT_SPEED = 1000;
-	public static int DEFAULT_ACCELERATION = 400;
+	/**
+	 * Acceleration par défaut du robot
+	 */
+	public static int DEFAULT_ACCELERATION = 500;
+	/**
+	 * Nombre de rotations simultanées necessaire pour que le robot fasse un tour sur lui meme
+	 * Cette valeur a été mesuré par essais et erreurs
+	 */
 	private static int value360 = 780;
-	public static int distFor1000 = 0;
+	/**
+	 * Le nombre de rotation à donner au moteur des pinces pour les ouvrir ou les fermer.
+	 */
+	private static int valeurPinces = 900;
+	/**
+	 * Booléen permettant de savoir si les pinces sont ouvertes ou fermés, afin d'eviter de casser les pinces
+	 * Faux par defaut car lorsqu'on commence, les pinces sont fermés.
+	 */
+	private boolean areClawsOpen = false;
 	
-	
+	/**
+	 * Instances de RegulatedMotor permettant de controler les trois moteurs, deux roues et les pinces
+	 */
 	private static RegulatedMotor leftMotor;
     private static RegulatedMotor rightMotor;
     private static RegulatedMotor clawMotor;
+    /**
+     * Instance de UltraSonicSensor permettant de mesure la distance vu par le capteur à UltraSons
+     */
     private static UltraSonicSensor US;
    
     /**
      * Initialise OurMotor, les moteurs et senseurs utilisés. 
      */
     public OurMotor() {
-    	initMotor();
-    }
-	
- 
-    private void initMotor() {
     	speed = DEFAULT_SPEED;
     	acceleration = DEFAULT_ACCELERATION;
     	leftMotor = new EV3LargeRegulatedMotor(MotorPort.B);
@@ -44,9 +66,12 @@ public class OurMotor {
     	initMotor(rightMotor);
     	clawMotor.setSpeed(1000);
     	US = new UltraSonicSensor(SensorPort.S1);
-    	
-    	
     }
+    
+    /**
+     * Initialise le moteur donné en entrée avec les valeurs par défaut.
+     * @param m, moteur à initialiser
+     */
     private static void initMotor(RegulatedMotor m) {
     	m.setSpeed(speed);
     	m.setAcceleration(acceleration);
@@ -65,9 +90,8 @@ public class OurMotor {
      * @param le nombre de metre à parcourir
      */
 	public void forward(double metres) {
-		/*
-		 * pour 1000rot = 0,476
-		 * donc x = metres
+		/**
+		 * 1000 rotations permettent de se deplacer de 0.476 metres
 		 */
 		int rotation = (int)(metres*1000/0.476);
 		forward(rotation, false);
@@ -75,14 +99,10 @@ public class OurMotor {
 	
 	/**
 	 * Effectue un mouvement vers l'avant.
-	 * @param le nombre de metre a parcourir
+	 * @param le nombre de mètre a parcourir
 	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
 	 */
 	public void forward(double metres, boolean b) {
-		/*
-		 * pour 1000rot = 0,476
-		 * donc x = metres
-		 */
 		int rotation = (int)(metres*1000/0.476);
 		forward(rotation, b);
 	}
@@ -162,8 +182,6 @@ public class OurMotor {
 	 * @param boolCont Si true, le robot ira en avant puis passera immediatement à la tache suivante
 	 */
 	public void that360(boolean boolCont) {
-		//leftMotor.rotate(value360,true);
-		//rightMotor.rotate(-value360,boolCont);
 		seTourner(360,boolCont);
 	}
 	/**
@@ -171,54 +189,46 @@ public class OurMotor {
 	 */
 	public void closeClaw() {
 		
-			clawMotor.rotate(-900);
-			
-	
+			clawMotor.rotate(-valeurPinces);
     }
 	
 	/**
+	 * Si les pinces ne sont pas deja fermés, les ferme.
 	 * si b == true  : permet de fermer la pince et passe � l'action suivante apr�s avoir commencer la fermeture
 	 * si b == false : permet de fermer la pince puis passe � l'action suivante
 	 * @param b
 	 */
 	public void closeClaw(boolean b) {
-		
-			clawMotor.rotate(-900,b);
-			
-		
+    	if(areClawsOpen == true) {
+			clawMotor.rotate(-valeurPinces,b);
+			areClawsOpen = false;
+    	}
 	}
 	
 	/**
+	 * Si les pinces ne sont pas ouvertes, les ouvres.
 	 * si b == true  : permet d'ouvrir la pince et passe � l'action suivante apr�s avoir commencer la fermeture
 	 * si b == false : permet d'ouvrir la pince puis passe � l'action suivante
 	 * @param b
 	 */
     public void openClaw(boolean b) {
-	
-			clawMotor.rotate(900,b);
-			
-		
+    	if(areClawsOpen == false) {
+			clawMotor.rotate(valeurPinces,b);
+			areClawsOpen = true;
+    	}
 	}
+    /**
+     * Ouvre les pinces sans prendre en compte areClawsOpen, necessaire lors de bugs.
+     */
     public void ForceOpen() {
-    	clawMotor.rotate(900);
+    	clawMotor.rotate(valeurPinces);
     }
+    /**
+     * Ferme les pinces sans prendre en compte areClawsOpen, necessaire lors de bugs.
+     */
     public void ForceClose() {
-    	clawMotor.rotate(-900);
+    	clawMotor.rotate(-valeurPinces);
     }
-	
-	/**
-	 * Fait un tour sur lui même et mesure continuellement les distances face à lui
-	 * @return Renvoie un integer contenant le nombre de distance qu'a pris le robot pendant un tour.
-	 */
-	public int howManyDist() {
-		int iterator = 0;
-		this.that360(true);
-		while(leftMotor.isMoving()) {
-			US.getDist();
-			iterator++;
-		}
-		return iterator;
-	}
 	/**
 	 * Convertit des degres en nombre de rotations. 
 	 * @param degres Le nombre de degres dont on veux bouger
@@ -270,8 +280,11 @@ public class OurMotor {
 	}
 	/**
 	 * Mesure la distance parcouru a vitesse 100, acceleration 50 et rotate 1000
+	 * Cette methode n'est plus utilisé, mais dans le plan initial, on faisait une manipulation en début de round pour que le robot calcule seul
+	 * les variables de sa vitesse, les rotations a tourner pour avancer de x metres etc.
+	 * On la garde pour la partie historique, meme si elle n'est plus utilisés.
 	 */
-	@SuppressWarnings("unused") //Stays here for testing reasons
+	@SuppressWarnings("unused")
 	private void measureSpeed() {
 		//On 5 tries, mean distance for speed = 100 and acc = 100 for rotate = 1000 
 		//is 0,476
@@ -295,25 +308,49 @@ public class OurMotor {
 	public int getSpeed() {
 		return speed;
 	}
+	/**
+	 * Modifie la vitesse du robot
+	 * @param spe la nouvelle vitesse
+	 */
 	public void setSpeed(int spe) {
 		setLeftS(spe);
 		setRightS(spe);
 		speed=spe;
 	}
+	/**
+	 * met à jour la vitesse de la roue gauche
+	 * @param spe la nouvelle vitesse
+	 */
 	public void setLeftS(int spe) {
 		leftMotor.setSpeed(spe);
 	}
+	/**
+	 * met à jour la vitesse de la roue droite
+	 * @param spe la nouvelle vitesse
+	 */
 	public void setRightS(int spe) {
 		rightMotor.setSpeed(spe);
 	}
+	/**
+	 * Met à jour l'acceleration du robot
+	 * @param acc la nouvelle acceleration
+	 */
 	public void setAcceleration(int acc) {
 		setLeftA(acc);
 		setRightA(acc);
 		acceleration = acc;
 	}
+	/**
+	 * Met à jour l'acceleration de la rouge gauche du robot
+	 * @param acc la nouvelle acceleration
+	 */
 	public void setLeftA(int acc) {
 		leftMotor.setAcceleration(acc);
 	}
+	/**
+	 * Met à jour l'acceleration de la rouge droite du robot
+	 * @param acc la nouvelle acceleration
+	 */
 	public void setRightA(int acc) {
 		rightMotor.setAcceleration(acc);
 	}

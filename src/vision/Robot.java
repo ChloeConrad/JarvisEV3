@@ -3,7 +3,6 @@ import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.Motor;
-import lejos.hardware.motor.NXTRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3TouchSensor;
@@ -16,14 +15,13 @@ import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
 import sensors.UltraSonicSensor;
 
-/**@deprecated
+/**
+ * @deprecated
  * Ancienne version de OurMotor, suivant movePilot, mais étant plus limité dans certains mouvements.
  * @author JarvisTeam
- * @version 0.1
  */
 public class Robot {
     private float speed;
-    private int currentClaw;
     private int offset;
     private Wheel leftW;
     private Wheel rightW;
@@ -59,7 +57,6 @@ public class Robot {
         
         /* Claw Init */
         claw = Motor.D;
-        currentClaw=0; //les pinces sont fermés
         claw.setSpeed(1000);
         claw.setAcceleration(200);
         
@@ -72,7 +69,7 @@ public class Robot {
     /* ** Debug Methods ** */
     //output message and waits for user input
     public void stopMessage(String str) {
-        LCD.refresh(); //LCD pas utilisé actuellement, sur le TODO
+        LCD.refresh(); //LCD pas utilisé actuellement
         System.out.println(str);
         Button.waitForAnyPress();
     }
@@ -93,7 +90,6 @@ public class Robot {
         try {
             Thread.sleep(200);
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         float dist2 = getDist();

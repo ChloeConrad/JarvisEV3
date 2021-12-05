@@ -1,8 +1,5 @@
 package vision;
 import lejos.hardware.Button;
-import sensors.ColorSensor;
-import vision.Jarvis;
-import vision.PerceptionThread;
 
 public class Main {
 

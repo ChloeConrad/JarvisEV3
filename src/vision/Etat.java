@@ -6,26 +6,13 @@ import sensors.OurSensors;
 /**
  * @deprecated
  * @author JarvisTeam
- * Cette classe repr�sente l'�tat interne du robot qu'il met � jour en permanence avec son thread secondaire 
+ * Cette classe représente l'état interne du robot qu'il met à jour en permanence avec son thread secondaire 
  * : PerceptionThread
  *
  */
 public class Etat {
-	private final static int GRIS=0;
-	private final static int NOIR=1;
 	private final static int BLANC=2;
-	private final static int JAUNE=3;
-	private final static int VERT=4;
-	private final static int ROUGE=5;
-	private final static int BLEU=6;
 	private final static int DEPART=0;
-	private final static int BUT=1;
-	private final static int RECHERCHE=2;
-	private final static int PALETTROUVE=3;
-	private final static int PALETNONTROUVE=4;
-	private final static int PALET=5;
-	private final static int NOPALET=6;
-	
 	private Vecteur position;
 	
 	private Boussole orientation;
@@ -37,8 +24,6 @@ public class Etat {
 	private double sErreur;
 	private int etat;
 	private Point cible;
-	private float nearest;
-	
 	
 	public Etat () {
 		this.position= new Vecteur();
@@ -213,8 +198,7 @@ public class Etat {
 	
 		if (s.getTouch()==true) aPalet=true;
 		if (s.getTouch()==false) aPalet=false;
-		//a faire color
-		nearest=s.getDist();
+		s.getDist();
 	}
 	
 	public void reset(Jarvis j) {

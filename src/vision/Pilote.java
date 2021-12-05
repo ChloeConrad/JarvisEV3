@@ -28,7 +28,6 @@ public class Pilote extends MovePilot {
 	private static int acceleration;
 	private static int speed;
 	private static int value360 = 780;
-	public static int distFor1000 = 0;
 	private static RegulatedMotor leftMotor;
     private static RegulatedMotor rightMotor;
     private static RegulatedMotor clawMotor;
