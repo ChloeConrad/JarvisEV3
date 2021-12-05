@@ -12,6 +12,9 @@ import maths.Point;
 import vision.OurMotor;
 
 public class Jarvis {
+	/**
+	 * 
+	 */
 	private Etat state;
 	
 	private WheeledChassis chassis;
