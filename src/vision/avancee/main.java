@@ -9,8 +9,11 @@ public class main {
 		// TODO Auto-generated method stub
 		int a =Etat.init();
 		Jarvis j=new Jarvis(a);
-		j.recherchePalet();
-		j.attrapePalet();
+		PerceptionThread t1=new PerceptionThread(j);
+		t1.start();
+		do {
+			j.agissements();
+		}while(j.getState().getState()!=-2);
 		
 		
 		

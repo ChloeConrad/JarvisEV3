@@ -11,9 +11,10 @@ public class PerceptionThread extends Thread {
 	
 	public void run() {
 	
-	while(true) {
+	while(!j.getState().boutonPresse) {
 		
-		
+		j.getState().majPalets();
+		j.getState().majState();
 	}
 	
 	}
