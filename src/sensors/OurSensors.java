@@ -12,8 +12,9 @@ import lejos.robotics.SampleProvider;
 public class OurSensors {
 	
 	/**
-	 * Le capteur couleur dont dépend les données recueilli par le robot. Par défaut, il est affecté au capteur S2, celui de notre robot.**/
-	private static ColorSensor Color = new ColorSensor(SensorPort.S2);
+	 * Le capteur couleur dont d�pend les donn�es recueilli par le robot. Par d�faut, il est affect� au capteur S2, celui de notre robot.**/
+	
+	private static ColorSensor Color = new ColorSensor();
 	
 	
 	public String getColor(){
@@ -21,8 +22,8 @@ public class OurSensors {
 	}
 
 	/**Ultrasonic Sensor
-	 * Initialise les attributs nï¿½cessaires ï¿½ l'utilisation du
-	 * senseur ï¿½ ultrasons (branchï¿½ au port S1)
+	 * Initialise les attributs n�cessaires � l'utilisation du
+	 * senseur � ultrasons (branch� au port S1)
 	 */
 	private static EV3UltrasonicSensor Us = new EV3UltrasonicSensor(SensorPort.S1);
 	private SampleProvider USamp = Us.getDistanceMode();
@@ -31,7 +32,7 @@ public class OurSensors {
 	
 
 	/**
-	 * Renvoie une valeur flottante de la distance la plus proche detectÃ© par le robot.
+	 * Renvoie une valeur flottante de la distance la plus proche detect� par le robot.
 	 * @return Renvoie la distance la plus proche detectÃ© par le senseur en float
 	 */
 	public float getDist() {
@@ -44,7 +45,7 @@ public class OurSensors {
 
 	/**
 	 * 
-	 * @return Rï¿½fï¿½rence du senseur
+	 * @return Reference du senseur
 	 */
 	public EV3UltrasonicSensor getSensorU() {
 		return Us;
@@ -53,7 +54,7 @@ public class OurSensors {
 
 
 	/**Touch Sensor
-	 * Initialise les attributs nï¿½cessaires ï¿½ l'utilisation du
+	 * Initialise les attributs n�cessaires � l'utilisation du
 	 * senseur de toucher (branchï¿½ au port S3)
 	 */
 	private EV3TouchSensor Ts = new EV3TouchSensor(SensorPort.S3);

@@ -12,7 +12,6 @@ public class Main {
 		p.start();
 		j.partieSimple();
 		Button.waitForAnyPress();
-		
 	}
 
 }

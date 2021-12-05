@@ -1,5 +1,6 @@
 package sensors;
 
+import lejos.hardware.port.Port;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.SensorMode;
@@ -29,6 +30,7 @@ public class ColorSensor {
 
 	/**
 	 * Constructeur de ColorSensor. Assigne le port rentré au mesure du capteur couleur. 
+	 * @param  
 	 * @param port auquel le capteur couleur est branché.
 	 */
 	public ColorSensor() {
