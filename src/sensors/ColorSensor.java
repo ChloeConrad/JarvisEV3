@@ -50,7 +50,7 @@ public class ColorSensor {
 		return colorSensor;
 	}
 	/**
-	 * 
+	 * Rettourne la couleur lu par le capteur couleur sous forme de string
 	 * 
 	 */
 	public String getColorID() {

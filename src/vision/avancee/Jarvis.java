@@ -164,7 +164,10 @@ public class Jarvis {
 			
 		
 	}
-
+	/**
+	 * Getter de State
+	 * @return State
+	 */
 	public Etat getState() {
 		return state;
 	}
