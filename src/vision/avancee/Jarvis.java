@@ -10,18 +10,37 @@ import lejos.robotics.navigation.Pose;
 import lejos.robotics.navigation.Waypoint;
 import maths.Point;
 import vision.OurMotor;
-
+/**
+ * Classe principale de Jarvis avancée
+ * @author JarvisTeam
+ *
+ */
 public class Jarvis {
 	/**
-	 * 
+	 * Instance de la classe état permetant à Jarvis de mettre à jour son état interne
 	 */
 	private Etat state;
-	
+	/**
+	 * Instance de WheeledChassis permettat d'instancier un Pilote de lejos
+	 */
 	private WheeledChassis chassis;
+	/**
+	 * Instance de OurPilote classe heritant de MovePilote de la bibliotheque lejos qui implemente un moveprovider ce qui permet au robot de mettre à jour sa position
+	 */
 	private OurPilote pilote;
+	/**
+	 * Instance d'un navigator de la bibliotheque lejos ce qui permet au robot d'utiliser les méthodes GoTo() et Path() à l'aide de waypoints
+	 */
 	private Navigator navigation;
+	/**
+	 * Entier symbolisant la position initiale de Jarvis 
+	 */
 	private int positionInit;
-	
+	/**
+	 * Constructeur de Jarvis faisant appel au parametre
+	 * @param idPos
+	 * Qui permet d'initialiser la position initiale de Jarvis et qui instancie tous les attributs de ce dernier
+	 */
 	public Jarvis(int idPos){
 		try {
 			state= new Etat(idPos);
@@ -35,7 +54,9 @@ public class Jarvis {
 		pilote = new OurPilote(chassis);
 		navigation= new Navigator(pilote);
 	}
-	
+	/**
+	 * Methode deteminant la prochaine action du robot en fonction de son état interne
+	 */
 	public void agissements(){
 		switch (state.getState()){
 		case 0:
@@ -56,27 +77,35 @@ public class Jarvis {
 		
 		}
 	}
-
+	/**
+	 * Methode incomplete permettant de remettre l'état interne du robot, elle devrait aussi pouvoir re calculer sa position actuelle pour corriger sa representation interne
+	 */
 	private void reset() {
 		state.setState(1);
 		
 	}
-
+	/**
+	 * Methode permettant à jarvis d'aller marquer dans le bon But en fonction de sa position actuelle et de sa position initial.
+	 */
 	private void vasMarquer() {
 	if (positionInit==4 || positionInit==8 ||positionInit==10) {
 	 navigation.goTo(new Waypoint(chassis.getPoseProvider().getPose().getX(),270*100/9));
 	 pilote.ouvrirPinces(true);
 	 navigation.goTo(new Waypoint(chassis.getPoseProvider().getPose().getX(),chassis.getPoseProvider().getPose().getY()-100));
 	 pilote.rotate(180);
+	 pilote.fermerPinces(false);
 		}
 	else {
 		navigation.goTo(new Waypoint(chassis.getPoseProvider().getPose().getX(),30*100/9));
 		 pilote.ouvrirPinces(true);
 		 navigation.goTo(new Waypoint(chassis.getPoseProvider().getPose().getX(),chassis.getPoseProvider().getPose().getY()-100));
 		 pilote.rotate(180);
+		 pilote.fermerPinces(false);
 	}
 	}
-
+	/**
+	 * Methode utilisant l'attribut cible de l'état de Jarvis qui lui permet d'aller chercher le palet le plus proche de sa position actuelle
+	 */
 	public void attrapePalet() {
 		navigation.clearPath();
 		navigation.addWaypoint(state.getCible());
@@ -91,7 +120,7 @@ public class Jarvis {
 		
 	}
 /**
- * 
+ * Methode utilisant les données de la caméra infrarouge permettant de determiner quel palet est le plus proche de Jarvis et de stocker sa position dans l'attribut cible de l'instance de la classe état 
  */
 	public void recherchePalet() {
 		Waypoint cible=state.getPalets(0);
@@ -107,7 +136,9 @@ public class Jarvis {
 		 state.setState(2);
 				
 	}
-
+/**
+ * Algo simple pour mettre le premier but, il utilise l'attribut de notre position initiale pour faire son trajet de maniere deterministe
+ */
 	private void premierBut() {
 	
 		if (positionInit==4 || positionInit==8 ||positionInit==10) {
