@@ -11,9 +11,6 @@ public class Main {
 		do {
 			j.agissements();
 		}while(j.getState().getState()!=-2);
-		
-		
-		
 	}
 
 }

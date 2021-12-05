@@ -2,6 +2,7 @@ package utils;
 import lejos.hardware.ev3.LocalEV3;
 
 /**
+ * @deprecated
  * Gestion de la batterie pour determiner si le niveau est trop bas pour continuer. A niveau trop faible, Jarvis fait n'importe quoi.
  * @author JarvisTeam
  *
