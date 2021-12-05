@@ -3,6 +3,8 @@ package vision.avancee;
 import java.io.IOException;
 
 import lejos.hardware.Button;
+import lejos.hardware.motor.Motor;
+import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
 import lejos.robotics.navigation.Navigator;
@@ -49,7 +51,7 @@ public class Jarvis {
 			e.printStackTrace();
 		}
 		positionInit=idPos;
-		chassis=new WheeledChassis(null, idPos);
+		chassis=new WheeledChassis( new Wheel[] {WheeledChassis.modelWheel(Motor.A, 56.0).offset(70), WheeledChassis.modelWheel(Motor.B, 56.0).offset(-70)}, WheeledChassis.TYPE_DIFFERENTIAL);
 		chassis.getPoseProvider().setPose(state.getPosition());
 		pilote = new OurPilote(chassis);
 		navigation= new Navigator(pilote);
